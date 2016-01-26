@@ -1,5 +1,5 @@
 <?php
-require_once("../absracts/baseConfig.php");
+require_once("abstracts/baseConfig.php");
 
 class mockIniConfig extends baseConfig {
 	protected $irgendwas = "Hallo";

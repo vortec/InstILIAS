@@ -1,15 +1,15 @@
 <?php
-require_once("../intefaces/if.parser.php");
-require_once("mockIniConfig.php");
-require_once("mockClientConfig.php");
-require_once("mockDBConfig.php");
-require_once("mockGitHubConfig.php");
+require_once("interfaces/if.parser.php");
+require_once("mocks/mockIniConfig.php");
+require_once("mocks/mockClientIniConfig.php");
+require_once("mocks/mockDBConfig.php");
+require_once("mocks/mockGitHubConfig.php");
 
 class mockParser implements parser {
 	protected $config_data;
 
 	public function parseConfigString($config_string) {
-		$this->config_data = array("Pusteblume"=>"Ist toll");
+		$this->config_data = array("test"=>"huhu");
 	}
 
 	public function readIniConfig() {
@@ -17,7 +17,7 @@ class mockParser implements parser {
 	}
 
 	public function readClientConfig() {
-		return new mockClientConfig();
+		return new mockClientIniConfig();
 	}
 
 	public function readDBConfig() {
@@ -26,5 +26,9 @@ class mockParser implements parser {
 
 	public function readGitHubConfig() {
 		return new mockGitHubConfig();
+	}
+
+	public function getConfigData() {
+		return $this->config_data;
 	}
 }

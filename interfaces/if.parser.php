@@ -10,4 +10,5 @@ interface parser{
 	public function readClientConfig();
 	public function readDBConfig();
 	public function readGitHubConfig();
+	public function getConfigData();
 }
