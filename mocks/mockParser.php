@@ -20,11 +20,11 @@ class mockParser implements parser {
 		$this->config_data = array("test"=>"huhu");
 	}
 
-	public function readIniConfig() {
+	public function readIliasIniConfig() {
 		return new iliasIniConfig();
 	}
 
-	public function readClientConfig() {
+	public function readClientIniConfig() {
 		return new clientIniConfig();
 	}
 

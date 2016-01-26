@@ -6,8 +6,8 @@
 
 interface parser{
 	public function parseConfigString($config_string);
-	public function readIniConfig();
-	public function readClientConfig();
+	public function readIliasIniConfig();
+	public function readClientIniConfig();
 	public function readGitHubConfig();
 	public function getConfigData();
 
@@ -16,8 +16,8 @@ interface parser{
 	* Client Ini Sub Configs
 	*
 	****************************************/
-	public function readDBConfig();
-	public function readLanguageConfig();
+	public function readClientIniDBConfig();
+	public function readClientIniLanguageConfig();
 
 	/****************************************
 	*

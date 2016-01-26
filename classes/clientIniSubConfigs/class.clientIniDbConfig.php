@@ -12,6 +12,8 @@ class clientIniDbConfig extends baseConfig {
 	protected $passwd;
 	protected $encoding;
 
+	protected $config_group = "db";
+
 	public function __construct() {
 		
 	}
