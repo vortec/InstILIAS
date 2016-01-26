@@ -5,7 +5,7 @@
 */
 require_once("abstracts/baseConfig.php");
 
-class dbConfig extends baseConfig {
+class clientIniDbConfig extends baseConfig {
 	protected $host;
 	protected $database;
 	protected $user;
