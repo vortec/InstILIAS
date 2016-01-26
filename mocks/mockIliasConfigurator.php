@@ -14,7 +14,15 @@ class mockIliasConfigurator implements iliasConfigurator {
 
 	}
 
+	public function writeLanguageIni() {
+
+	}
+
 	public function installDatabase() {
+
+	}
+
+	public function installLanguages() {
 
 	}
 }

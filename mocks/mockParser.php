@@ -1,9 +1,10 @@
 <?php
 require_once("interfaces/if.parser.php");
-require_once("mocks/mockIniConfig.php");
-require_once("mocks/mockClientIniConfig.php");
-require_once("mocks/mockDBConfig.php");
-require_once("mocks/mockGitHubConfig.php");
+require_once("classes/class.iliasIniConfig.php");
+require_once("classes/class.ClientIniConfig.php");
+require_once("classes/class.dbConfig.php");
+require_once("classes/class.gitHubConfig.php");
+require_once("classes/class.languageConfig.php");
 
 class mockParser implements parser {
 	protected $config_data;
@@ -13,19 +14,23 @@ class mockParser implements parser {
 	}
 
 	public function readIniConfig() {
-		return new mockIniConfig();
+		return new iliasIniConfig();
 	}
 
 	public function readClientConfig() {
-		return new mockClientIniConfig();
+		return new clientIniConfig();
 	}
 
 	public function readDBConfig() {
-		return new mockDBConfig();
+		return new dbConfig();
 	}
 
 	public function readGitHubConfig() {
-		return new mockGitHubConfig();
+		return new gitHubConfig();
+	}
+
+	public function readLanguageConfig() {
+		return new languageConfig();
 	}
 
 	public function getConfigData() {
