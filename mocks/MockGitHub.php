@@ -1,4 +1,6 @@
 <?php
+namespace InstIlias_Mocks;
+
 require_once("interfaces/GitHub.php");
 
 class MockGitHub implements GitHub {

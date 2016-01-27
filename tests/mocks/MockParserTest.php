@@ -1,4 +1,6 @@
 <?php
+namespace InstILIAS_Tests;
+
 require_once("mocks/MockParser.php");
 
 class MockParserTest extends PHPUnit_Framework_TestCase {

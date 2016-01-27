@@ -1,4 +1,6 @@
 <?php
+namespace InstILIAS_Tests;
+
 require_once("classes/LanguageConfig.php");
 
 class LanguageConfigTest extends PHPUnit_Framework_TestCase {

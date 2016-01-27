@@ -1,4 +1,6 @@
 <?php
+namespace InstIlias_Mocks;
+
 require_once("interfaces/IliasConfigurator.php");
 
 class MockIliasConfigurator implements IliasConfigurator {

@@ -1,4 +1,6 @@
 <?php
+namespace InstILIAS_Tests;
+
 require_once("mocks/MockGitHub.php");
 
 class MockGitHubTest extends PHPUnit_Framework_TestCase {

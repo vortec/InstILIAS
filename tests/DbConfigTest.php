@@ -1,4 +1,6 @@
 <?php
+namespace InstILIAS_Tests;
+
 require_once("classes/DbConfig.php");
 
 class DbConfigTest extends PHPUnit_Framework_TestCase {

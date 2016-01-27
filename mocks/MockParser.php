@@ -1,4 +1,6 @@
 <?php
+namespace InstIlias_Mocks;
+
 require_once("interfaces/Parser.php");
 
 class MockParser implements Parser {

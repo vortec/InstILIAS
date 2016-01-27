@@ -1,4 +1,6 @@
 <?php
+namespace InstILIAS;
+
 class InstIlias {
 	protected $install_config_file_path;
 	protected $install_config_file_data;

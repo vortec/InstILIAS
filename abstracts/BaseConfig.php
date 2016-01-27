@@ -1,4 +1,6 @@
 <?php
+namespace InstILIAS;
+
 /**
 * Basic class or each Config like ClientInitConfig
 *
