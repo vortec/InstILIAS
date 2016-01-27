@@ -3,9 +3,9 @@
 *
 *
 */
-require_once("abstracts/baseConfig.php");
+require_once("abstracts/BaseConfig.php");
 
-class clientIniDbConfig extends baseConfig {
+class DbConfig extends BaseConfig {
 	protected $host;
 	protected $database;
 	protected $user;
@@ -99,7 +99,7 @@ class clientIniDbConfig extends baseConfig {
 	*
 	* @param string
 	*/
-	public function setEncoding(array $encoding) {
+	public function setEncoding($encoding) {
 		assert(is_string($encoding));
 
 		$this->encoding = $encoding;

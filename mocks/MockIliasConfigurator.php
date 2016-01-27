@@ -1,7 +1,7 @@
 <?php
-require_once("interfaces/if.iliasConfigurator.php");
+require_once("interfaces/IliasConfigurator.php");
 
-class mockIliasConfigurator implements iliasConfigurator {
+class MockIliasConfigurator implements IliasConfigurator {
 	public function writeClientIni() {
 
 	}

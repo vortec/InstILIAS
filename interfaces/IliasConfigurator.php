@@ -4,7 +4,7 @@
 *
 */
 
-interface iliasConfigurator{
+interface IliasConfigurator{
 	public function writeClientIni();
 	public function writeDBIni();
 	public function writeLanguageIni();

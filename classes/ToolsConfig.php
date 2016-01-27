@@ -3,9 +3,9 @@
 *
 *
 */
-require_once("abstracts/baseConfig.php");
+require_once("abstracts/BaseConfig.php");
 
-class iliasIniToolsConfig extends baseConfig {
+class ToolsConfig extends BaseConfig {
 	protected $convert;
 	protected $zip;
 	protected $unzip;

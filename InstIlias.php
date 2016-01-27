@@ -1,5 +1,5 @@
 <?php
-class instIlias {
+class InstIlias {
 	protected $install_config_file_path;
 	protected $install_config_file_data;
 	protected $parser;
@@ -18,7 +18,7 @@ class instIlias {
 
 	protected function readInstallConfigData() {
 		if(!file_exists($this->install_config_file_path)) {
-			throw new Exception("instIlias::readInstallConfigData: file not found ".$this->install_config_file_path);
+			throw new Exception("InstIlias::readInstallConfigData: file not found ".$this->install_config_file_path);
 		}
 
 		$this->install_config_file_data = file_get_contents($this->install_config_file_path);

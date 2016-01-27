@@ -3,9 +3,9 @@
 *
 *
 */
-require_once("abstracts/baseConfig.php");
+require_once("abstracts/BaseConfig.php");
 
-class iliasIniClientConfig extends baseConfig {
+class ClientConfig extends BaseConfig {
 	protected $data_dir;
 	protected $default_name;
 

@@ -1,7 +1,7 @@
 <?php
-require_once("interfaces/if.gitHub.php");
+require_once("interfaces/GitHub.php");
 
-class mockGitHub implements gitHub {
+class MockGitHub implements GitHub {
 	protected $destination;
 	protected $selected_branch;
 
@@ -10,11 +10,11 @@ class mockGitHub implements gitHub {
 	public function cloneGitTo($git_hub_url, $destination) {
 
 		if(!preg_match(self::URL_REG_EX, strtolower($git_hub_url))) {
-			throw new LogicException("mockGitHub::cloneGitTo: No valid gitHub URL ".$git_hub_url);
+			throw new LogicException("MockGitHub::cloneGitTo: No valid gitHub URL ".$git_hub_url);
 		}
 
 		if(!is_dir($destination)) {
-			throw new LogicException("mockGitHub::cloneGitTo: No valid destination ".$destination);
+			throw new LogicException("MockGitHub::cloneGitTo: No valid destination ".$destination);
 		}
 
 		$this->destination = $destination;

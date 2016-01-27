@@ -3,9 +3,9 @@
 *
 *
 */
-require_once("abstracts/baseConfig.php");
+require_once("abstracts/BaseConfig.php");
 
-class gitHubConfig extends baseConfig {
+class GitHubConfig extends BaseConfig {
 	protected $git_url;
 	protected $git_branch_name;
 	protected $destination;

@@ -3,9 +3,9 @@
 *
 *
 */
-require_once("abstracts/baseConfig.php");
+require_once("abstracts/BaseConfig.php");
 
-class iliasIniServerConfig extends baseConfig {
+class ServerConfig extends BaseConfig {
 	protected $http_path;
 	protected $absolute_path;
 	protected $timezone;

@@ -3,9 +3,9 @@
 *
 *
 */
-require_once("abstracts/baseConfig.php");
+require_once("abstracts/BaseConfig.php");
 
-class iliasIniLogConfig extends baseConfig {
+class LogConfig extends BaseConfig {
 	protected $path;
 	protected $file_name;
 

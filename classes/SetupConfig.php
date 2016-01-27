@@ -3,9 +3,9 @@
 *
 *
 */
-require_once("abstracts/baseConfig.php");
+require_once("abstracts/BaseConfig.php");
 
-class iliasIniSetupConfig extends baseConfig {
+class SetupConfig extends BaseConfig {
 	protected $passwd;
 
 	protected $config_group = "setup";

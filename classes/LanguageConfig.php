@@ -3,9 +3,9 @@
 *
 *
 */
-require_once("abstracts/baseConfig.php");
+require_once("abstracts/BaseConfig.php");
 
-class clientIniLanguageConfig extends baseConfig {
+class LanguageConfig extends BaseConfig {
 	protected $default_lang;
 	protected $to_install_langs;
 

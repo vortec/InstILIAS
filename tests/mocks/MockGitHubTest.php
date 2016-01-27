@@ -1,9 +1,9 @@
 <?php
-require_once("mocks/mockGitHub.php");
+require_once("mocks/MockGitHub.php");
 
 class MockGitHubTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->git_hub = new mockGitHub();
+		$this->git_hub = new MockGitHub();
 	}
 
 	/**
