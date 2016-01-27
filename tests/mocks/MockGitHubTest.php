@@ -7,55 +7,27 @@ class MockGitHubTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	* @dataProvider cloneProvider
-	*/
-	public function test_clone($git_url, $destination) {
-		$this->git_hub->cloneGitTo($git_url, $destination);
-
-		$this->assertEquals($this->git_hub->destination(), $destination);
-		$this->assertInternalType("string", $this->git_hub->destination());
-	}
-
-	/**
 	* @dataProvider cloneNoValidFolderProvider
 	* @expectedException LogicException
 	*/
-	public function test_cloneNoValidFolder($git_url, $destination) {
-		$this->git_hub->cloneGitTo($git_url, $destination);
-
-		$this->assertNull($this->git_hub->destination());
+	public function test_cloneNoValidFolder($git_url, $installation_path) {
+		$this->git_hub->cloneGitTo($git_url, $installation_path);
 	}
 
 	/**
 	* @dataProvider cloneNoValidUrlProvider
 	* @expectedException LogicException
 	*/
-	public function test_cloneNoValidUrl($git_url, $destination) {
-		$this->git_hub->cloneGitTo($git_url, $destination);
-
-		$this->assertNull($this->git_hub->destination());
+	public function test_cloneNoValidUrl($git_url, $installation_path) {
+		$this->git_hub->cloneGitTo($git_url, $installation_path);
 	}
 
 	/**
-	* @dataProvider checkoutProvider
+	* @dataProvider checkoutNoValidFolderProvider
+	* @expectedException LogicException
 	*/
-	public function test_checkout($branch) {
-		$this->git_hub->checkoutBranch($branch);
-
-		$this->assertEquals($this->git_hub->selectedBranch(), $branch);
-		$this->assertInternalType("string", $this->git_hub->selectedBranch());
-	}
-
-	public function cloneProvider() {
-		return array(
-			array('https://github.com/conceptsandtraining/ILIAS.git', '/Library/WebServer/Documents/44generali2')
-			,array('https://github.com/conceptsandtraining/ILIAS.git', '/Library/WebServer/Documents/44generali2')
-			,array('https://github.com/conceptsandtraining/ILIAS.git', '/Library/WebServer/Documents/44generali2')
-			,array('https://github.com/conceptsandtraining/ILIAS.git', '/Library/WebServer/Documents/44generali2')
-			,array('https://github.com/conceptsandtraining/ILIAS.git', '/Library/WebServer/Documents/44generali2')
-			,array('https://github.com/conceptsandtraining/ILIAS.git', '/Library/WebServer/Documents/44generali2')
-			,array('https://github.com/conceptsandtraining/ILIAS.git', '/Library/WebServer/Documents/44generali2')
-		);
+	public function test_checkoutNoValidFolder($branch, $installation_path) {
+		$this->git_hub->checkoutBranch($branch, $installation_path);
 	}
 
 	public function cloneNoValidFolderProvider() {
@@ -82,15 +54,15 @@ class MockGitHubTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function checkoutProvider() {
+	public function checkoutNoValidFolderProvider() {
 		return array(
-			array('USER_EXISTS')
-			,array('USER_EXISTS_TP')
-			,array('USER_UNKNOWN')
-			,array('USER_DIFFERENT_TP')
-			,array('USER_DEACTIVATED')
-			,array('USER_SERVICETYPE')
-			,array('WRONG_USERDATA')
+			array('USER_EXISTS', '/Library/WebServer/Document/44generali2')
+			,array('USER_EXISTS_TP', '/Library/WebServer/Document/44generali2')
+			,array('USER_UNKNOWN', '/Library/WebServer/Document/44generali2')
+			,array('USER_DIFFERENT_TP', '/Library/WebServer/Document/44generali2')
+			,array('USER_DEACTIVATED', '/Library/WebServer/Document/44generali2')
+			,array('USER_SERVICETYPE', '/Library/WebServer/Document/44generali2')
+			,array('WRONG_USERDATA', '/Library/WebServer/Document/44generali2')
 		);
 	}
 }
