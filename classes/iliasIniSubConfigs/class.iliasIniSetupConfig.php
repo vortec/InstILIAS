@@ -10,10 +10,6 @@ class iliasIniSetupConfig extends baseConfig {
 
 	protected $config_group = "setup";
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the passwd
 	*

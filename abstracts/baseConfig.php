@@ -5,10 +5,6 @@
 */
 
 abstract class baseConfig{
-	
-	public function __construct() {
-
-	}
 
 	/**
 	* gets all propertys in an assoc array
@@ -19,10 +15,10 @@ abstract class baseConfig{
 	*
 	* @return array
 	*/
-	public function getPropertysOf($reflection_propertys = array(ReflectionProperty::IS_PROTECTED)) {
+	public function getPropertiesOf($reflection_properties = array(ReflectionProperty::IS_PROTECTED)) {
 		$ret = array();
 
-		foreach ($reflection_propertys as $$reflection_property) {
+		foreach ($reflection_properties as $$reflection_property) {
 			$reflect = new ReflectionClass($this);
 			$props = $reflect->getProperties($reflection_property);
 

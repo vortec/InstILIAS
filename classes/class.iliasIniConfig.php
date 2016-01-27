@@ -12,10 +12,6 @@ class iliasIniConfig extends baseConfig {
 	protected $tools_config;
 	protected $log_config;
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the server_config
 	*

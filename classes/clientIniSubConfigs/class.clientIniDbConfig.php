@@ -14,10 +14,6 @@ class clientIniDbConfig extends baseConfig {
 
 	protected $config_group = "db";
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the host
 	*

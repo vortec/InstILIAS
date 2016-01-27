@@ -11,10 +11,6 @@ class clientIniLanguageConfig extends baseConfig {
 
 	protected $config_group = "language";
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the default language
 	*

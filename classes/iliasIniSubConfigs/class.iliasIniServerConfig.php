@@ -12,10 +12,6 @@ class iliasIniServerConfig extends baseConfig {
 
 	protected $config_group = "server";
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the http_path
 	*

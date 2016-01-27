@@ -11,10 +11,6 @@ class iliasIniClientConfig extends baseConfig {
 
 	protected $config_group = "clients";
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the data_dir
 	*

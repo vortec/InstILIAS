@@ -10,10 +10,6 @@ class clientIniConfig extends baseConfig {
 	protected $db_config;
 	protected $language_config;
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the name of the client
 	*

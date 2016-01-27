@@ -10,10 +10,6 @@ class gitHubConfig extends baseConfig {
 	protected $git_branch_name;
 	protected $destination;
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the git_url
 	*

@@ -11,10 +11,6 @@ class iliasIniLogConfig extends baseConfig {
 
 	protected $config_group = "log";
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the path
 	*

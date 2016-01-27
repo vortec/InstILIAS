@@ -13,10 +13,6 @@ class iliasIniToolsConfig extends baseConfig {
 
 	protected $config_group = "tools";
 
-	public function __construct() {
-		
-	}
-
 	/**
 	* sets the convert
 	*
