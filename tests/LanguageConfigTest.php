@@ -3,41 +3,41 @@ require_once("classes/LanguageConfig.php");
 
 class LanguageConfigTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->client_ini_language_config = new LanguageConfig();
+		$this->language_config = new LanguageConfig();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("LanguageConfig", $this->client_ini_db_config);
+		$this->assertInstanceOf("LanguageConfig", $this->language_config);
 	}
 
 	/**
 	* @dataProvider setDefaultLangProvider
 	*/
 	public function test_setDefaultLang($default_lang) {
-		$this->client_ini_language_config->setDefaultLang($default_lang);
+		$this->language_config->setDefaultLang($default_lang);
 
-		$this->assertEquals($this->client_ini_language_config->defaultLang(), $default_lang);
-		$this->assertInternalType("string", $this->client_ini_language_config->defaultLang());
+		$this->assertEquals($this->language_config->defaultLang(), $default_lang);
+		$this->assertInternalType("string", $this->language_config->defaultLang());
 	}
 
 	/**
 	* @dataProvider setToInstallLangsProvider
 	*/
 	public function test_setToInstallLangs($to_install_langs) {
-		$this->client_ini_language_config->setToInstallLangs($to_install_langs);
+		$this->language_config->setToInstallLangs($to_install_langs);
 
-		$this->assertEquals($this->client_ini_language_config->toInstallLangs(), $to_install_langs);
-		$this->assertInternalType("array", $this->client_ini_language_config->toInstallLangs());
+		$this->assertEquals($this->language_config->toInstallLangs(), $to_install_langs);
+		$this->assertInternalType("array", $this->language_config->toInstallLangs());
 	}
 
 	/**
 	* @dataProvider getAllPropertiesProvider
 	*/
 	public function test_getAllProperties($default_lang, $to_install_langs) {
-		$this->client_ini_language_config->setDefaultLang($default_lang);
-		$this->client_ini_language_config->setToInstallLangs($to_install_langs);
+		$this->language_config->setDefaultLang($default_lang);
+		$this->language_config->setToInstallLangs($to_install_langs);
 
-		$all_properties = $this->client_ini_db_config->getPropertiesOf();
+		$all_properties = $this->language_config->getPropertiesOf();
 
 		$this->assertEquals($all_properties["default_lang"], $default_lang);
 		$this->assertInternalType("string", $all_properties["default_lang"]);
@@ -46,7 +46,7 @@ class LanguageConfigTest extends PHPUnit_Framework_TestCase {
 		$this->assertInternalType("array", $all_properties["to_install_langs"]);
 	}
 
-	public function setHostProvider() {
+	public function setDefaultLangProvider() {
 		return array(array("de")
 					, array("en")
 					, array("es")
@@ -56,7 +56,7 @@ class LanguageConfigTest extends PHPUnit_Framework_TestCase {
 				);
 	}
 
-	public function setDatabaseProvider() {
+	public function setToInstallLangsProvider() {
 		return array(array(array("de","en"))
 					, array(array("en","ar"))
 					, array(array("es","sq"))
