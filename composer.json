@@ -1,0 +1,13 @@
+{
+    "name": "cat/instilias",
+    "description": "Installation tool for easier Installation of ILIAS",
+    "type": "executable",
+    "license": "GPL V3",
+    "authors": [
+        {
+            "name": "Stefan Hecken",
+            "email": "stefan.hecken@concepts-and-training.de"
+        }
+    ],
+    "require": {}
+}
