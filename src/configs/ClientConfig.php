@@ -1,5 +1,5 @@
 <?php
-namespace InstILIAS\classes;
+namespace InstILIAS\configs;
 /**
 *
 *

@@ -1,11 +1,11 @@
 <?php
 class GitHubConfigTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->github_config = new \InstILIAS\classes\GitHubConfig();
+		$this->github_config = new \InstILIAS\configs\GitHubConfig();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("\InstILIAS\classes\GitHubConfig", $this->github_config);
+		$this->assertInstanceOf("\InstILIAS\configs\GitHubConfig", $this->github_config);
 	}
 
 	/**

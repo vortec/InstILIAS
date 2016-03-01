@@ -1,11 +1,11 @@
 <?php
 class DbConfigTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->client_ini_db_config = new \InstILIAS\classes\DbConfig();
+		$this->client_ini_db_config = new \InstILIAS\configs\DbConfig();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("\InstILIAS\classes\DbConfig", $this->client_ini_db_config);
+		$this->assertInstanceOf("\InstILIAS\configs\DbConfig", $this->client_ini_db_config);
 	}
 
 	/**

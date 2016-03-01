@@ -1,11 +1,11 @@
 <?php
 class LanguageConfigTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->language_config = new \InstILIAS\classes\LanguageConfig();
+		$this->language_config = new \InstILIAS\configs\LanguageConfig();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("\InstILIAS\classes\LanguageConfig", $this->language_config);
+		$this->assertInstanceOf("\InstILIAS\configs\LanguageConfig", $this->language_config);
 	}
 
 	/**
