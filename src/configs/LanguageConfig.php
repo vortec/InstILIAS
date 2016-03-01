@@ -40,4 +40,13 @@ class LanguageConfig extends \InstILIAS\abstracts\BaseConfig {
 
 		$this->to_install_langs = $to_install_langs;
 	}
+
+	/**
+	* gets the language shoud be installed
+	*
+	* @return string
+	*/
+	public function toInstallLangs() {
+		return $this->to_install_langs;
+	}
 }
