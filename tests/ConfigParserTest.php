@@ -10,18 +10,19 @@ class ConfigParserTest extends MockParserTest {
 	*/
 	public function test_readConfigWithValues($string, $class) {
 		$obj = $this->parser->read_config($string, $class);
-
 		$this->assertInstanceOf($class, $obj);
 	}
 
 	public function readConfigWithValuesProvider() {
-		return array(array('{"setup": {"passwd" : "sdasdads"},"lang": {"default_lang":"de","to_install_langs":["en","de"]}}', "\InstILIAS\configs\SetupConfig")
-					, array('{"setup": {"passwd" : "sdasdads"},"lang": {"default_lang":"de","to_install_langs":["en","de"]}}', "\InstILIAS\configs\LanguageConfig")
-					/*, array("asas", "\InstILIAS\configs\GitHubConfig")
-					, array("asas", "\InstILIAS\configs\LanguageConfig")
-					, array("asas", "\InstILIAS\configs\ServerConfig")
-					, array("asas", "\InstILIAS\configs\SetupConfig")
-					, array("asas", "\InstILIAS\configs\ToolsConfig")*/
+		$json_string = '{"setup": {"passwd" : "sdasdads"},"lang": {"default_lang":"de","to_install_langs":["en","de"]}}';
+
+		return array(array($json_string, "\InstILIAS\configs\ClientConfig")
+					, array($json_string, "\InstILIAS\configs\DbConfig")
+					, array($json_string, "\InstILIAS\configs\GitHubConfig")
+					, array($json_string, "\InstILIAS\configs\LanguageConfig")
+					, array($json_string, "\InstILIAS\configs\ServerConfig")
+					, array($json_string, "\InstILIAS\configs\SetupConfig")
+					, array($json_string, "\InstILIAS\configs\ToolsConfig")
 				);
 	}
 
