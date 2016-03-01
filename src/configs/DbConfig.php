@@ -102,4 +102,13 @@ class DbConfig extends \InstILIAS\abstracts\BaseConfig {
 
 		$this->encoding = $encoding;
 	}
+
+	/**
+	* gets the encoding
+	*
+	* @return string
+	*/
+	public function encoding() {
+		return $this->encoding;
+	}
 }
