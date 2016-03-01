@@ -11,6 +11,7 @@ class DbConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $user;
 	protected $passwd;
 	protected $encoding;
+	const NAME = "db";
 
 	/**
 	* sets the host

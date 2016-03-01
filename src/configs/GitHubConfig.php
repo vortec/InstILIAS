@@ -10,6 +10,7 @@ class GitHubConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $git_url;
 	protected $git_branch_name;
 	protected $destination;
+	const NAME = "github";
 
 	/**
 	* sets the git_url

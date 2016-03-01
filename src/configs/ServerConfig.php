@@ -10,6 +10,7 @@ class ServerConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $http_path;
 	protected $absolute_path;
 	protected $timezone;
+	const NAME = "server";
 
 	/**
 	* sets the http_path

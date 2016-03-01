@@ -8,6 +8,7 @@ namespace InstILIAS\configs;
 
 class SetupConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $passwd;
+	const NAME = "setup";
 
 	/**
 	* sets the passwd

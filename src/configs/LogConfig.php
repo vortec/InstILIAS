@@ -9,6 +9,7 @@ namespace InstILIAS\configs;
 class LogConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $path;
 	protected $file_name;
+	const NAME = "log";
 
 	/**
 	* sets the path

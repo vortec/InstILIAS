@@ -11,6 +11,7 @@ class ToolsConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $zip;
 	protected $unzip;
 	protected $java;
+	const NAME = "tools";
 
 	/**
 	* sets the convert

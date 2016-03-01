@@ -8,6 +8,7 @@ namespace InstILIAS\configs;
 class ClientConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $data_dir;
 	protected $default_name;
+	const NAME = "client";
 
 	/**
 	* sets the data_dir

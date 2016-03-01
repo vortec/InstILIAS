@@ -9,6 +9,7 @@ namespace InstILIAS\configs;
 class LanguageConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $default_lang;
 	protected $to_install_langs;
+	const NAME = "lang";
 
 	/**
 	* sets the default language
