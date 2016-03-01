@@ -30,4 +30,10 @@ abstract class BaseConfig {
 
 		return $ret;
 	}
+
+	public function setValues(array $properties_with_values) {
+		foreach ($properties_with_values as $key => $value) {
+			$this->$key = $value;
+		}
+	}
 }
