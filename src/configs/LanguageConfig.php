@@ -10,8 +10,6 @@ class LanguageConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $default_lang;
 	protected $to_install_langs;
 
-	protected $config_group = "language";
-
 	/**
 	* sets the default language
 	*
@@ -41,14 +39,5 @@ class LanguageConfig extends \InstILIAS\abstracts\BaseConfig {
 		assert(is_array($to_install_langs));
 
 		$this->to_install_langs = $to_install_langs;
-	}
-
-	/**
-	* gets the language shoud be installed
-	*
-	* @return string
-	*/
-	public function toInstallLangs() {
-		return $this->to_install_langs;
 	}
 }

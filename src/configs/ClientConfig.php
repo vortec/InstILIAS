@@ -9,8 +9,6 @@ class ClientConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $data_dir;
 	protected $default_name;
 
-	protected $config_group = "clients";
-
 	/**
 	* sets the data_dir
 	*
@@ -49,14 +47,5 @@ class ClientConfig extends \InstILIAS\abstracts\BaseConfig {
 	*/
 	public function defaultName() {
 		return $this->default_name;
-	}
-
-	/**
-	* gets the config_group
-	*
-	* @return string
-	*/
-	public function configGroup() {
-		return $this->config_group;
 	}
 }

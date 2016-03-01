@@ -12,8 +12,6 @@ class DbConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $passwd;
 	protected $encoding;
 
-	protected $config_group = "db";
-
 	/**
 	* sets the host
 	*
@@ -103,14 +101,5 @@ class DbConfig extends \InstILIAS\abstracts\BaseConfig {
 		assert(is_string($encoding));
 
 		$this->encoding = $encoding;
-	}
-
-	/**
-	* gets the encoding
-	*
-	* @return string
-	*/
-	public function encoding() {
-		return $this->encoding;
 	}
 }

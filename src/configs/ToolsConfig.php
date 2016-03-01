@@ -12,8 +12,6 @@ class ToolsConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $unzip;
 	protected $java;
 
-	protected $config_group = "tools";
-
 	/**
 	* sets the convert
 	*
@@ -92,14 +90,5 @@ class ToolsConfig extends \InstILIAS\abstracts\BaseConfig {
 	*/
 	public function java() {
 		return $this->java;
-	}
-
-	/**
-	* gets the config_group
-	*
-	* @return string
-	*/
-	public function configGroup() {
-		return $this->config_group;
 	}
 }

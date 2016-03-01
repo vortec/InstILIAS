@@ -9,8 +9,6 @@ namespace InstILIAS\configs;
 class SetupConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $passwd;
 
-	protected $config_group = "setup";
-
 	/**
 	* sets the passwd
 	*
@@ -29,14 +27,5 @@ class SetupConfig extends \InstILIAS\abstracts\BaseConfig {
 	*/
 	public function passwd() {
 		return $this->passwd;
-	}
-	
-	/**
-	* gets the config_group
-	*
-	* @return string
-	*/
-	public function configGroup() {
-		return $this->config_group;
 	}
 }

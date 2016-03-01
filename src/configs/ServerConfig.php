@@ -11,8 +11,6 @@ class ServerConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $absolute_path;
 	protected $timezone;
 
-	protected $config_group = "server";
-
 	/**
 	* sets the http_path
 	*
@@ -71,14 +69,5 @@ class ServerConfig extends \InstILIAS\abstracts\BaseConfig {
 	*/
 	public function timezone() {
 		return $this->timezone;
-	}
-
-	/**
-	* gets the config_group
-	*
-	* @return string
-	*/
-	public function configGroup() {
-		return $this->config_group;
 	}
 }

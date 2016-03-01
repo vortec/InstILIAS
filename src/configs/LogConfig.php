@@ -10,8 +10,6 @@ class LogConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $path;
 	protected $file_name;
 
-	protected $config_group = "log";
-
 	/**
 	* sets the path
 	*
@@ -50,14 +48,5 @@ class LogConfig extends \InstILIAS\abstracts\BaseConfig {
 	*/
 	public function fileName() {
 		return $this->file_name;
-	}
-
-	/**
-	* gets the config_group
-	*
-	* @return string
-	*/
-	public function configGroup() {
-		return $this->config_group;
 	}
 }
