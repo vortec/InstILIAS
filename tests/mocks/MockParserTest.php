@@ -18,10 +18,9 @@ class MockParserTest extends PHPUnit_Framework_TestCase {
 	* @dataProvider readConfigNoFileProvider
 	* @expectedException LogicException
 	*/
-	//Test not working. problem with autoloaded and no file
-	/*public function test_readConfigNoFile($string, $class) {
+	public function test_readConfigNoFile($string, $class) {
 		$obj = $this->parser->read_config($string, $class);
-	}*/
+	}
 
 	public function readConfigProvider() {
 		return array(array("asas", "\InstILIAS\configs\ClientConfig")
