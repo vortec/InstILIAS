@@ -1,13 +1,12 @@
 <?php
-namespace InstILIAS;
+namespace InstILIAS\classes;
 
 /**
 *
 *
 */
-require_once("abstracts/BaseConfig.php");
 
-class SetupConfig extends BaseConfig {
+class SetupConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $passwd;
 
 	protected $config_group = "setup";

@@ -1,13 +1,11 @@
 <?php
-namespace InstILIAS;
-
+namespace InstILIAS\classes;
 /**
 *
 *
 */
-require_once("abstracts/BaseConfig.php");
 
-class ClientConfig extends BaseConfig {
+class ClientConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $data_dir;
 	protected $default_name;
 

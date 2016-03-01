@@ -9,5 +9,10 @@
             "email": "stefan.hecken@concepts-and-training.de"
         }
     ],
+    "autoload" : {
+        "psr-4" : {
+            "InstILIAS\\" : "./src"
+        }
+    },
     "require": {}
 }

@@ -1,11 +1,8 @@
 <?php
-namespace InstILIAS_Tests;
-
-require_once("mocks/MockGitHub.php");
 
 class MockGitHubTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->git_hub = new MockGitHub();
+		$this->git_hub = new \InstILIAS\mocks\MockGitHub();
 	}
 
 	/**

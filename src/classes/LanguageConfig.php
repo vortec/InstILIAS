@@ -1,13 +1,12 @@
 <?php
-namespace InstILIAS;
+namespace InstILIAS\classes;
 
 /**
 *
 *
 */
-require_once("abstracts/BaseConfig.php");
 
-class LanguageConfig extends BaseConfig {
+class LanguageConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $default_lang;
 	protected $to_install_langs;
 

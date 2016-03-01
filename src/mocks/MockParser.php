@@ -1,10 +1,7 @@
 <?php
-namespace InstIlias_Mocks;
+namespace InstILIAS\mocks;
 
-require_once("interfaces/Parser.php");
-
-class MockParser implements Parser {
-
+class MockParser implements \InstILIAS\interfaces\Parser {
 	public function read_config($string, $class) {
 		return new $class();
 	}

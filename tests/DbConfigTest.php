@@ -1,15 +1,11 @@
 <?php
-namespace InstILIAS_Tests;
-
-require_once("classes/DbConfig.php");
-
 class DbConfigTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->client_ini_db_config = new DbConfig();
+		$this->client_ini_db_config = new \InstILIAS\classes\DbConfig();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("DbConfig", $this->client_ini_db_config);
+		$this->assertInstanceOf("\InstILIAS\classes\DbConfig", $this->client_ini_db_config);
 	}
 
 	/**

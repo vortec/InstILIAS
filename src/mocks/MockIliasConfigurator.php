@@ -1,7 +1,5 @@
 <?php
-namespace InstIlias_Mocks;
-
-require_once("interfaces/IliasConfigurator.php");
+namespace InstILIAS;
 
 class MockIliasConfigurator implements IliasConfigurator {
 	public function writeClientIni() {

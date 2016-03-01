@@ -1,13 +1,12 @@
 <?php
-namespace InstILIAS;
+namespace InstILIAS\classes;
 
 /**
 *
 *
 */
-require_once("abstracts/BaseConfig.php");
 
-class ToolsConfig extends BaseConfig {
+class ToolsConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $convert;
 	protected $zip;
 	protected $unzip;

@@ -1,13 +1,12 @@
 <?php
-namespace InstILIAS;
+namespace InstILIAS\classes;
 
 /**
 *
 *
 */
-require_once("abstracts/BaseConfig.php");
 
-class LogConfig extends BaseConfig {
+class LogConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $path;
 	protected $file_name;
 

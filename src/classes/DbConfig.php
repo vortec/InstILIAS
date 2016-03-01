@@ -1,13 +1,11 @@
 <?php
-namespace InstILIAS;
-
+namespace InstILIAS\classes;
 /**
 *
 *
 */
-require_once("abstracts/BaseConfig.php");
 
-class DbConfig extends BaseConfig {
+class DbConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $host;
 	protected $database;
 	protected $user;

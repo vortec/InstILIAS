@@ -1,13 +1,12 @@
 <?php
-namespace InstILIAS;
+namespace InstILIAS\classes;
 
 /**
 *
 *
 */
-require_once("abstracts/BaseConfig.php");
 
-class ServerConfig extends BaseConfig {
+class ServerConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $http_path;
 	protected $absolute_path;
 	protected $timezone;

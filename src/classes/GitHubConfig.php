@@ -1,13 +1,12 @@
 <?php
-namespace InstILIAS;
+namespace InstILIAS\classes;
 
 /**
 *
 *
 */
-require_once("abstracts/BaseConfig.php");
 
-class GitHubConfig extends BaseConfig {
+class GitHubConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $git_url;
 	protected $git_branch_name;
 	protected $destination;

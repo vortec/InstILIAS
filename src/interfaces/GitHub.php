@@ -1,5 +1,5 @@
 <?php
-namespace InstILIAS;
+namespace InstILIAS\interfaces;
 
 /**
 *
