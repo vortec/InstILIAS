@@ -14,5 +14,7 @@
             "InstILIAS\\" : "./src"
         }
     },
-    "require": {}
+    "require": {
+        "symfony/yaml" : "3.0"
+    }
 }
