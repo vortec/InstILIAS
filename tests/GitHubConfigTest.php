@@ -29,22 +29,11 @@ class GitHubConfigTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	* @dataProvider setDestinationProvider
-	*/
-	public function test_setDestination($destination) {
-		$this->github_config->setDestination($destination);
-
-		$this->assertEquals($this->github_config->destination(), $destination);
-		$this->assertInternalType("string", $this->github_config->destination());
-	}
-
-	/**
 	* @dataProvider getAllPropertiesProvider
 	*/
-	public function test_getAllProperties($git_url, $git_branch_name, $destination) {
+	public function test_getAllProperties($git_url, $git_branch_name) {
 		$this->github_config->setGitUrl($git_url);
 		$this->github_config->setGitBranchName($git_branch_name);
-		$this->github_config->setDestination($destination);
 
 		$all_properties = $this->github_config->getPropertiesOf();
 
@@ -53,9 +42,6 @@ class GitHubConfigTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals($all_properties["git_branch_name"], $git_branch_name);
 		$this->assertInternalType("string", $all_properties["git_branch_name"]);
-
-		$this->assertEquals($all_properties["destination"], $destination);
-		$this->assertInternalType("string", $all_properties["destination"]);
 	}
 
 	public function setGitUrlProvider() {
@@ -66,11 +52,7 @@ class GitHubConfigTest extends PHPUnit_Framework_TestCase {
 		return array(array("testBranch"));
 	}
 
-	public function setDestinationProvider() {
-		return array(array("/var/dar/bar/testBranch"));
-	}
-
 	public function getAllPropertiesProvider() {
-		return array(array("https://github.com/conceptsandtraining/ILIAS.git","testBranch","/var/dar/bar/testBranch"));
+		return array(array("https://github.com/conceptsandtraining/ILIAS.git","testBranch"));
 	}
 }

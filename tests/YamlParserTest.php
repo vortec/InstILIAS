@@ -58,8 +58,7 @@ db:
 		$json_string = '---
 github:
     git_url: https://github.com/conceptsandtraining/ILIAS.git
-    git_branch_name: ilias
-    destination: /var/nach/da';
+    git_branch_name: ilias';
 
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\GitHubConfig");
 
@@ -70,9 +69,6 @@ github:
 
 		$this->assertEquals($obj->gitBranchName(), "ilias");
 		$this->assertInternalType("string", $obj->gitBranchName());
-
-		$this->assertEquals($obj->destination(), "/var/nach/da");
-		$this->assertInternalType("string", $obj->destination());
 	}
 
 	public function test_createLanguageConfig() {
