@@ -9,7 +9,6 @@ namespace InstILIAS\configs;
 class GitHubConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $git_url;
 	protected $git_branch_name;
-	protected $destination;
 	const NAME = "github";
 
 	/**
@@ -50,25 +49,5 @@ class GitHubConfig extends \InstILIAS\abstracts\BaseConfig {
 	*/
 	public function gitBranchName() {
 		return $this->git_branch_name;
-	}
-
-	/**
-	* sets the destination
-	*
-	* @param string
-	*/
-	public function setDestination($destination) {
-		assert(is_string($destination));
-
-		$this->destination = $destination;
-	}
-
-	/**
-	* gets the destination
-	*
-	* @return string
-	*/
-	public function destination() {
-		return $this->destination;
 	}
 }
