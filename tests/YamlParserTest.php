@@ -2,7 +2,7 @@
 require_once("tests/mocks/MockParserTest.php");
 class ConfigParserTest extends MockParserTest {
 	public function setUp() {
-		$this->parser = new \InstILIAS\ConfigParser();
+		$this->parser = new \InstILIAS\YamlParser();
 	}
 
 	/**
@@ -14,7 +14,9 @@ class ConfigParserTest extends MockParserTest {
 	}
 
 	public function test_createCientConfig() {
-		$json_string = '{"client": {"data_dir" : "sdasdads"}}';
+		$json_string = "--- 
+client : 
+    data_dir : sdasdads";
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\ClientConfig");
 
 		$this->assertInstanceOf("\InstILIAS\configs\ClientConfig", $obj);
@@ -25,7 +27,13 @@ class ConfigParserTest extends MockParserTest {
 	}
 
 	public function test_createDbConfig() {
-		$json_string = '{"db": {"host" : "localhost", "database" : "ilias", "user" : "root", "passwd" : "gibbetnicht", "encoding" : "UTF8"}}';
+		$json_string = '---
+db: 
+    host: localhost
+    database: ilias
+    user: root
+    passwd: gibbetnicht
+    encoding: UTF8';
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\DbConfig");
 
 		$this->assertInstanceOf("\InstILIAS\configs\DbConfig", $obj);
@@ -47,7 +55,12 @@ class ConfigParserTest extends MockParserTest {
 	}
 
 	public function test_createGitHubConfig() {
-		$json_string = '{"github": {"git_url" : "https://github.com/conceptsandtraining/ILIAS.git", "git_branch_name" : "ilias", "destination" : "/var/nach/da"}}';
+		$json_string = '---
+github:
+    git_url: https://github.com/conceptsandtraining/ILIAS.git
+    git_branch_name: ilias
+    destination: /var/nach/da';
+
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\GitHubConfig");
 
 		$this->assertInstanceOf("\InstILIAS\configs\GitHubConfig", $obj);
@@ -63,7 +76,12 @@ class ConfigParserTest extends MockParserTest {
 	}
 
 	public function test_createLanguageConfig() {
-		$json_string = '{"lang": {"default_lang" : "de", "to_install_langs" : ["en","de"]}}';
+		$json_string = '---
+lang:
+    default_lang: de
+    to_install_langs:
+        - en 
+        - de';
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\LanguageConfig");
 
 		$this->assertInstanceOf("\InstILIAS\configs\LanguageConfig", $obj);
@@ -76,7 +94,11 @@ class ConfigParserTest extends MockParserTest {
 	}
 
 	public function test_createServerConfig() {
-		$json_string = '{"server": {"http_path" : "http://localhost/44generali2", "absolute_path" : "/Library/WebServer/Documents/44generali2", "timezone" : "Europe/Berlin"}}';
+		$json_string = '---
+server:
+    http_path: http://localhost/44generali2
+    absolute_path: /Library/WebServer/Documents/44generali2
+    timezone: Europe/Berlin';
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\ServerConfig");
 
 		$this->assertInstanceOf("\InstILIAS\configs\ServerConfig", $obj);
@@ -92,7 +114,9 @@ class ConfigParserTest extends MockParserTest {
 	}
 
 	public function test_createSetupConfig() {
-		$json_string = '{"setup": {"passwd" : "KarlHeinz"}}';
+		$json_string = '---
+setup:
+    passwd: KarlHeinz';
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\SetupConfig");
 
 		$this->assertInstanceOf("\InstILIAS\configs\SetupConfig", $obj);
@@ -102,7 +126,12 @@ class ConfigParserTest extends MockParserTest {
 	}
 
 	public function test_createToolsConfig() {
-		$json_string = '{"tools": {"convert" : "/opt/ImageMagick", "zip" : "/usr/bin/zip", "unzip" : "/usr/bin/unzip", "java" : "/usr/bin/java"}}';
+		$json_string = '---
+tools:
+    convert: /opt/ImageMagick
+    zip: /usr/bin/zip
+    unzip: /usr/bin/unzip
+    java: /usr/bin/java';
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\ToolsConfig");
 
 		$this->assertInstanceOf("\InstILIAS\configs\ToolsConfig", $obj);
@@ -121,7 +150,14 @@ class ConfigParserTest extends MockParserTest {
 	}
 
 	public function readConfigWithValuesProvider() {
-		$json_string = '{"setup": {"passwd" : "sdasdads"},"lang": {"default_lang":"de","to_install_langs":["en","de"]}}';
+		$json_string = '---
+setup:
+    passwd: sdasdads
+lang:
+    default_lang: de
+    to_install_langs:
+        - en
+        - de';
 
 		return array(array($json_string, "\InstILIAS\configs\ClientConfig")
 					, array($json_string, "\InstILIAS\configs\DbConfig")

@@ -1,13 +1,14 @@
 <?php
 namespace InstILIAS;
+use Symfony\Component\Yaml\Yaml;
 
-class ConfigParser implements \InstILIAS\interfaces\Parser {
+class YamlParser implements \InstILIAS\interfaces\Parser {
 	public function read_config($string, $class) {
 		if(!class_exists($class, true)){
 			throw new \LogicException("Class does not exists");
 		}
 
-		$json = json_decode($string);
+		$yaml = Yaml::parse($string);
 		$name = $class::NAME;
 
 		$config = new $class();
@@ -15,7 +16,7 @@ class ConfigParser implements \InstILIAS\interfaces\Parser {
 		$all_properties = $config->getPropertiesOf();
 
 		foreach($all_properties as $key => $value) {
-			$all_properties[$key] = $json->$name->$key;
+			$all_properties[$key] = $yaml[$name][$key];
 		}
 
 		$config->setValues($all_properties);
