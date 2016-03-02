@@ -29,5 +29,4 @@ class InstIlias {
 	protected function run() {
 
 	}
-
 }
