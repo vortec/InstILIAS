@@ -8,11 +8,6 @@ namespace InstILIAS\interfaces;
 */
 
 interface Installator{
-	/*
-	* check out ilias from source and switch to used branch
-	*/
-	public function checkoutIlias();
-
 	/**
 	* copy and write the client ini
 	*/
@@ -32,4 +27,19 @@ interface Installator{
 	* install languages
 	*/
 	public function installLanguages();
+
+	/**
+	* set all configs files
+	*/
+	public function setConfigFiles(\InstILIAS\configs\ClientConfig $client_config, \InstILIAS\configs\DbConfig $db_config, \InstILIAS\configs\LanguageConfig $language_config
+								, \InstILIAS\configs\LogConfig $log_config, \InstILIAS\configs\ServerConfig $server_config, \InstILIAS\configs\SetupConfig $setup_config
+								, \InstILIAS\configs\ToolsConfig $tools_config);
+
+	public function setClientConfig(\InstILIAS\configs\ClientConfig $client_config);
+	public function setDbConfig(\InstILIAS\configs\DbConfig $db_config);
+	public function setLanguageConfig(\InstILIAS\configs\LanguageConfig $language_config);
+	public function setLogConfig(\InstILIAS\configs\LogConfig $log_config);
+	public function setServerConfig(\InstILIAS\configs\ServerConfig $server_config);
+	public function setSetupConfig(\InstILIAS\configs\SetupConfig $setup_config);
+	public function setToolsConfig(\InstILIAS\configs\ToolsConfig $tools_config);
 }
