@@ -37,11 +37,7 @@ class InstIlias {
 	}
 
 	protected function installIlias() {
-
-	}
-
-	protected function writeIliasConfig() {
-
+		
 	}
 
 	protected function clientConfig() {

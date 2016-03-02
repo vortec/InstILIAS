@@ -16,18 +16,28 @@ class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
 	protected $setup_config;
 	protected $tools_config;
 
+	protected $setup;
+	protected $ilias_path;
+
+	public function __construct($ilias_path) {
+		$this->ilias_path = $ilias_path;
+
+		require_once($ilias_path."setup/classes/class.ilSetup.php");
+		$this->setup = new ilSetup(true,"admin");
+	}
+
 	/**
 	* @inheritdoc
 	*/
 	public function writeClientIni() {
-
+		
 	}
 
 	/**
 	* @inheritdoc
 	*/
 	public function writeIliasIni() {
-
+		$this->setup->saveMasterSetup($this->getIliasIniData());
 	}
 
 	/**
@@ -86,5 +96,20 @@ class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
 
 	public function setToolsConfig(\InstILIAS\configs\ToolsConfig $tools_config) {
 		$this->tools_config = $tools_config;
+	}
+
+	protected function getIliasIniData() {
+		$ret = array();
+
+		$ret["datadir_path"] = $this->client_config->dataDir();
+		$ret["log_path"] = $this->log_config->path();
+		$ret["time_zone"] = $this->server_config->timezone();
+		$ret["convert_path"] = $this->tools_config->convert();
+		$ret["zip_path"] = $this->tools_config->zip();
+		$ret["unzip_path"] = $this->tools_config->unzip();
+		$ret["java_path"] = $this->tools_config->java();
+		$ret["setup_pass"] = $this->setup_config->passwd();
+
+		return $ret;
 	}
 }
