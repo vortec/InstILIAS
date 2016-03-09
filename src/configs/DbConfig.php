@@ -11,6 +11,7 @@ class DbConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $user;
 	protected $passwd;
 	protected $encoding;
+	protected $type;
 	const NAME = "db";
 
 	/**
@@ -111,5 +112,25 @@ class DbConfig extends \InstILIAS\abstracts\BaseConfig {
 	*/
 	public function encoding() {
 		return $this->encoding;
+	}
+
+	/**
+	* set the type of DB
+	*
+	* @param $type 		string
+	*/
+	public function setType($type) {
+		assert(is_string($type));
+
+		$this->type = $type;
+	}
+
+	/**
+	* gets the type of DB
+	*
+	* @return string
+	*/
+	public function type() {
+		return $this->type;
 	}
 }

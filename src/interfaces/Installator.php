@@ -26,7 +26,7 @@ interface Installator{
 	/**
 	* install languages
 	*/
-	public function installLanguages();
+	public function installLanguages($lng);
 
 	/**
 	* set all configs files

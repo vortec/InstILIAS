@@ -29,29 +29,34 @@ client :
 	public function test_createDbConfig() {
 		$json_string = '---
 db: 
-    host: localhost
-    database: ilias
+    host: 127.0.0.1
+    database: iliastest
     user: root
-    passwd: gibbetnicht
+    passwd: 4z0sXAPk
+    type: innodb
     encoding: UTF8';
+		$db_config = $this->parser->read_config($json_string, "\InstILIAS\configs\DbConfig");
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\DbConfig");
 
 		$this->assertInstanceOf("\InstILIAS\configs\DbConfig", $obj);
 		
-		$this->assertEquals($obj->host(), "localhost");
+		$this->assertEquals($obj->host(), "127.0.0.1");
 		$this->assertInternalType("string", $obj->host());
 
-		$this->assertEquals($obj->database(), "ilias");
+		$this->assertEquals($obj->database(), "iliastest");
 		$this->assertInternalType("string", $obj->database());
 
 		$this->assertEquals($obj->user(), "root");
 		$this->assertInternalType("string", $obj->user());
 
-		$this->assertEquals($obj->passwd(), "gibbetnicht");
+		$this->assertEquals($obj->passwd(), "4z0sXAPk");
 		$this->assertInternalType("string", $obj->passwd());
 
 		$this->assertEquals($obj->encoding(), "UTF8");
 		$this->assertInternalType("string", $obj->encoding());
+
+		$this->assertEquals($obj->type(), "innodb");
+		$this->assertInternalType("string", $obj->type());
 	}
 
 	public function test_createGitHubConfig() {

@@ -18,40 +18,73 @@ class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
 
 	protected $setup;
 	protected $ilias_path;
+	protected $db_update;
 
-	public function __construct($ilias_path) {
+	public function __construct($ilias_path, $setup, $db_update) {
 		$this->ilias_path = $ilias_path;
-
-		require_once($ilias_path."setup/classes/class.ilSetup.php");
-		$this->setup = new ilSetup(true,"admin");
+		$this->setup = $setup;
+		$this->db_update = $db_update;
 	}
 
 	/**
 	* @inheritdoc
 	*/
 	public function writeClientIni() {
-		
+		$ret = $this->getClientIniData();
+
+		$this->setup->ini_client_exists = $this->setup->newClient($ret["client_id"]);
+		$this->setup->getClient()->setId($ret["client_id"]);
+		$this->setup->getClient()->setName($ret["client_id"]);
+		$this->setup->getClient()->setDbHost($ret["db_host"]);
+		$this->setup->getClient()->setDbName($ret["db_name"]);
+		$this->setup->getClient()->setDbUser($ret["db_user"]);
+		$this->setup->getClient()->setDbPort($ret["db_port"]);
+		$this->setup->getClient()->setDbPass($ret["db_pass"]);
+		$this->setup->getClient()->setDbType($ret["db_type"]);
+		$this->setup->getClient()->setDSN();
+
+		$this->setup->saveNewClient();
 	}
 
 	/**
 	* @inheritdoc
 	*/
 	public function writeIliasIni() {
+		global $ilCtrlStructureReader;
 		$this->setup->saveMasterSetup($this->getIliasIniData());
+		$ilCtrlStructureReader->setIniFile($this->setup->ini);
+
 	}
 
 	/**
 	* @inheritdoc
 	*/
 	public function installDatabase() {
+		$this->setup->createDatabase($this->db_config->encoding());
+		$this->setup->installDatabase();
+	}
 
+	public function connectDatabase() {
+		$this->setup->getClient()->connect();
+	}
+
+	public function applyHotfixes($db_updater) {
+		$db_updater->applyHotfix();
+	}
+
+	public function applyUpdates($db_updater) {
+		$db_updater->applyUpdate();
 	}
 
 	/**
 	* @inheritdoc
 	*/
-	public function installLanguages() {
+	public function installLanguages($lng) {
+		$lng->installLanguages($this->language_config->toInstallLangs(), array());
+	}
 
+	public function setDefaultLanguage() {
+		$this->setup->getClient()->setDefaultLanguage($this->language_config->defaultLang());
 	}
 
 	/**
@@ -109,6 +142,19 @@ class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
 		$ret["unzip_path"] = $this->tools_config->unzip();
 		$ret["java_path"] = $this->tools_config->java();
 		$ret["setup_pass"] = $this->setup_config->passwd();
+
+		return $ret;
+	}
+
+	protected function getClientIniData() {
+		$ret = array();
+
+		$ret["client_id"] = $this->client_config->defaultName();
+		$ret["db_host"] = $this->db_config->host();
+		$ret["db_name"] = $this->db_config->database();
+		$ret["db_user"] = $this->db_config->user();
+		$ret["db_pass"] = $this->db_config->passwd();
+		$ret["db_type"] = $this->db_config->type();
 
 		return $ret;
 	}
