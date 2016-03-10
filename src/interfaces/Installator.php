@@ -24,6 +24,20 @@ interface Installator{
 	public function installDatabase();
 
 	/**
+	* open connection to DB
+	* define global $ilDB
+	*/
+	public function connectDatabase();
+
+	/**
+	* return database handle
+	*/
+	public function getDatabaseHandle();
+
+	public function applyUpdates($db_updater);
+	public function applyHotfixes($db_updater);
+
+	/**
 	* install languages
 	*/
 	public function installLanguages($lng);

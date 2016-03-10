@@ -68,15 +68,33 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 		$this->setup->installDatabase();
 	}
 
+	/**
+	* @inheritdoc
+	*/
 	public function connectDatabase() {
 		$this->setup->getClient()->connect();
 	}
 
+	/**
+	* @inheritdoc
+	*/
+	public function getDatabaseHandle() {
+		global $ilDB;
+
+		return $ilDB;
+	}
+
+	/**
+	* @inheritdoc
+	*/
 	public function applyHotfixes($db_updater) {
 		$db_updater->applyHotfix();
 		$this->setDBSetupFinished();
 	}
 
+	/**
+	* @inheritdoc
+	*/
 	public function applyUpdates($db_updater) {
 		$db_updater->applyUpdate();
 	}

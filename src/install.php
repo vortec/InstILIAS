@@ -59,10 +59,12 @@ $iinst->connectDatabase();
 
 //install ILIAS Database
 $iinst->installDatabase();
-global $ilDB; // wird in connectDatabase() erstellt
+
+//database handle
+$db = $iinst->getDatabaseHandle();
 
 //add updates and hotfixes
-$db_updater = new \ilDBUpdate($ilDB);
+$db_updater = new \ilDBUpdate($db);
 $iinst->applyUpdates($db_updater);
 $iinst->applyHotfixes($db_updater);
 
