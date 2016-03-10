@@ -29,12 +29,20 @@ class ClientConfigTest extends PHPUnit_Framework_TestCase{
 		$this->assertInternalType("string", $this->client_config->defaultName());
 	}
 
+	public function test_setDefaultPasswordEncoder() {
+		$this->client_config->setDefaultPasswordEncoder("md5");
+
+		$this->assertEquals($this->client_config->defaultPasswordEncoder(), "md5");
+		$this->assertInternalType("string", $this->client_config->defaultPasswordEncoder());
+	}
+
 	/**
 	* @dataProvider getAllPropertiesProvider
 	*/
-	public function test_getAllProperties($data_dir, $default_name) {
+	public function test_getAllProperties($data_dir, $default_name, $default_encoder) {
 		$this->client_config->setDataDir($data_dir);
 		$this->client_config->setDefaultName($default_name);
+		$this->client_config->setDefaultPasswordEncoder($default_encoder);
 
 		$all_properties = $this->client_config->getPropertiesOf();
 
@@ -43,6 +51,9 @@ class ClientConfigTest extends PHPUnit_Framework_TestCase{
 
 		$this->assertEquals($all_properties["default_name"], $default_name);
 		$this->assertInternalType("string", $all_properties["default_name"]);
+
+		$this->assertEquals($all_properties["default_password_encoder"], $default_encoder);
+		$this->assertInternalType("string", $all_properties["default_password_encoder"]);
 	}
 
 	public function setDataDirProvider() {
@@ -54,6 +65,6 @@ class ClientConfigTest extends PHPUnit_Framework_TestCase{
 	}
 
 	public function getAllPropertiesProvider() {
-		return array(array("/Users/shecken/Documents/ilias_data/generali/data","Generali2"));
+		return array(array("/Users/shecken/Documents/ilias_data/generali/data","Generali2","md5"));
 	}
 }

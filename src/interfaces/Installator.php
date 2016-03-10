@@ -29,6 +29,31 @@ interface Installator{
 	public function installLanguages($lng);
 
 	/**
+	* set the default language
+	*/
+	public function setDefaultLanguage();
+
+	/**
+	* set usage of proxy
+	*/
+	public function setProxy();
+
+	/**
+	* perform registration for an ILIAS nic
+	*/
+	public function registerNoNic();
+
+	/**
+	* sets the Password Encoder
+	*/
+	public function setPasswordEncoder();
+
+	/**
+	* finish the ILIAS setup
+	*/
+	public function finishSetup();
+
+	/**
 	* set all configs files
 	*/
 	public function setConfigFiles(\InstILIAS\configs\ClientConfig $client_config, \InstILIAS\configs\DbConfig $db_config, \InstILIAS\configs\LanguageConfig $language_config

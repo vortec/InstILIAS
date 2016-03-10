@@ -7,7 +7,7 @@ namespace InstILIAS;
 * @author Stefan Hecken <stefan.hecken@concepts-and-training.de>
 */
 
-class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
+class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	protected $client_config;
 	protected $db_config;
 	protected $language_config;
@@ -29,6 +29,15 @@ class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
 	/**
 	* @inheritdoc
 	*/
+	public function writeIliasIni() {
+		global $ilCtrlStructureReader;
+		$this->setup->saveMasterSetup($this->getIliasIniData());
+		$ilCtrlStructureReader->setIniFile($this->setup->ini);
+	}
+
+	/**
+	* @inheritdoc
+	*/
 	public function writeClientIni() {
 		$ret = $this->getClientIniData();
 
@@ -44,16 +53,11 @@ class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
 		$this->setup->getClient()->setDSN();
 
 		$this->setup->saveNewClient();
+		$this->setClientIniSetupFinsihed();
 	}
 
-	/**
-	* @inheritdoc
-	*/
-	public function writeIliasIni() {
-		global $ilCtrlStructureReader;
-		$this->setup->saveMasterSetup($this->getIliasIniData());
-		$ilCtrlStructureReader->setIniFile($this->setup->ini);
-
+	protected function setClientIniSetupFinsihed() {
+		$this->setup->getClient()->status["ini"]["status"] = true;
 	}
 
 	/**
@@ -70,10 +74,15 @@ class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
 
 	public function applyHotfixes($db_updater) {
 		$db_updater->applyHotfix();
+		$this->setDBSetupFinished();
 	}
 
 	public function applyUpdates($db_updater) {
 		$db_updater->applyUpdate();
+	}
+
+	protected function setDBSetupFinished() {
+		$this->setup->getClient()->status["db"]["status"] = true;
 	}
 
 	/**
@@ -83,8 +92,92 @@ class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
 		$lng->installLanguages($this->language_config->toInstallLangs(), array());
 	}
 
+	/**
+	* @inheritdoc
+	*/
 	public function setDefaultLanguage() {
 		$this->setup->getClient()->setDefaultLanguage($this->language_config->defaultLang());
+		$this->setLanguageSetupFinished();
+	}
+
+	protected function setLanguageSetupFinished() {
+		$status["lang"]["status"] = false;
+	}
+
+	/**
+	* @inheritdoc
+	*/
+	public function setProxy() {
+		$this->setProxySetupFinished();
+	}
+
+	protected function setProxySetupFinished() {
+		$this->setup->getClient()->status["proxy"]["status"] = true;
+	}
+
+	/**
+	* @inheritdoc
+	*/
+	public function registerNoNic() {
+		$this->setup->getClient()->setSetting("inst_id","0");
+		$this->setup->getClient()->setSetting("nic_enabled","0");
+		$this->setRegisterSetupFinished();
+	}
+
+	protected function setRegisterSetupFinished() {
+		$this->setup->getClient()->status["nic"]["status"] = true;
+	}
+
+	/**
+	* @inhertidoc
+	*/
+	public function setPasswordEncoder() {
+		$encoder = array('default_encoder' => $this->client_config->defaultPasswordEncoder());
+		$this->setup->savePasswordSettings($encoder);
+	}
+
+	/**
+	* @inhertidoc
+	*/
+	public function finishSetup() {
+		if($this->validatesetup()) {
+			$this->setup->ini->setVariable("clients","default",$this->setup->getClient()->getId());
+			$this->setup->ini->write();
+
+			$this->setup->getClient()->ini->setVariable("client","access",1);
+			$this->setup->getClient()->ini->write();
+
+			// if this is not done, the writing of
+			// the setup_ok fails (with MDB2 and a larger
+			// client list), alex 17.1.2008
+			$this->setup->getClient()->reconnect();
+			$this->setup->getClient()->setSetting("setup_ok",1);
+			$this->setup->getClient()->status["finish"]["status"] = true;
+			
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * validatesetup status again
+	 * and set access mode of the first client to online
+	 */
+	protected function validateSetup()
+	{
+		foreach ($this->setup->getClient()->status as $key => $val)
+		{
+			if ($key != "finish" and $key != "access")
+			{
+				if ($val["status"] != true)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -135,7 +228,7 @@ class IliasRelease4Installator implements \InstILIAS\interfaces\Installator {
 		$ret = array();
 
 		$ret["datadir_path"] = $this->client_config->dataDir();
-		$ret["log_path"] = $this->log_config->path();
+		$ret["log_path"] = $this->log_config->path()."/".$this->log_config->fileName();
 		$ret["time_zone"] = $this->server_config->timezone();
 		$ret["convert_path"] = $this->tools_config->convert();
 		$ret["zip_path"] = $this->tools_config->zip();

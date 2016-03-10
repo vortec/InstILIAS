@@ -1,0 +1,34 @@
+---
+client :
+    data_dir : #Dateipfad zum ablegen der ILIAS Daten außerhalb des Webserverser /Users/user/data
+    default_name : #Name des Clients
+    default_password_encoder : #encoder für Passwörter der Benutzer (md5 || bcrypt)
+db: 
+    host: #host von ILIAS
+    database: #Datenbankname
+    user: #Datenbankbenutzer
+    passwd: #Benutzerpasswort
+    type: #Datenbanktyp (innodb)
+    encoding: # encoding der Datenbank (utf8_general_ci)
+lang:
+    default_lang: #Sprache die im Standard verwendet werden soll
+    to_install_langs: #array von sprachen die installiert werden sollen 
+        #- en 
+        #- de
+server:
+    http_path: #http pafad für die ILIAS installation (host/client_id)
+    absolute_path: #pfad wo die ILIAS Dateien liegen (/Library/WebServer/Documents/iliastest)
+    timezone: #Zeitzone (Europe/Berlin)
+setup:
+    passwd: #Admin Passwort für das Setup
+tools:
+    convert: 
+    zip: 
+    unzip: 
+    java: 
+log:
+    path: #Pfad wo ILIAS die Logdatei ablegen soll
+    file_name: #Name der Logdatei
+github:
+    git_url: #URL des Git Repo
+    git_branch_name: #BranchName

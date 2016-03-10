@@ -8,6 +8,7 @@ namespace InstILIAS\configs;
 class ClientConfig extends \InstILIAS\abstracts\BaseConfig {
 	protected $data_dir;
 	protected $default_name;
+	protected $default_password_encoder;
 	const NAME = "client";
 
 	/**
@@ -48,5 +49,25 @@ class ClientConfig extends \InstILIAS\abstracts\BaseConfig {
 	*/
 	public function defaultName() {
 		return $this->default_name;
+	}
+
+	/**
+	* sets the default_password_encoder
+	*
+	* @param string
+	*/
+	public function setDefaultPasswordEncoder($default_password_encoder) {
+		assert(is_string($default_password_encoder));
+
+		$this->default_password_encoder = $default_password_encoder;
+	}
+
+	/**
+	* gets the default_password_encoder
+	*
+	* @return string
+	*/
+	public function defaultPasswordEncoder() {
+		return $this->default_password_encoder;
 	}
 }

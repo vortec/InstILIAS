@@ -13,15 +13,21 @@ class ConfigParserTest extends MockParserTest {
 		$this->assertInstanceOf($class, $obj);
 	}
 
-	public function test_createCientConfig() {
+	public function test_createClientConfig() {
 		$json_string = "--- 
 client : 
-    data_dir : sdasdads";
+    data_dir : sdasdads
+    default_name : hugo
+    default_password_encoder : md5";
 		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\ClientConfig");
 
 		$this->assertInstanceOf("\InstILIAS\configs\ClientConfig", $obj);
 		$this->assertEquals($obj->dataDir(), "sdasdads");
 		$this->assertInternalType("string", $obj->dataDir());
+		$this->assertEquals($this->client_config->defaultName(), "hugo");
+		$this->assertInternalType("string", $this->client_config->defaultName());
+		$this->assertEquals($this->client_config->defaultPasswordEncoder(), "md5");
+		$this->assertInternalType("string", $this->client_config->defaultPasswordEncoder());
 
 		$this->assertNull($obj->defaultName());
 	}
