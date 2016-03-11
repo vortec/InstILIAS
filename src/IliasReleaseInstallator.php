@@ -52,8 +52,10 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 		$this->setup->getClient()->setDbType($ret["db_type"]);
 		$this->setup->getClient()->setDSN();
 
-		$this->setup->saveNewClient();
+		$ret = $this->setup->saveNewClient();
 		$this->setClientIniSetupFinsihed();
+
+		return $ret;
 	}
 
 	protected function setClientIniSetupFinsihed() {
@@ -84,17 +86,11 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 		return $ilDB;
 	}
 
-	/**
-	* @inheritdoc
-	*/
 	public function applyHotfixes($db_updater) {
 		$db_updater->applyHotfix();
 		$this->setDBSetupFinished();
 	}
 
-	/**
-	* @inheritdoc
-	*/
 	public function applyUpdates($db_updater) {
 		$db_updater->applyUpdate();
 	}
@@ -108,14 +104,13 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	*/
 	public function installLanguages($lng) {
 		$lng->installLanguages($this->language_config->toInstallLangs(), array());
+		$this->setDefaultLanguage();
+
+		$this->setLanguageSetupFinished();
 	}
 
-	/**
-	* @inheritdoc
-	*/
-	public function setDefaultLanguage() {
+	protected function setDefaultLanguage() {
 		$this->setup->getClient()->setDefaultLanguage($this->language_config->defaultLang());
-		$this->setLanguageSetupFinished();
 	}
 
 	protected function setLanguageSetupFinished() {
@@ -259,7 +254,7 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 
 	protected function getClientIniData() {
 		$ret = array();
-
+var_dump($this->client_config->defaultName());
 		$ret["client_id"] = $this->client_config->defaultName();
 		$ret["db_host"] = $this->db_config->host();
 		$ret["db_name"] = $this->db_config->database();

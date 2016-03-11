@@ -33,19 +33,25 @@ interface Installator{
 	* return database handle
 	*/
 	public function getDatabaseHandle();
-
-	public function applyUpdates($db_updater);
+	
+	/**
+	* applys the database updates
+	*
+	* @param object 	$db_updater
+	*/
 	public function applyHotfixes($db_updater);
-
+	
+	/**
+	* applays the databse hotfixes
+	*
+	* @param object 	$db_updater
+	*/
+	public function applyUpdates($db_updater);
+	
 	/**
 	* install languages
 	*/
 	public function installLanguages($lng);
-
-	/**
-	* set the default language
-	*/
-	public function setDefaultLanguage();
 
 	/**
 	* set usage of proxy

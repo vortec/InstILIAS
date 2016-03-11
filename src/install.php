@@ -3,7 +3,7 @@
 error_reporting(E_ALL & ~E_STRICT);
 
 //import autoloader für InstILIAS
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 //define parser
 $parser = new \InstILIAS\YamlParser();
@@ -19,23 +19,23 @@ $server_config = $parser->read_config($json_string, "\InstILIAS\configs\ServerCo
 $setup_config = $parser->read_config($json_string, "\InstILIAS\configs\SetupConfig");
 $tools_config = $parser->read_config($json_string, "\InstILIAS\configs\ToolsConfig");
 $log_config = $parser->read_config($json_string, "\InstILIAS\configs\LogConfig");
-$github_config = $parse->read_config($json_string, "\InstILIAS\configs\GitHubConfig");
+$github_config = $parser->read_config($json_string, "\InstILIAS\configs\GitHubConfig");
 
 //define path vars for global use
 $http_path = $server_config->httpPath();
-$absolute_path = $client_config->absolute_path();
+$absolute_path = $server_config->absolutePath();
 
 //define github executer
 $git = new \InstILIAS\GitHubExecuter;
 //clone git
-$git->cloneGitTo("https://github.com/conceptsandtraining/ILIAS.git", $absolute_path);
+// $git->cloneGitTo($github_config->gitUrl(), $absolute_path);
 //switch to branch
-$git->checkoutBranch("release_5-1", $absolute_path);
+// $git->checkoutBranch($github_config->gitBranchName(), $absolute_path);
 
 //change dir to ILIAS Folder
 chdir($absolute_path);
-require_once $absolute_path.'libs/composer/vendor/autoload.php';
-require_once("src/my_setup_header.php");
+require_once $absolute_path.'/libs/composer/vendor/autoload.php';
+require_once("my_setup_header.php");
 require_once("Services/Database/classes/class.ilDBUpdate.php");
 require_once("setup/classes/class.ilSetup.php");
 
@@ -52,26 +52,24 @@ $iinst->setConfigFiles($client_config, $db_config, $language_config, $log_config
 $iinst->writeIliasIni();
 
 //create client.ini.php + folder structure
-$iinst->writeClientIni();
+$ret = $iinst->writeClientIni();
+if(!$ret) {
+	die("keine client id");
+}
 
-//conncet to Database
 $iinst->connectDatabase();
 
 //install ILIAS Database
 $iinst->installDatabase();
-
-//database handle
+//conncet to Database
 $db = $iinst->getDatabaseHandle();
-
-//add updates and hotfixes
 $db_updater = new \ilDBUpdate($db);
-$iinst->applyUpdates($db_updater);
 $iinst->applyHotfixes($db_updater);
+$iinst->applyUpdates($db_updater);
 
-//install languages + set default language
+//install languages
 $lng->setDbHandler($ilDB);
 $iinst->installLanguages($lng);
-$iinst->setDefaultLanguage();
 
 //set proxy use
 $iinst->setProxy();
@@ -88,4 +86,5 @@ if(!$iinst->finishSetup()) {
     die(1);
 }
 
+echo "Ilias successfull installed.";
 die(0);
