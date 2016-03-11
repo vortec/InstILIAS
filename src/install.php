@@ -28,9 +28,9 @@ $absolute_path = $server_config->absolutePath();
 //define github executer
 $git = new \InstILIAS\GitHubExecuter;
 //clone git
-// $git->cloneGitTo($github_config->gitUrl(), $absolute_path);
+$git->cloneGitTo($github_config->gitUrl(), $absolute_path);
 //switch to branch
-// $git->checkoutBranch($github_config->gitBranchName(), $absolute_path);
+$git->checkoutBranch($github_config->gitBranchName(), $absolute_path);
 
 //change dir to ILIAS Folder
 chdir($absolute_path);
