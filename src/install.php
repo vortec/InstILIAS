@@ -24,6 +24,9 @@ $github_config = $parser->read_config($json_string, "\InstILIAS\configs\GitHubCo
 //define path vars for global use
 $http_path = $server_config->httpPath();
 $absolute_path = $server_config->absolutePath();
+$data_path = $client_config->dataDir();
+$client_id = $client_config->defaultName();
+$web_dir = "data";
 
 //define github executer
 $git = new \InstILIAS\GitHubExecuter;
@@ -38,6 +41,8 @@ require_once $absolute_path.'/libs/composer/vendor/autoload.php';
 require_once("my_setup_header.php");
 require_once("Services/Database/classes/class.ilDBUpdate.php");
 require_once("setup/classes/class.ilSetup.php");
+require_once 'Services/User/classes/class.ilUserPasswordEncoderFactory.php';
+require_once("Services/Password/exceptions/class.ilPasswordException.php");
 
 //define setup object
 $setup = new \ilSetup(true,"admin");
@@ -53,9 +58,6 @@ $iinst->writeIliasIni();
 
 //create client.ini.php + folder structure
 $ret = $iinst->writeClientIni();
-if(!$ret) {
-	die("keine client id");
-}
 
 $iinst->connectDatabase();
 
@@ -78,7 +80,8 @@ $iinst->setProxy();
 $iinst->registerNoNic();
 
 //save encoding for passwort
-$iinst->setPasswordEncoder();
+$encoder_factory = new ilUserPasswordEncoderFactory(array());
+$iinst->setPasswordEncoder($encoder_factory);
 
 //finish ILIAS setup
 if(!$iinst->finishSetup()) {

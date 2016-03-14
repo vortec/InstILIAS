@@ -33,6 +33,7 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 		global $ilCtrlStructureReader;
 		$this->setup->saveMasterSetup($this->getIliasIniData());
 		$ilCtrlStructureReader->setIniFile($this->setup->ini);
+		$this->setup->ini_ilias_exists = true;
 	}
 
 	/**
@@ -52,10 +53,12 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 		$this->setup->getClient()->setDbType($ret["db_type"]);
 		$this->setup->getClient()->setDSN();
 
-		$ret = $this->setup->saveNewClient();
-		$this->setClientIniSetupFinsihed();
+		if(!$this->setup->saveNewClient()) {
+			echo $this->setup->getError();
+			die();
+		}
 
-		return $ret;
+		$this->setClientIniSetupFinsihed();
 	}
 
 	protected function setClientIniSetupFinsihed() {
@@ -144,8 +147,10 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	/**
 	* @inhertidoc
 	*/
-	public function setPasswordEncoder() {
-		$encoder = array('default_encoder' => $this->client_config->defaultPasswordEncoder());
+	public function setPasswordEncoder($encoder_factory) {
+		$default_encoder = $encoder_factory->getEncoderByName(trim($this->client_config->defaultPasswordEncoder()));
+		$default_encoder->onSelection();
+		$encoder = array('default_encoder' => $default_encoder->getName());
 		$this->setup->savePasswordSettings($encoder);
 	}
 
@@ -254,7 +259,6 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 
 	protected function getClientIniData() {
 		$ret = array();
-var_dump($this->client_config->defaultName());
 		$ret["client_id"] = $this->client_config->defaultName();
 		$ret["db_host"] = $this->db_config->host();
 		$ret["db_name"] = $this->db_config->database();

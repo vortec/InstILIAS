@@ -66,7 +66,7 @@ interface Installator{
 	/**
 	* sets the Password Encoder
 	*/
-	public function setPasswordEncoder();
+	public function setPasswordEncoder($encoder_factory);
 
 	/**
 	* finish the ILIAS setup

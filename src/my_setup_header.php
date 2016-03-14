@@ -87,6 +87,10 @@ $ilErr->setErrorHandling(PEAR_ERROR_CALLBACK,array($ilErr,'errorHandler'));
 define ("ILIAS_HTTP_PATH", $http_path);
 // PHP is running in CGI mode?
 define ("ILIAS_ABSOLUTE_PATH", $absolute_path);
+define ("ILIAS_DATA_DIR", $data_path);
+define ("ILIAS_WEB_DIR", $web_dir);
+define ("CLIENT_DATA_DIR",ILIAS_DATA_DIR."/".$client_id);
+define ("CLIENT_WEB_DIR",ILIAS_ABSOLUTE_PATH."/".ILIAS_WEB_DIR."/".$client_id);
 
 define ("TPLPATH","./templates/blueshadow");
 
