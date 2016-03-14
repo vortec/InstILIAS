@@ -76,6 +76,10 @@ require_once "./Services/FileSystem/classes/class.ilFile.php";
 require_once "./setup/classes/class.ilCtrlStructureReader.php";
 require_once "./Services/Xml/classes/class.ilSaxParser.php";
 require_once "./include/inc.ilias_version.php";
+require_once("Services/Database/classes/class.ilDBUpdate.php");
+require_once("setup/classes/class.ilSetup.php");
+require_once 'Services/User/classes/class.ilUserPasswordEncoderFactory.php';
+require_once("Services/Password/exceptions/class.ilPasswordException.php");
 
 // include error_handling
 require_once "./Services/Init/classes/class.ilErrorHandling.php";

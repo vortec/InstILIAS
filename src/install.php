@@ -39,10 +39,6 @@ $git->checkoutBranch($github_config->gitBranchName(), $absolute_path);
 chdir($absolute_path);
 require_once $absolute_path.'/libs/composer/vendor/autoload.php';
 require_once("my_setup_header.php");
-require_once("Services/Database/classes/class.ilDBUpdate.php");
-require_once("setup/classes/class.ilSetup.php");
-require_once 'Services/User/classes/class.ilUserPasswordEncoderFactory.php';
-require_once("Services/Password/exceptions/class.ilPasswordException.php");
 
 //define setup object
 $setup = new \ilSetup(true,"admin");
