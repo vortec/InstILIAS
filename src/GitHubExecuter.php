@@ -5,9 +5,6 @@ use Gitonomy\Git\Admin;
 class GitHubExecuter implements \InstILIAS\interfaces\GitHub {
 
 	const URL_REG_EX = "/^(https:\/\/github\.com)/";
-	const SUCCESS_REG_EX = "/^Branch %s set up to track remote branch %s from origin./";
-	const GIT_CLONE = "git clone %s %s";
-	const GIT_CHECKOUT = "git --git-dir=%s/.git --work-tree=%s checkout %s";
 
 	public function cloneGitTo($git_hub_url, $installation_path) {
 
@@ -27,7 +24,7 @@ class GitHubExecuter implements \InstILIAS\interfaces\GitHub {
 			throw new \LogicException("GitHubExecuter::checkoutBranch: No valid destination ".$installation_path);
 		}
 
-		$repository = Admin::init($installation_path, false);
+		$repository = Admin::init($installation_path);
 		$wc = $repository->getWorkingCopy();
 		$wc->checkout($git_hub_branch_name);
 	}
