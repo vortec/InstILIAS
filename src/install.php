@@ -31,9 +31,29 @@ $web_dir = "data";
 //define github executer
 $git = new \InstILIAS\GitHubExecuter;
 //clone git
-$git->cloneGitTo($github_config->gitUrl(), $absolute_path);
+try {
+	$git->cloneGitTo($github_config->gitUrl(), $absolute_path);
+} catch(RuntimeException $e) {
+	echo $e->getMessage();
+	die(1);
+} catch(LogicException $e) {
+	echo $e->getMessage();
+	die(1);
+}
+
 //switch to branch
-$git->checkoutBranch($github_config->gitBranchName(), $absolute_path);
+try {
+	$git->checkoutBranch($github_config->gitBranchName(), $absolute_path);
+} catch(RuntimeException $e) {
+	echo $e->getMessage();
+	die(1);
+} catch(LogicException $e) {
+	echo $e->getMessage();
+	die(1);
+} catch(InvalidArgumentException $e) {
+	echo $e->getMessage();
+	die(1);
+}
 
 //change dir to ILIAS Folder
 chdir($absolute_path);
