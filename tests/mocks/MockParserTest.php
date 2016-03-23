@@ -25,7 +25,7 @@ class MockParserTest extends PHPUnit_Framework_TestCase {
 	public function readConfigProvider() {
 		return array(array("asas", "\InstILIAS\configs\ClientConfig")
 					, array("asas", "\InstILIAS\configs\DbConfig")
-					, array("asas", "\InstILIAS\configs\GitHubConfig")
+					, array("asas", "\InstILIAS\configs\GitConfig")
 					, array("asas", "\InstILIAS\configs\LanguageConfig")
 					, array("asas", "\InstILIAS\configs\ServerConfig")
 					, array("asas", "\InstILIAS\configs\SetupConfig")
@@ -36,7 +36,7 @@ class MockParserTest extends PHPUnit_Framework_TestCase {
 	public function readConfigNoFileProvider() {
 		return array(array("asas", "Client")
 					, array("asas", "Db")
-					, array("asas", "GitHub")
+					, array("asas", "Git")
 					, array("asas", "Language")
 					, array("asas", "Server")
 					, array("asas", "Setup")

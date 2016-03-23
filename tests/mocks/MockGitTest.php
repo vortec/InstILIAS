@@ -1,8 +1,8 @@
 <?php
 
-class MockGitHubTest extends PHPUnit_Framework_TestCase {
+class MockGitTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->git_hub = new \InstILIAS\mocks\MockGitHub();
+		$this->git = new \InstILIAS\mocks\MockGit();
 	}
 
 	/**
@@ -10,7 +10,7 @@ class MockGitHubTest extends PHPUnit_Framework_TestCase {
 	* @expectedException LogicException
 	*/
 	public function test_cloneNoValidFolder($git_url, $installation_path) {
-		$this->git_hub->cloneGitTo($git_url, $installation_path);
+		$this->git->cloneGitTo($git_url, $installation_path);
 	}
 
 	/**
@@ -18,7 +18,7 @@ class MockGitHubTest extends PHPUnit_Framework_TestCase {
 	* @expectedException LogicException
 	*/
 	public function test_cloneNoValidUrl($git_url, $installation_path) {
-		$this->git_hub->cloneGitTo($git_url, $installation_path);
+		$this->git->cloneGitTo($git_url, $installation_path);
 	}
 
 	/**
@@ -26,7 +26,7 @@ class MockGitHubTest extends PHPUnit_Framework_TestCase {
 	* @expectedException LogicException
 	*/
 	public function test_checkoutNoValidFolder($branch, $installation_path) {
-		$this->git_hub->checkoutBranch($branch, $installation_path);
+		$this->git->checkoutBranch($branch, $installation_path);
 	}
 
 	public function cloneNoValidFolderProvider() {

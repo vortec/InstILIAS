@@ -19,7 +19,7 @@ $server_config = $parser->read_config($json_string, "\InstILIAS\configs\ServerCo
 $setup_config = $parser->read_config($json_string, "\InstILIAS\configs\SetupConfig");
 $tools_config = $parser->read_config($json_string, "\InstILIAS\configs\ToolsConfig");
 $log_config = $parser->read_config($json_string, "\InstILIAS\configs\LogConfig");
-$github_config = $parser->read_config($json_string, "\InstILIAS\configs\GitHubConfig");
+$ilias_git_config = $parser->read_config($json_string, "\InstILIAS\configs\IliasGitConfig");
 
 //define path vars for global use
 $http_path = $server_config->httpPath();
@@ -28,11 +28,11 @@ $data_path = $client_config->dataDir();
 $client_id = $client_config->defaultName();
 $web_dir = "data";
 
-//define github executer
-$git = new \InstILIAS\GitHubExecuter;
+//define git executer
+$git = new \InstILIAS\GitExecuter;
 //clone git
 try {
-	$git->cloneGitTo($github_config->gitUrl(), $absolute_path);
+	$git->cloneGitTo($ilias_git_config->iliasGitUrl(), $absolute_path);
 } catch(RuntimeException $e) {
 	echo $e->getMessage();
 	die(1);
@@ -43,7 +43,7 @@ try {
 
 //switch to branch
 try {
-	$git->checkoutBranch($github_config->gitBranchName(), $absolute_path);
+	$git->checkoutBranch($ilias_git_config->iliasGitBranchName(), $absolute_path);
 } catch(RuntimeException $e) {
 	echo $e->getMessage();
 	die(1);

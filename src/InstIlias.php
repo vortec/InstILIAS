@@ -6,13 +6,13 @@ class InstIlias {
 	protected $install_config_file_data;
 	protected $parser;
 	protected $ilias_installator;
-	protected $git_hub;
+	protected $git;
 
-	public function __construct($install_config_file_path, $parser, $ilias_installator, $git_hub) {
+	public function __construct($install_config_file_path, $parser, $ilias_installator, $git) {
 		$this->install_config_file_path = $install_config_file_path;
 		$this->parser = $parser;
 		$this->ilias_installator = $ilias_installator;
-		$this->git_hub = $git_hub;
+		$this->git = $git;
 
 		$this->readInstallConfigData();
 		$this->run();
@@ -32,8 +32,8 @@ class InstIlias {
 	}
 
 	protected function cloneIlias() {
-		$this->git_hub->cloneGitTo($this->gitHubConfig()->gitUrl(), $this->server_config()->absolutePath());
-		$this->git_hub->checkoutBranch($this->gitHubConfig()->gitBranchName(), $this->server_config()->absolutePath());
+		$this->git_hub->cloneGitTo($this->gitConfig()->gitUrl(), $this->server_config()->absolutePath());
+		$this->git_hub->checkoutBranch($this->gitConfig()->gitBranchName(), $this->server_config()->absolutePath());
 	}
 
 	protected function installIlias() {
@@ -56,9 +56,9 @@ class InstIlias {
 		return $this->db_config;
 	}
 
-	protected function gitHubConfig() {
-		if($this->git_hub_config === null) {
-			$this->git_hub_config = $this->parser->read_config($this->install_config_file_data, "\InstILIAS\configs\GitHubConfig");
+	protected function gitConfig() {
+		if($this->git_config === null) {
+			$this->git_config = $this->parser->read_config($this->install_config_file_data, "\InstILIAS\configs\GitConfig");
 		}
 
 		return $this->git_hub_config;

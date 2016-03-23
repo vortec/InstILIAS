@@ -65,21 +65,21 @@ db:
 		$this->assertInternalType("string", $obj->type());
 	}
 
-	public function test_createGitHubConfig() {
+	public function test_createGitConfig() {
 		$json_string = '---
-github:
-    git_url: https://github.com/conceptsandtraining/ILIAS.git
-    git_branch_name: ilias';
+ilias_git:
+    ilias_git_url: https://github.com/conceptsandtraining/ILIAS.git
+    ilias_git_branch_name: ilias';
 
-		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\GitHubConfig");
+		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\IliasGitConfig");
 
-		$this->assertInstanceOf("\InstILIAS\configs\GitHubConfig", $obj);
+		$this->assertInstanceOf("\InstILIAS\configs\IliasGitConfig", $obj);
 		
-		$this->assertEquals($obj->gitUrl(), "https://github.com/conceptsandtraining/ILIAS.git");
-		$this->assertInternalType("string", $obj->gitUrl());
+		$this->assertEquals($obj->iliasGitUrl(), "https://github.com/conceptsandtraining/ILIAS.git");
+		$this->assertInternalType("string", $obj->iliasGitUrl());
 
-		$this->assertEquals($obj->gitBranchName(), "ilias");
-		$this->assertInternalType("string", $obj->gitBranchName());
+		$this->assertEquals($obj->iliasGitBranchName(), "ilias");
+		$this->assertInternalType("string", $obj->iliasGitBranchName());
 	}
 
 	public function test_createLanguageConfig() {
