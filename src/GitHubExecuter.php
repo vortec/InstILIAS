@@ -1,5 +1,6 @@
 <?php
 namespace InstILIAS;
+use Gitonomy\Git\Admin;
 
 class GitHubExecuter implements \InstILIAS\interfaces\GitHub {
 
@@ -18,8 +19,7 @@ class GitHubExecuter implements \InstILIAS\interfaces\GitHub {
 			throw new \LogicException("GitHubExecuter::cloneGitTo: No valid destination ".$installation_path);
 		}
 
-		$clone = escapeshellcmd(sprintf(self::GIT_CLONE, $git_hub_url, $installation_path));
-		shell_exec($clone);
+		$repository = Admin::cloneTo($installation_path, $git_hub_url, false);
 	}
 
 	public function checkoutBranch($git_hub_branch_name, $installation_path) {
@@ -27,12 +27,8 @@ class GitHubExecuter implements \InstILIAS\interfaces\GitHub {
 			throw new \LogicException("GitHubExecuter::checkoutBranch: No valid destination ".$installation_path);
 		}
 
-		$checkout = escapeshellcmd(sprintf(self::GIT_CHECKOUT, $installation_path, $installation_path, $git_hub_branch_name));
-		$ret = shell_exec($checkout);
-
-		$regex = sprintf(self::SUCCESS_REG_EX, $git_hub_branch_name, $git_hub_branch_name);
-		if(!preg_match($regex, $ret)) {
-			throw new \LogicException("GitHubExecuter::checkoutBranch: Somethings went wrong at checkout branch ".$git_hub_branch_name);
-		}
+		$repository = Admin::init($installation_path, false);
+		$wc = $repository->getWorkingCopy();
+		$wc->checkout($git_hub_branch_name);
 	}
 }

@@ -15,6 +15,7 @@
         }
     },
     "require": {
-        "symfony/yaml" : "3.0"
+        "symfony/yaml" : "3.0",
+        "gitonomy/gitlib": "dev-master"
     }
 }
