@@ -1,6 +1,6 @@
 <?php
 require_once("tests/mocks/MockParserTest.php");
-class ConfigParserTest extends MockParserTest {
+class YamlParserTest extends MockParserTest {
 	public function setUp() {
 		$this->parser = new \InstILIAS\YamlParser();
 	}
@@ -24,12 +24,10 @@ client :
 		$this->assertInstanceOf("\InstILIAS\configs\ClientConfig", $obj);
 		$this->assertEquals($obj->dataDir(), "sdasdads");
 		$this->assertInternalType("string", $obj->dataDir());
-		$this->assertEquals($this->client_config->defaultName(), "hugo");
-		$this->assertInternalType("string", $this->client_config->defaultName());
-		$this->assertEquals($this->client_config->defaultPasswordEncoder(), "md5");
-		$this->assertInternalType("string", $this->client_config->defaultPasswordEncoder());
-
-		$this->assertNull($obj->defaultName());
+		$this->assertEquals($obj->defaultName(), "hugo");
+		$this->assertInternalType("string", $obj->defaultName());
+		$this->assertEquals($obj->defaultPasswordEncoder(), "md5");
+		$this->assertInternalType("string", $obj->defaultPasswordEncoder());
 	}
 
 	public function test_createDbConfig() {
@@ -168,7 +166,7 @@ lang:
 
 		return array(array($json_string, "\InstILIAS\configs\ClientConfig")
 					, array($json_string, "\InstILIAS\configs\DbConfig")
-					, array($json_string, "\InstILIAS\configs\GitHubConfig")
+					, array($json_string, "\InstILIAS\configs\IliasGitConfig")
 					, array($json_string, "\InstILIAS\configs\LanguageConfig")
 					, array($json_string, "\InstILIAS\configs\ServerConfig")
 					, array($json_string, "\InstILIAS\configs\SetupConfig")

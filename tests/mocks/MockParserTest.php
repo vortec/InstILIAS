@@ -25,7 +25,7 @@ class MockParserTest extends PHPUnit_Framework_TestCase {
 	public function readConfigProvider() {
 		return array(array("asas", "\InstILIAS\configs\ClientConfig")
 					, array("asas", "\InstILIAS\configs\DbConfig")
-					, array("asas", "\InstILIAS\configs\GitConfig")
+					, array("asas", "\InstILIAS\configs\IliasGitConfig")
 					, array("asas", "\InstILIAS\configs\LanguageConfig")
 					, array("asas", "\InstILIAS\configs\ServerConfig")
 					, array("asas", "\InstILIAS\configs\SetupConfig")
