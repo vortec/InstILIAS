@@ -12,25 +12,25 @@ class ClientConfigTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider	clientConfigValueProvider
+	 * @dataProvider	ClientConfigValueProvider
 	 */
-	public function test_clientConfig($data_dir, $name, $password_encoder, $valid) {
+	public function test_ClientConfig($data_dir, $name, $password_encoder, $valid) {
 		if ($valid) {
-			$this->_test_valid_clientConfig($data_dir, $name, $password_encoder, $valid);
+			$this->_test_valid_ClientConfig($data_dir, $name, $password_encoder, $valid);
 		}
 		else {
-			$this->_test_invalid_clientConfig($data_dir, $name, $password_encoder, $valid);
+			$this->_test_invalid_ClientConfig($data_dir, $name, $password_encoder, $valid);
 		}
 	}
 
-	public function _test_valid_clientConfig($data_dir, $name, $password_encoder) {
+	public function _test_valid_ClientConfig($data_dir, $name, $password_encoder) {
 		$config = new Client($data_dir, $name, $password_encoder);
 		$this->assertEquals($data_dir, $config->dataDir());
 		$this->assertEquals($name, $config->name());
 		$this->assertEquals($password_encoder, $config->passwordEncoder());
 	}
 
-	public function _test_invalid_clientConfig($data_dir, $name, $password_encoder) {
+	public function _test_invalid_ClientConfig($data_dir, $name, $password_encoder) {
 		try {
 			$config = new Client($data_dir, $name, $password_encoder);
 			$this->assertFalse("Should have raised.");
@@ -38,7 +38,7 @@ class ClientConfigTest extends PHPUnit_Framework_TestCase {
 		catch (\InvalidArgumentException $e) {}
 	}
 
-	public function clientConfigValueProvider() {
+	public function ClientConfigValueProvider() {
 		$ret = array();
 		foreach ($this->dataDirProvider() as $data_dir) {
 			foreach ($this->nameProvider() as $name) {
