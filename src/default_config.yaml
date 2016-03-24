@@ -1,8 +1,8 @@
 ---
 client :
     data_dir : #Dateipfad zum ablegen der ILIAS Daten außerhalb des Webserverser /Users/user/data
-    default_name : #Name des Clients
-    default_password_encoder : #encoder für Passwörter der Benutzer (md5 || bcrypt)
+    name : #Name des Clients
+    password_encoder : #encoder für Passwörter der Benutzer (md5 || bcrypt)
 db: 
     host: #host von ILIAS
     database: #Datenbankname
