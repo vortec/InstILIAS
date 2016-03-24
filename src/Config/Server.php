@@ -1,15 +1,26 @@
 <?php
-namespace InstILIAS\configs;
+namespace InstILIAS\Config;
 
 /**
-*
-*
-*/
-
-class ServerConfig extends \InstILIAS\abstracts\BaseConfig {
+ * Configuration for the Server ILIAS runs on.
+ */
+class Server extends Base {
+	/**
+	 * @var	string
+	 */
 	protected $http_path;
+
+	/**
+	 * @var	string
+	 */
 	protected $absolute_path;
+
+	/**
+	 * TODO: This actually is constrained to known timezone identifiers.
+	 * @var	string
+	 */
 	protected $timezone;
+
 	const NAME = "server";
 
 	/**

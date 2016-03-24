@@ -1,13 +1,15 @@
 <?php
-namespace InstILIAS\configs;
+namespace InstILIAS\Config;
 
 /**
-*
-*
-*/
-
-class SetupConfig extends \InstILIAS\abstracts\BaseConfig {
+ * TODO: This name seems odd. It's about the master password, right?
+ */
+class Setup extends Base {
+	/**
+	 * @var	string
+	 */
 	protected $passwd;
+
 	const NAME = "setup";
 
 	/**

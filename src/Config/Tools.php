@@ -1,16 +1,30 @@
 <?php
-namespace InstILIAS\configs;
+namespace InstILIAS\Config;
 
 /**
-*
-*
-*/
-
-class ToolsConfig extends \InstILIAS\abstracts\BaseConfig {
+ * Configuration for the tools required by ILIAS.
+ */
+class Tools extends Base {
+	/**
+	 * @var	string
+	 */
 	protected $convert;
+
+	/**
+	 * @var	string
+	 */
 	protected $zip;
+
+	/**
+	 * @var	string
+	 */
 	protected $unzip;
+
+	/**
+	 * @var	string
+	 */
 	protected $java;
+
 	const NAME = "tools";
 
 	/**

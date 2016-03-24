@@ -1,17 +1,41 @@
 <?php
-namespace InstILIAS\configs;
-/**
-*
-*
-*/
+namespace InstILIAS\Config;
 
-class DbConfig extends \InstILIAS\abstracts\BaseConfig {
+/**
+ * Configuration for an ILIAS database.
+ */
+class DB extends Base {
+	/**
+	 * @var	string
+	 */
 	protected $host;
+
+	/**
+	 * @var	string
+	 */
 	protected $database;
+
+	/**
+	 * @var	string
+	 */
 	protected $user;
+
+	/**
+	 * @var	string
+	 */
 	protected $passwd;
+
+	/**
+	 * @var	string
+	 */
 	protected $encoding;
+
+	/**
+	 * TODO: this for sure is not any string but one form a specific set.
+	 * @var	string
+	 */
 	protected $type;
+
 	const NAME = "db";
 
 	/**

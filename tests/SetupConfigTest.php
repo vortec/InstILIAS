@@ -2,11 +2,11 @@
 
 class SetupConfigTest extends PHPUnit_Framework_TestCase{
 	public function setUp() {
-		$this->setup_config = new \InstILIAS\configs\SetupConfig();
+		$this->setup_config = new \InstILIAS\Config\Setup();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("\InstILIAS\configs\SetupConfig", $this->setup_config);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\Setup", $this->setup_config);
 	}
 
 	/**

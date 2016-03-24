@@ -19,9 +19,9 @@ client :
     data_dir : sdasdads
     default_name : hugo
     default_password_encoder : md5";
-		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\ClientConfig");
+		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Client");
 
-		$this->assertInstanceOf("\InstILIAS\configs\ClientConfig", $obj);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\Client", $obj);
 		$this->assertEquals($obj->dataDir(), "sdasdads");
 		$this->assertInternalType("string", $obj->dataDir());
 		$this->assertEquals($obj->defaultName(), "hugo");
@@ -39,10 +39,10 @@ db:
     passwd: 4z0sXAPk
     type: innodb
     encoding: UTF8';
-		$db_config = $this->parser->read_config($json_string, "\InstILIAS\configs\DbConfig");
-		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\DbConfig");
+		$db_config = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\DB");
+		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\DB");
 
-		$this->assertInstanceOf("\InstILIAS\configs\DbConfig", $obj);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\DB", $obj);
 		
 		$this->assertEquals($obj->host(), "127.0.0.1");
 		$this->assertInternalType("string", $obj->host());
@@ -69,9 +69,9 @@ ilias_git:
     ilias_git_url: https://github.com/conceptsandtraining/ILIAS.git
     ilias_git_branch_name: ilias';
 
-		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\IliasGitConfig");
+		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\IliasGit");
 
-		$this->assertInstanceOf("\InstILIAS\configs\IliasGitConfig", $obj);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\IliasGit", $obj);
 		
 		$this->assertEquals($obj->iliasGitUrl(), "https://github.com/conceptsandtraining/ILIAS.git");
 		$this->assertInternalType("string", $obj->iliasGitUrl());
@@ -87,9 +87,9 @@ lang:
     to_install_langs:
         - en 
         - de';
-		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\LanguageConfig");
+		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Language");
 
-		$this->assertInstanceOf("\InstILIAS\configs\LanguageConfig", $obj);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\Language", $obj);
 		
 		$this->assertEquals($obj->defaultLang(), "de");
 		$this->assertInternalType("string", $obj->defaultLang());
@@ -104,9 +104,9 @@ server:
     http_path: http://localhost/44generali2
     absolute_path: /Library/WebServer/Documents/44generali2
     timezone: Europe/Berlin';
-		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\ServerConfig");
+		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Server");
 
-		$this->assertInstanceOf("\InstILIAS\configs\ServerConfig", $obj);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\Server", $obj);
 		
 		$this->assertEquals($obj->httpPath(), "http://localhost/44generali2");
 		$this->assertInternalType("string", $obj->httpPath());
@@ -122,9 +122,9 @@ server:
 		$json_string = '---
 setup:
     passwd: KarlHeinz';
-		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\SetupConfig");
+		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Setup");
 
-		$this->assertInstanceOf("\InstILIAS\configs\SetupConfig", $obj);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\Setup", $obj);
 
 		$this->assertEquals($obj->passwd(), "KarlHeinz");
 		$this->assertInternalType("string", $obj->passwd());
@@ -137,9 +137,9 @@ tools:
     zip: /usr/bin/zip
     unzip: /usr/bin/unzip
     java: /usr/bin/java';
-		$obj = $this->parser->read_config($json_string, "\InstILIAS\configs\ToolsConfig");
+		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Tools");
 
-		$this->assertInstanceOf("\InstILIAS\configs\ToolsConfig", $obj);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\Tools", $obj);
 
 		$this->assertEquals($obj->convert(), "/opt/ImageMagick");
 		$this->assertInternalType("string", $obj->convert());
@@ -164,14 +164,15 @@ lang:
         - en
         - de';
 
-		return array(array($json_string, "\InstILIAS\configs\ClientConfig")
-					, array($json_string, "\InstILIAS\configs\DbConfig")
-					, array($json_string, "\InstILIAS\configs\IliasGitConfig")
-					, array($json_string, "\InstILIAS\configs\LanguageConfig")
-					, array($json_string, "\InstILIAS\configs\ServerConfig")
-					, array($json_string, "\InstILIAS\configs\SetupConfig")
-					, array($json_string, "\InstILIAS\configs\ToolsConfig")
-				);
+		return array
+			( array($json_string, "\\InstILIAS\\Config\\Client")
+			, array($json_string, "\\InstILIAS\\Config\\DB")
+			, array($json_string, "\\InstILIAS\\Config\\IliasGit")
+			, array($json_string, "\\InstILIAS\\Config\\Language")
+			, array($json_string, "\\InstILIAS\\Config\\Server")
+			, array($json_string, "\\InstILIAS\\Config\\Setup")
+			, array($json_string, "\\InstILIAS\\Config\\Tools")
+			);
 	}
 
 }

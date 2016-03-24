@@ -1,14 +1,28 @@
 <?php
-namespace InstILIAS\configs;
-/**
-*
-*
-*/
+namespace InstILIAS\Config;
 
-class ClientConfig extends \InstILIAS\abstracts\BaseConfig {
+/**
+ * Configuration for one client of ILIAS.
+ */
+class Client extends Base {
+	/**
+	 * @var	string
+	 */
 	protected $data_dir;
+
+	/**
+	 * @var	string
+	 */
 	protected $default_name;
+
+	/**
+	 * @var	string
+	 */
 	protected $default_password_encoder;
+
+	/**
+	 * @var	string
+	 */
 	const NAME = "client";
 
 	/**

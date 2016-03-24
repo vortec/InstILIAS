@@ -1,4 +1,5 @@
 <?php
+/** TODO: Do we need mocks in tests and here too? */
 namespace InstILIAS\mocks;
 
 class MockGit implements \InstILIAS\interfaces\Git {

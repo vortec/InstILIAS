@@ -5,7 +5,7 @@ use Symfony\Component\Yaml\Yaml;
 class YamlParser implements \InstILIAS\interfaces\Parser {
 	public function read_config($string, $class) {
 		if(!class_exists($class, true)){
-			throw new \LogicException("Class does not exists");
+			throw new \LogicException("Class '$class' does not exists");
 		}
 
 		$yaml = Yaml::parse($string);

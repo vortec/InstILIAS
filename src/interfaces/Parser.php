@@ -1,12 +1,11 @@
 <?php
 namespace InstILIAS\interfaces;
+
 /**
-*
-*
-*/
-
-interface Parser{
-
+ *
+ *
+ */
+interface Parser {
 	/**
 	 * Construct a config of type $class from $string
 	 *
