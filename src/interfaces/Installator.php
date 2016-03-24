@@ -2,80 +2,115 @@
 namespace InstILIAS\interfaces;
 
 /**
-* intefgace for installing an ilias
-*
-* @author Stefan Hecken <stefan.hecken@concepts-and-training.de>
-*/
-
-interface Installator{
+ * Interface for installing ILIAS with a client.
+ *
+ * TODO: We might want to add comments for the methods which are allowed
+ *       to use the global $ilDB to at least document the steps in the dance
+ *       in comments.
+ *
+ * @author Stefan Hecken <stefan.hecken@concepts-and-training.de>
+ */
+interface Installator {
 	/**
-	* copy and write the client ini
-	*/
+	 * Write the client.ini.
+	 *
+	 * @return	null
+	 */
 	public function writeClientIni();
 
 	/**
-	* copy and write the ilias ini
-	*/
+	 * Write the ilias.ini.
+	 *
+	 * @return	null
+	 */
 	public function writeIliasIni();
 
 	/**
-	* install database
-	*/
+	 * Install Database.
+	 *
+	 * @return	null
+	 */
 	public function installDatabase();
 
 	/**
-	* open connection to DB
-	* define global $ilDB
-	*/
+	 * Open connection to the database.
+	 *
+	 * ATTENTION: This should also define the global $ilDB.
+	 *
+	 * @return	null
+	 */
 	public function connectDatabase();
 
 	/**
-	* return database handle
-	*/
+	 * Get the handle to the database.
+	 *
+	 * @return	null
+	 */
 	public function getDatabaseHandle();
 	
 	/**
-	* applys the database updates
-	*
-	* @param object 	$db_updater
-	*/
-	public function applyHotfixes($db_updater);
+	 * Apply hotfixes to the database.
+	 *
+	 * @param	\ilDBUpdate		$db_updater
+	 * @return	null
+	 */
+	public function applyHotfixes(\ilDBUpdate $db_updater);
 	
 	/**
-	* applays the databse hotfixes
-	*
-	* @param object 	$db_updater
-	*/
-	public function applyUpdates($db_updater);
+	 * Apply updates to the database.
+	 *
+	 * @param	\ilDBUpdate		$db_updater
+	 * @return	null
+	 */
+	public function applyUpdates(\ilDBUpdate $db_updater);
 	
 	/**
-	* install languages
-	*/
-	public function installLanguages($lng);
+	 * Install languages.
+	 *
+	 * @param	ilLanguage		$lng	handles the installing process
+	 * @return	null
+	 */
+	public function installLanguages(\ilLanguage $lng);
 
 	/**
-	* set usage of proxy
-	*/
+	 * Set the usage of a proxy.
+	 *
+	 * TODO: I guess this could have a better name like setProxySettings?
+	 *
+	 * @return	null
+	 */
 	public function setProxy();
 
 	/**
-	* perform registration for an ILIAS nic
-	*/
+	 * Do not register this installation for an ILIAS NIC.
+	 *
+	 * @return	null
+	 */
 	public function registerNoNic();
 
 	/**
-	* sets the Password Encoder
-	*/
-	public function setPasswordEncoder($encoder_factory);
+	 * Set the factory for password encoders.
+	 *
+	 * @param	ilUserPasswordEncoderFactory	$encoder_factory
+	 * @return	null
+	 */
+	public function setPasswordEncoder(ilUserPasswordEncoderFactory $encoder_factory);
 
 	/**
-	* finish the ILIAS setup
-	*/
+	 * Finish the ILIAS setup process.
+	 *
+	 * @return	null
+	 */
 	public function finishSetup();
 
 	/**
-	* set all configs files
-	*/
+	 * set all configs files
+	 *
+	 * TODO: This seems odd. We might want to pass just one config to the
+	 *       constructor.
+	 *
+	 * @return	null
+	 */
 	public function setConfigFiles(\InstILIAS\configs\ClientConfig $client_config, \InstILIAS\configs\DbConfig $db_config, \InstILIAS\configs\LanguageConfig $language_config
 								, \InstILIAS\configs\LogConfig $log_config, \InstILIAS\configs\ServerConfig $server_config, \InstILIAS\configs\SetupConfig $setup_config
 								, \InstILIAS\configs\ToolsConfig $tools_config);
