@@ -1,11 +1,11 @@
 <?php
 class IliasGitConfigTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->ilias_git_config = new \InstILIAS\configs\IliasGitConfig();
+		$this->ilias_git_config = new \InstILIAS\Config\IliasGitConfig();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("\InstILIAS\configs\IliasGitConfig", $this->ilias_git_config);
+		$this->assertInstanceOf("\InstILIAS\Config\IliasGitConfig", $this->ilias_git_config);
 	}
 
 	/**

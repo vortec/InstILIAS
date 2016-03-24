@@ -104,22 +104,22 @@ interface Installator {
 	public function finishSetup();
 
 	/**
-	 * set all configs files
+	 * set all Config files
 	 *
 	 * TODO: This seems odd. We might want to pass just one config to the
 	 *       constructor.
 	 *
 	 * @return	null
 	 */
-	public function setConfigFiles(\InstILIAS\configs\ClientConfig $client_config, \InstILIAS\configs\DbConfig $db_config, \InstILIAS\configs\LanguageConfig $language_config
-								, \InstILIAS\configs\LogConfig $log_config, \InstILIAS\configs\ServerConfig $server_config, \InstILIAS\configs\SetupConfig $setup_config
-								, \InstILIAS\configs\ToolsConfig $tools_config);
+	public function setConfigFiles(\InstILIAS\Config\ClientConfig $client_config, \InstILIAS\Config\DbConfig $db_config, \InstILIAS\Config\LanguageConfig $language_config
+								, \InstILIAS\Config\LogConfig $log_config, \InstILIAS\Config\ServerConfig $server_config, \InstILIAS\Config\SetupConfig $setup_config
+								, \InstILIAS\Config\ToolsConfig $tools_config);
 
-	public function setClientConfig(\InstILIAS\configs\ClientConfig $client_config);
-	public function setDbConfig(\InstILIAS\configs\DbConfig $db_config);
-	public function setLanguageConfig(\InstILIAS\configs\LanguageConfig $language_config);
-	public function setLogConfig(\InstILIAS\configs\LogConfig $log_config);
-	public function setServerConfig(\InstILIAS\configs\ServerConfig $server_config);
-	public function setSetupConfig(\InstILIAS\configs\SetupConfig $setup_config);
-	public function setToolsConfig(\InstILIAS\configs\ToolsConfig $tools_config);
+	public function setClientConfig(\InstILIAS\Config\ClientConfig $client_config);
+	public function setDbConfig(\InstILIAS\Config\DbConfig $db_config);
+	public function setLanguageConfig(\InstILIAS\Config\LanguageConfig $language_config);
+	public function setLogConfig(\InstILIAS\Config\LogConfig $log_config);
+	public function setServerConfig(\InstILIAS\Config\ServerConfig $server_config);
+	public function setSetupConfig(\InstILIAS\Config\SetupConfig $setup_config);
+	public function setToolsConfig(\InstILIAS\Config\ToolsConfig $tools_config);
 }

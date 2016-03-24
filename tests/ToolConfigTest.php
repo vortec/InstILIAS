@@ -2,11 +2,11 @@
 
 class ToolConfigTest extends PHPUnit_Framework_TestCase{
 	public function setUp() {
-		$this->tools_config = new \InstILIAS\configs\ToolsConfig();
+		$this->tools_config = new \InstILIAS\Config\ToolsConfig();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("\InstILIAS\configs\ToolsConfig", $this->tools_config);
+		$this->assertInstanceOf("\InstILIAS\Config\ToolsConfig", $this->tools_config);
 	}
 
 	/**

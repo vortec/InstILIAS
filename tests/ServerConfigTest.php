@@ -2,11 +2,11 @@
 
 class ServerConfigTest extends PHPUnit_Framework_TestCase{
 	public function setUp() {
-		$this->server_config = new \InstILIAS\configs\ServerConfig();
+		$this->server_config = new \InstILIAS\Config\ServerConfig();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("\InstILIAS\configs\ServerConfig", $this->server_config);
+		$this->assertInstanceOf("\InstILIAS\Config\ServerConfig", $this->server_config);
 	}
 
 	/**

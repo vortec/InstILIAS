@@ -2,11 +2,11 @@
 
 class LogConfigTest extends PHPUnit_Framework_TestCase{
 	public function setUp() {
-		$this->log_config = new \InstILIAS\configs\LogConfig();
+		$this->log_config = new \InstILIAS\Config\LogConfig();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("\InstILIAS\configs\LogConfig", $this->log_config);
+		$this->assertInstanceOf("\InstILIAS\Config\LogConfig", $this->log_config);
 	}
 
 	/**
