@@ -2,13 +2,22 @@
 namespace InstILIAS\Config;
 
 /**
-*
-*
-*/
-
-class IliasGitConfig extends \InstILIAS\abstracts\BaseConfig {
+ * Configuration for the git repo and branch name to get ILIAS from.
+ *
+ * TODO: This most probably is not specific to ILIAS, so it could be named
+ * GitBranch or something.
+ */
+class IliasGit extends Base {
+	/**
+	 * @var	string
+	 */
 	protected $ilias_git_url;
+
+	/**
+	 * @var	string
+	 */
 	protected $ilias_git_branch_name;
+
 	const NAME = "ilias_git";
 
 	/**

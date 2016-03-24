@@ -23,25 +23,27 @@ class MockParserTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function readConfigProvider() {
-		return array(array("asas", "\InstILIAS\Config\ClientConfig")
-					, array("asas", "\InstILIAS\Config\DbConfig")
-					, array("asas", "\InstILIAS\Config\IliasGitConfig")
-					, array("asas", "\InstILIAS\Config\LanguageConfig")
-					, array("asas", "\InstILIAS\Config\ServerConfig")
-					, array("asas", "\InstILIAS\Config\SetupConfig")
-					, array("asas", "\InstILIAS\Config\ToolsConfig")
-				);
+		return array
+			( array("asas", "\\InstILIAS\\Config\\Client")
+			, array("asas", "\\InstILIAS\\Config\\DB")
+			, array("asas", "\\InstILIAS\\Config\\IliasGit")
+			, array("asas", "\\InstILIAS\\Config\\Language")
+			, array("asas", "\\InstILIAS\\Config\\Server")
+			, array("asas", "\\InstILIAS\\Config\\Setup")
+			, array("asas", "\\InstILIAS\\Config\\Tools")
+			);
 	}
 
 	public function readConfigNoFileProvider() {
-		return array(array("asas", "Client")
-					, array("asas", "Db")
-					, array("asas", "Git")
-					, array("asas", "Language")
-					, array("asas", "Server")
-					, array("asas", "Setup")
-					, array("asas", "Tools")
-				);
+		return array
+			( array("asas", "Client")
+			, array("asas", "DB")
+			, array("asas", "Git")
+			, array("asas", "Language")
+			, array("asas", "Server")
+			, array("asas", "Setup")
+			, array("asas", "Tools")
+			);
 	}
 
 }

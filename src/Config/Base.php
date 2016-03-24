@@ -1,11 +1,14 @@
 <?php
-namespace InstILIAS\abstracts;
-/**
-* Basic class or each Config like ClientInitConfig
-*
-*/
+/** 
+  * TODO: There is the vendor missing in the namespace, it should be
+  * CaT/InstILIAS/Config (and in the other locations accordingly.)
+  */
+namespace InstILIAS\Config;
 
-abstract class BaseConfig {
+/**
+ * Base class for all configs.
+ */
+abstract class Base {
 
 	/**
 	* gets all propertys in an assoc array

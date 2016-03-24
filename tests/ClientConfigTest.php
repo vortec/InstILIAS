@@ -2,11 +2,11 @@
 
 class ClientConfigTest extends PHPUnit_Framework_TestCase{
 	public function setUp() {
-		$this->client_config = new \InstILIAS\Config\ClientConfig();
+		$this->client_config = new \InstILIAS\Config\Client();
 	}
 
 	public function test_instanceOf() {
-		$this->assertInstanceOf("\InstILIAS\Config\ClientConfig", $this->client_config);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\Client", $this->client_config);
 	}
 
 	/**

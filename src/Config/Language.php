@@ -2,13 +2,22 @@
 namespace InstILIAS\Config;
 
 /**
-*
-*
-*/
-
-class LanguageConfig extends \InstILIAS\abstracts\BaseConfig {
+ * Config for the languages to be used in ILIAS.
+ */
+class Language extends Base {
+	/**
+	 * TODO: This should be constrained to the lang identifiers that could
+	 * actually be used in ILIAS.
+	 * @var	string
+	 */
 	protected $default_lang;
+
+	/**
+	 * TODO: See $default_lang
+	 * @var	string[]
+	 */
 	protected $to_install_langs;
+
 	const NAME = "lang";
 
 	/**

@@ -2,13 +2,19 @@
 namespace InstILIAS\Config;
 
 /**
-*
-*
-*/
-
-class LogConfig extends \InstILIAS\abstracts\BaseConfig {
+ * Configuration for the log of ILIAS.
+ */
+class Log extends Base {
+	/**
+	 * @var	string[]
+	 */
 	protected $path;
+
+	/**
+	 * @var	string[]
+	 */
 	protected $file_name;
+
 	const NAME = "log";
 
 	/**
