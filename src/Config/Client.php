@@ -15,4 +15,17 @@ class Client extends Base {
 			, "password_encoder"	=> "string"
 			);
 	}
+
+	static $valid_password_encoders = array
+			( "md5"
+			, "bcrypt"
+			);
+
+	protected function checkValueContent($key, $value) {
+		if ($key == "password_encoder") {
+			return in_array($value, self::$valid_password_encoders);
+		}
+
+		return parent::checkValueContent($key, $value);
+	}
 }

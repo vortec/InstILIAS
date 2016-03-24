@@ -69,7 +69,7 @@ abstract class Base {
 	}
 
 	/** TODO: Document me! */
-	protected function checkValue($key, $type, $value) {
+	private function checkValue($key, $type, $value) {
 		if ($type = "string") {
 			$ok = is_string($value);
 		}
@@ -103,10 +103,19 @@ abstract class Base {
 			$ok = $value instanceof $type;
 		}
 
+		if ($ok) {
+			$ok = $this->checkValueContent($key, $value);
+		}
+
 		if (!$ok) {
 			throw new \InvalidArgumentException
 						( "Error in field $key: Expected "
 						. print_r($type, true)." found ".print_r($value, true));
 		}
+	}
+
+	/** TODO: Document me! */
+	protected function checkValueContent($key, $value) {
+		return true;
 	}
 }
