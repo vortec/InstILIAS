@@ -7,8 +7,8 @@ db:
     host: #host von ILIAS
     database: #Datenbankname
     user: #Datenbankbenutzer
-    passwd: #Benutzerpasswort
-    type: #Datenbanktyp (innodb)
+    password: #Benutzerpasswort
+    engine: #Datenbankengine (innodb)
     encoding: # encoding der Datenbank (utf8_general_ci)
 lang:
     default_lang: #Sprache die im Standard verwendet werden soll

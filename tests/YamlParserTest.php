@@ -15,10 +15,9 @@ class YamlParserTest extends MockParserTest {
 
 	public function test_createClientConfig() {
 		$json_string = "--- 
-client : 
-    data_dir : sdasdads
-    default_name : hugo
-    default_password_encoder : md5";
+data_dir : sdasdads
+name : hugo
+password_encoder : md5";
 		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Client");
 
 		$this->assertInstanceOf("\\InstILIAS\\Config\\Client", $obj);
@@ -32,13 +31,12 @@ client :
 
 	public function test_createDbConfig() {
 		$json_string = '---
-db: 
-    host: 127.0.0.1
-    database: iliastest
-    user: root
-    passwd: 4z0sXAPk
-    type: innodb
-    encoding: UTF8';
+host: 127.0.0.1
+database: iliastest
+user: root
+password: 4z0sXAPk
+engine: innodb
+encoding: UTF8';
 		$db_config = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\DB");
 		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\DB");
 
@@ -65,9 +63,8 @@ db:
 
 	public function test_createGitConfig() {
 		$json_string = '---
-ilias_git:
-    ilias_git_url: https://github.com/conceptsandtraining/ILIAS.git
-    ilias_git_branch_name: ilias';
+ilias_git_url: https://github.com/conceptsandtraining/ILIAS.git
+ilias_git_branch_name: ilias';
 
 		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\IliasGit");
 
@@ -82,11 +79,10 @@ ilias_git:
 
 	public function test_createLanguageConfig() {
 		$json_string = '---
-lang:
-    default_lang: de
-    to_install_langs:
-        - en 
-        - de';
+default_lang: de
+to_install_langs:
+    - en
+    - de';
 		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Language");
 
 		$this->assertInstanceOf("\\InstILIAS\\Config\\Language", $obj);
@@ -100,10 +96,9 @@ lang:
 
 	public function test_createServerConfig() {
 		$json_string = '---
-server:
-    http_path: http://localhost/44generali2
-    absolute_path: /Library/WebServer/Documents/44generali2
-    timezone: Europe/Berlin';
+http_path: http://localhost/44generali2
+absolute_path: /Library/WebServer/Documents/44generali2
+timezone: Europe/Berlin';
 		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Server");
 
 		$this->assertInstanceOf("\\InstILIAS\\Config\\Server", $obj);
@@ -120,8 +115,7 @@ server:
 
 	public function test_createSetupConfig() {
 		$json_string = '---
-setup:
-    passwd: KarlHeinz';
+passwd: KarlHeinz';
 		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Setup");
 
 		$this->assertInstanceOf("\\InstILIAS\\Config\\Setup", $obj);
@@ -132,11 +126,10 @@ setup:
 
 	public function test_createToolsConfig() {
 		$json_string = '---
-tools:
-    convert: /opt/ImageMagick
-    zip: /usr/bin/zip
-    unzip: /usr/bin/unzip
-    java: /usr/bin/java';
+convert: /opt/ImageMagick
+zip: /usr/bin/zip
+unzip: /usr/bin/unzip
+java: /usr/bin/java';
 		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Tools");
 
 		$this->assertInstanceOf("\\InstILIAS\\Config\\Tools", $obj);
