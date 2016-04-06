@@ -42,7 +42,12 @@ abstract class Base {
 		}, $name);
 	}
 
-	/** TODO: Document me! */
+	/**
+	 * are there enough values in $params
+	 *
+	 * @param array 	$params 	values to fill the config
+	 * @throws InvalidArgumentException
+	 */
 	private function checkParams($params) {
 		$fields = $this->fields();
 		$amount_pars = count($params);
@@ -54,7 +59,10 @@ abstract class Base {
 		}
 	}
 
-	/** TODO: Document me! */
+	/**
+	 *
+	 * @param array 	$params 	values to fill the config 
+	 */
 	private function fillProperties($params) {
 		$fields = $this->fields();
 		foreach ($fields as $key => $type) {
@@ -62,7 +70,15 @@ abstract class Base {
 		}
 	}
 
-	/** TODO: Document me! */
+	/**
+	 * fill property by key 
+	 *
+	 * @param string 			$key 	property key
+	 * @param string 			$type 	expected input type
+	 * @param string|int|array 	$value 	entered value
+	 *
+	 * @throws InvalidArgumentException
+	 */
 	protected function fillProperty($key, $type, $value) {
 		$this->checkValue($key, $type, $value);
 		$this->$key = $value;
@@ -114,8 +130,26 @@ abstract class Base {
 		}
 	}
 
-	/** TODO: Document me! */
+	/**
+	 * is entered value for the key valid
+	 *
+	 * @param string 				$key 	key of value should be set
+	 * @param string|int|array 		$value 	entered value
+	 *
+	 * @return bool
+	 */
 	protected function checkValueContent($key, $value) {
 		return true;
+	}
+
+	/**
+	 * is value in array
+	 * @param mixed 	$value 		entered value
+	 * @param array 	$valids		valid entries for the key
+	 *
+	 * @return bool
+	 */
+	protected function checkContentInArray($value, array $valids) {
+		return in_array($value, $valids);
 	}
 }
