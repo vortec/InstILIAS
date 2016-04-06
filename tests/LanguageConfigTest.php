@@ -1,76 +1,71 @@
 <?php
+
+use \InstILIAS\Config\Client;
+
 class LanguageConfigTest extends PHPUnit_Framework_TestCase {
-	public function setUp() {
-		$this->language_config = new \InstILIAS\Config\Language();
-	}
-
-	public function test_instanceOf() {
-		$this->assertInstanceOf("\\InstILIAS\\Config\\Language", $this->language_config);
-	}
-
-	/**
-	* @dataProvider setDefaultLangProvider
-	*/
-	public function test_setDefaultLang($default_lang) {
-		$this->language_config->setDefaultLang($default_lang);
-
-		$this->assertEquals($this->language_config->defaultLang(), $default_lang);
-		$this->assertInternalType("string", $this->language_config->defaultLang());
+	public function test_not_enough_params() {
+		try {
+			$config = new Language();
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
 	}
 
 	/**
-	* @dataProvider setToInstallLangsProvider
-	*/
-	public function test_setToInstallLangs($to_install_langs) {
-		$this->language_config->setToInstallLangs($to_install_langs);
-
-		$this->assertEquals($this->language_config->toInstallLangs(), $to_install_langs);
-		$this->assertInternalType("array", $this->language_config->toInstallLangs());
+	 * @dataProvider	LanguageConfigValueProvider
+	 */
+	public function test_LanguageConfig($default_lang, array $install_lang, $valid) {
+		if ($valid) {
+			$this->_test_valid_LanguageConfig($default_lang, $install_lang,  $valid);
+		}
+		else {
+			$this->_test_invalid_LanguageConfig($default_lang, $install_lang,$valid);
+		}
 	}
 
-	/**
-	* @dataProvider getAllPropertiesProvider
-	*/
-	public function test_getAllProperties($default_lang, $to_install_langs) {
-		$this->language_config->setDefaultLang($default_lang);
-		$this->language_config->setToInstallLangs($to_install_langs);
-
-		$all_properties = $this->language_config->getPropertiesOf();
-
-		$this->assertEquals($all_properties["default_lang"], $default_lang);
-		$this->assertInternalType("string", $all_properties["default_lang"]);
-
-		$this->assertEquals($all_properties["to_install_langs"], $to_install_langs);
-		$this->assertInternalType("array", $all_properties["to_install_langs"]);
+	public function _test_valid_LanguageConfig($default_lang, array $install_lang) {
+		$config = new Language($default_lang, $install_lang);
+		$this->assertEquals($default_lang, $config->defaultLang());
+		$this->assertEquals($install_lang, $config->installLang());
 	}
 
-	public function setDefaultLangProvider() {
-		return array(array("de")
-					, array("en")
-					, array("es")
-					, array("da")
-					, array("ar")
-					, array("el")
+	public function _test_invalid_LanguageConfig($default_lang, array $install_lang) {
+		try {
+			$config = new Language($default_lang, $install_lang);
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
+	}
+
+	public function LanguageConfigValueProvider() {
+		$ret = array();
+		foreach ($this->defaultLangProvider() as $default_lang) {
+			foreach ($this->installLangsProvider() as $install_lang) {
+				$ret[] = array
+					( $default_lang[0], $install_lang[0]
+					, $default_lang[1] && $install_lang[1]);
+			}
+		}
+		return $ret;
+	}
+
+	public function defaultLangProvider() {
+		return array(array("de", true)
+					, array("en", true)
+					, array("es", false)
+					, array("da", false)
+					, array("ar", false)
+					, array("el", false)
 				);
 	}
 
-	public function setToInstallLangsProvider() {
-		return array(array(array("de","en"))
-					, array(array("en","ar"))
-					, array(array("es","sq"))
-					, array(array("da","pl"))
-					, array(array("ar","nl"))
-					, array(array("el","sk"))
-				);
-	}
-
-	public function getAllPropertiesProvider() {
-		return array(array("de",array("de","en"))
-					, array("en",array("en","ar"))
-					, array("es",array("es","sq"))
-					, array("da",array("da","pl"))
-					, array("ar",array("ar","nl"))
-					, array("el",array("el","sk"))
+	public function installLangsProvider() {
+		return array(array(array("de","en"), true)
+					, array(array("en","ar"), false)
+					, array(array("es","sq"), false)
+					, array(array("da","pl"), false)
+					, array(array("ar","nl"), false)
+					, array(array("el","sk"), false)
 				);
 	}
 }
