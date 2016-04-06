@@ -18,4 +18,26 @@ class DB extends Base {
 			, "encoding"		=> "string"
 			);
 	}
+
+	static $valid_engines = array(
+		"innodb");
+
+	static $valid_encodings = array(
+		"utf8_general_ci");
+
+	/**
+	 * @inheritdocs
+	 */
+	protected function checkValueContent($key, $value) {
+		switch($key) {
+			case "engine":
+				return $this->checkContentInArray($value, self::$valid_engines);
+				break;
+			case "encoding":
+				return $this->checkContentInArray($value, self::$valid_encodings);
+				break;
+			default:
+				return parent::checkValueContent($key, $value);
+		}
+	}
 }
