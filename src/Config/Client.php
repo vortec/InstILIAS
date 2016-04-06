@@ -21,11 +21,16 @@ class Client extends Base {
 			, "bcrypt"
 			);
 
+	/**
+	 * @inheritdocs
+	 */
 	protected function checkValueContent($key, $value) {
-		if ($key == "password_encoder") {
-			return in_array($value, self::$valid_password_encoders);
+		switch($key) {
+			case "password_encoder":
+				return $this->checkContentInArray($value, self::$valid_password_encoders);
+				break;
+			default:
+				return parent::checkValueContent($key, $value);
 		}
-
-		return parent::checkValueContent($key, $value);
 	}
 }
