@@ -1,148 +1,125 @@
 <?php
+
+use \InstILIAS\Config\DB;
+
 class DbConfigTest extends PHPUnit_Framework_TestCase {
-	public function setUp() {
-		$this->client_ini_db_config = new \InstILIAS\Config\DB();
-	}
-
-	public function test_instanceOf() {
-		$this->assertInstanceOf("\\InstILIAS\\Config\\DB", $this->client_ini_db_config);
-	}
-
 	/**
-	* @dataProvider setHostProvider
-	*/
-	public function test_setHost($host) {
-		$this->client_ini_db_config->setHost($host);
-
-		$this->assertEquals($this->client_ini_db_config->host(), $host);
-		$this->assertInternalType("string", $this->client_ini_db_config->host());
+	 * @dataProvider	DBConfigValueProvider
+	 */
+	public function test_DBConfig($host, $database, $user, $password, $engine, $encoding, $valid) {
+		if ($valid) {
+			$this->_test_valid_DBConfig($host, $database, $user, $password, $engine, $encoding, $valid);
+		}
+		else {
+			$this->_test_invalid_DBConfig($host, $database, $user, $password, $engine, $encoding, $valid);
+		}
 	}
 
-	/**
-	* @dataProvider setDatabaseProvider
-	*/
-	public function test_setDatabase($database) {
-		$this->client_ini_db_config->setDatabase($database);
-
-		$this->assertEquals($this->client_ini_db_config->database(), $database);
-		$this->assertInternalType("string", $this->client_ini_db_config->database());
+	public function _test_valid_DBConfig($host, $database, $user, $password, $engine, $encoding) {
+		$config = new DB($host, $database, $user, $password, $engine, $encoding);
+		$this->assertEquals($host, $config->host());
+		$this->assertEquals($database, $config->database());
+		$this->assertEquals($user, $config->user());
+		$this->assertEquals($password, $config->password());
+		$this->assertEquals($engine, $config->engine());
+		$this->assertEquals($encoding, $config->encoding());
 	}
 
-	/**
-	* @dataProvider setUserProvider
-	*/
-	public function test_setUser($user) {
-		$this->client_ini_db_config->setUser($user);
-
-		$this->assertEquals($this->client_ini_db_config->user(), $user);
-		$this->assertInternalType("string", $this->client_ini_db_config->user());
+	public function _test_invalid_DBConfig($host, $database, $user, $password, $engine, $encoding) {
+		try {
+			$config = new DB($host, $database, $user, $password, $engine, $encoding);
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
 	}
 
-	/**
-	* @dataProvider setPasswdProvider
-	*/
-	public function test_setPasswd($passwd) {
-		$this->client_ini_db_config->setPasswd($passwd);
-
-		$this->assertEquals($this->client_ini_db_config->passwd(), $passwd);
-		$this->assertInternalType("string", $this->client_ini_db_config->passwd());
+	public function DBConfigValueProvider() {
+		$ret = array();
+		$take_it = 0;
+		$take_every_Xth = 10;
+		foreach ($this->hostProvider() as $host) {
+			foreach ($this->databaseProvider() as $database) {
+				foreach ($this->userProvider() as $user) {
+					foreach ($this->passwordProvider() as $password) {
+						foreach ($this->engineProvider() as $engine) {
+							foreach ($this->encodingProvider() as $encoding) {
+								$take_it++;
+								if (($take_it % $take_every_Xth) != 0) {
+									continue;
+								}
+								$ret[] = array
+									( $host[0], $database[0], $user[0], $password[0], $engine[0], $encoding[0]
+									, $host[1] && $database[1] && $user[1] && $password[1] && $engine[1] && $encoding[1]);
+							}
+						}
+					}
+				}
+			}
+		}
+		return $ret;
 	}
 
-	/**
-	* @dataProvider setEncodingProvider
-	*/
-	public function test_setEncoding($encoding) {
-		$this->client_ini_db_config->setEncoding($encoding);
-
-		$this->assertEquals($this->client_ini_db_config->encoding(), $encoding);
-		$this->assertInternalType("string", $this->client_ini_db_config->encoding());
+	public function hostProvider() {
+		return array
+			( array("localhost", true)
+			, array("127.0.0.1", true)
+			, array("127.0.0.1.2", false)
+			, array("orange", true)
+			, array("server name", false)
+			, array(1, false)
+			);
 	}
 
-	/**
-	* @dataProvider getAllPropertiesProvider
-	*/
-	public function test_getAllProperties($host, $database, $user, $passwd, $encoding) {
-		$this->client_ini_db_config->setHost($host);
-		$this->client_ini_db_config->setDatabase($database);
-		$this->client_ini_db_config->setUser($user);
-		$this->client_ini_db_config->setPasswd($passwd);
-		$this->client_ini_db_config->setEncoding($encoding);
-
-		$all_properties = $this->client_ini_db_config->getPropertiesOf();
-
-		$this->assertEquals($all_properties["host"], $host);
-		$this->assertInternalType("string", $all_properties["host"]);
-
-		$this->assertEquals($all_properties["database"], $database);
-		$this->assertInternalType("string",$all_properties["database"]);
-
-		$this->assertEquals($all_properties["user"], $user);
-		$this->assertInternalType("string", $all_properties["user"]);
-
-		$this->assertEquals($all_properties["passwd"], $passwd);
-		$this->assertInternalType("string", $all_properties["passwd"]);
-
-		$this->assertEquals($all_properties["encoding"], $encoding);
-		$this->assertInternalType("string", $all_properties["encoding"]);
+	public function databaseProvider() {
+		return array
+			( array("ilias", true)
+			, array("test", true)
+			, array("ilias51", true)
+			, array("ilias_neu", true)
+			, array("il", true)
+			, array(2, false)
+			);
 	}
 
-	public function setHostProvider() {
-		return array(array("localhost")
-					, array("127.0.0.1")
-					, array("orange")
-					, array("lia")
-					, array("bunt")
-					, array("servname")
-				);
+	public function userProvider() {
+		return array
+			( array("ilias", true)
+			, array("root", true)
+			, array("admin_yeah", true)
+			, array(3, false)
+			);
 	}
 
-	public function setDatabaseProvider() {
-		return array(array("ilias")
-					, array("test")
-					, array("ilias51")
-					, array("ilias_neu")
-					, array("ilias_trunk")
-					, array("il")
-				);
+	public function passwordProvider() {
+		return array
+			( array("#Ea5489jZ", true)
+			, array("2+bLV3926", true)
+			, array("YCw/W9Whm", true)
+			, array(4, false)
+			);
 	}
 
-	public function setUserProvider() {
-		return array(array("ilias")
-					, array("root")
-					, array("db_user")
-					, array("admin_db")
-					, array("admin_full")
-					, array("admin_yeah")
-				);
+	public function engineProvider() {
+		return array
+			( array("innodb", true)
+			, array("myisam", true)
+			, array("foo", false)
+			, array(5, false)
+			);
 	}
 
-	public function setPasswdProvider() {
-		return array(array("#Ea5489jZ")
-					, array("2+bLV3926")
-					, array("c3<62U#LE")
-					, array("Vk3z}!4mS")
-					, array("pc<DVh3+m")
-					, array("YCw/W9Whm")
-				);
-	}
-
-	public function setEncodingProvider() {
-		return array(array("utf-8")
-					, array("utf-8_wob")
-					, array("iso")
-					, array("utf8-irgendwas")
-					, array("swedish-latin")
-					, array("mein_eigenes")
-				);
-	}
-
-	public function getAllPropertiesProvider() {
-		return array(array("localhost","ilias","ilias","#Ea5489jZ","utf-8")
-					, array("127.0.0.1","test","root","2+bLV3926","utf-8_wob")
-					, array("orange","ilias51","db_user","c3<62U#LE","iso")
-					, array("lia","ilias_neu","admin_db","Vk3z}!4mS","utf8-irgendwas")
-					, array("bunt","ilias_trunk","admin_full","pc<DVh3+m","swedish-latin")
-					, array("servname","il","admin_yeah","YCw/W9Whm","mein_eigenes")
-				);
+	public function encodingProvider() {
+		// TODO: check which of these do really exists
+		// TODO: do we need all possible encodings?
+		// TODO: why would we want to set the encoding?
+		return array
+			( array("utf-8", true)
+			, array("utf-8_wob", true)
+			, array("iso", false)
+			, array("utf8-irgendwas", false)
+			, array("swedish-latin", true)
+			, array("mein_eigenes", false)
+			, array(6, false)
+			);
 	}
 }

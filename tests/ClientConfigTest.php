@@ -1,70 +1,78 @@
 <?php
 
-class ClientConfigTest extends PHPUnit_Framework_TestCase{
-	public function setUp() {
-		$this->client_config = new \InstILIAS\Config\Client();
-	}
+use \InstILIAS\Config\Client;
 
-	public function test_instanceOf() {
-		$this->assertInstanceOf("\\InstILIAS\\Config\\Client", $this->client_config);
-	}
-
-	/**
-	* @dataProvider setDataDirProvider
-	*/
-	public function test_setDataDir($data_dir) {
-		$this->client_config->setDataDir($data_dir);
-
-		$this->assertEquals($this->client_config->dataDir(), $data_dir);
-		$this->assertInternalType("string", $this->client_config->dataDir());
+class ClientConfigTest extends PHPUnit_Framework_TestCase {
+	public function test_not_enough_params() {
+		try {
+			$config = new Client();
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
 	}
 
 	/**
-	* @dataProvider setDefaultNameProvider
-	*/
-	public function test_setDefaultName($default_name) {
-		$this->client_config->setDefaultName($default_name);
-
-		$this->assertEquals($this->client_config->defaultName(), $default_name);
-		$this->assertInternalType("string", $this->client_config->defaultName());
+	 * @dataProvider	ClientConfigValueProvider
+	 */
+	public function test_ClientConfig($data_dir, $name, $password_encoder, $valid) {
+		if ($valid) {
+			$this->_test_valid_ClientConfig($data_dir, $name, $password_encoder, $valid);
+		}
+		else {
+			$this->_test_invalid_ClientConfig($data_dir, $name, $password_encoder, $valid);
+		}
 	}
 
-	public function test_setDefaultPasswordEncoder() {
-		$this->client_config->setDefaultPasswordEncoder("md5");
-
-		$this->assertEquals($this->client_config->defaultPasswordEncoder(), "md5");
-		$this->assertInternalType("string", $this->client_config->defaultPasswordEncoder());
+	public function _test_valid_ClientConfig($data_dir, $name, $password_encoder) {
+		$config = new Client($data_dir, $name, $password_encoder);
+		$this->assertEquals($data_dir, $config->dataDir());
+		$this->assertEquals($name, $config->name());
+		$this->assertEquals($password_encoder, $config->passwordEncoder());
 	}
 
-	/**
-	* @dataProvider getAllPropertiesProvider
-	*/
-	public function test_getAllProperties($data_dir, $default_name, $default_encoder) {
-		$this->client_config->setDataDir($data_dir);
-		$this->client_config->setDefaultName($default_name);
-		$this->client_config->setDefaultPasswordEncoder($default_encoder);
-
-		$all_properties = $this->client_config->getPropertiesOf();
-
-		$this->assertEquals($all_properties["data_dir"], $data_dir);
-		$this->assertInternalType("string", $all_properties["data_dir"]);
-
-		$this->assertEquals($all_properties["default_name"], $default_name);
-		$this->assertInternalType("string", $all_properties["default_name"]);
-
-		$this->assertEquals($all_properties["default_password_encoder"], $default_encoder);
-		$this->assertInternalType("string", $all_properties["default_password_encoder"]);
+	public function _test_invalid_ClientConfig($data_dir, $name, $password_encoder) {
+		try {
+			$config = new Client($data_dir, $name, $password_encoder);
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
 	}
 
-	public function setDataDirProvider() {
-		return array(array("/Users/shecken/Documents/ilias_data/generali/data"));
+	public function ClientConfigValueProvider() {
+		$ret = array();
+		foreach ($this->dataDirProvider() as $data_dir) {
+			foreach ($this->nameProvider() as $name) {
+				foreach ($this->passwordEncoderProvider() as $password_encoder) {
+					$ret[] = array
+						( $data_dir[0], $name[0], $password_encoder[0]
+						, $data_dir[1] && $name[1] && $password_encoder[1]);
+				}
+			}
+		}
+		return $ret;
 	}
 
-	public function setDefaultNameProvider() {
-		return array(array("Generali2"));
+	public function dataDirProvider() {
+		// Second parameter encodes whether the value is a valid config.
+		return array
+			( array("/Users/shecken/Documents/ilias_data/generali/data", true)
+			, array(1, false)
+			);
 	}
 
-	public function getAllPropertiesProvider() {
-		return array(array("/Users/shecken/Documents/ilias_data/generali/data","Generali2","md5"));
+	public function nameProvider() {
+		return array
+			( array("Generali2", true)
+			, array(2, false)
+			);
+	}
+
+	public function passwordEncoderProvider() {
+		return array
+			( array("md5", true)
+			, array("FOO", false)
+			, array("bcrypt", true)
+			, array(1, false)
+			);
 	}
 }
