@@ -144,12 +144,28 @@ abstract class Base {
 
 	/**
 	 * is value in array
-	 * @param mixed 	$value 		entered value
+	 * @param string|int 	$value 		entered value
+	 * @param array 		$valids		valid entries for the key
+	 *
+	 * @return bool
+	 */
+	final protected function checkContentValueInArray($value, array $valids) {
+		return in_array($value, $valids);
+	}
+
+	/**
+	 * are values in array
+	 * @param array 	$value 		entered values
 	 * @param array 	$valids		valid entries for the key
 	 *
 	 * @return bool
 	 */
-	protected function checkContentInArray($value, array $valids) {
-		return in_array($value, $valids);
+	final protected function checkContentArrayValuesInArray(array $values, array $valids) {
+		foreach ($values as $value) {
+			if(!$this->checkContentValueInArray($value, $valids)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
