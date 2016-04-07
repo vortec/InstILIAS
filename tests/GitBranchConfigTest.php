@@ -56,6 +56,9 @@ class GitBranchConfigTest extends PHPUnit_Framework_TestCase {
 				array("https://github.com/conceptsandtraining/ILIAS.git", true)
 				, array("http://github.com/conceptsandtraining/ILIAS.git", false)
 				, array("brot", false)
+				, array(4, false)
+				, array(true, false)
+				, array(array(), false)
 			);
 	}
 
@@ -64,6 +67,7 @@ class GitBranchConfigTest extends PHPUnit_Framework_TestCase {
 				array("testBranch", true)
 				, array(4, false)
 				, array(true, false)
+				, array(array(), false)
 			);
 	}
 }

@@ -54,16 +54,18 @@ class LogConfigTest extends PHPUnit_Framework_TestCase{
 	public function fileNameProvider() {
 		return array(
 				array("ilias.log", true)
-				,array(2, false)
-				,array(true, false)
+				, array(2, false)
+				, array(true, false)
+				, array(array(), false)
 			);
 	}
 
 	public function pathProvider() {
 		return array(
 				array("/var/logs/ilias", true)
-				,array(2, false)
-				,array(true, false)
+				, array(2, false)
+				, array(true, false)
+				, array(array(), false)
 			);
 	}
 }

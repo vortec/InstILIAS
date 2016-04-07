@@ -56,6 +56,9 @@ class LanguageConfigTest extends PHPUnit_Framework_TestCase {
 					, array("da", false)
 					, array("ar", false)
 					, array("el", false)
+					, array(4, false)
+					, array(true, false)
+					, array(array(), false)
 				);
 	}
 
@@ -66,6 +69,9 @@ class LanguageConfigTest extends PHPUnit_Framework_TestCase {
 					, array(array("da","pl"), false)
 					, array(array("ar","nl"), false)
 					, array(array("el","sk"), false)
+					, array(4, false)
+					, array(true, false)
+					, array(array(), false)
 				);
 	}
 }

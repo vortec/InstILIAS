@@ -1,4 +1,5 @@
 <?php
+
 use \InstILIAS\Config\Server;
 
 class ServerConfigTest extends PHPUnit_Framework_TestCase{
@@ -56,6 +57,7 @@ class ServerConfigTest extends PHPUnit_Framework_TestCase{
 				, array("htt://localhost/44generali2", false)
 				, array(4, false)
 				, array(false, false)
+				, array(array(), false)
 				, array("https://localhost/44generali2", true)
 			);
 	}
@@ -65,6 +67,7 @@ class ServerConfigTest extends PHPUnit_Framework_TestCase{
 				array("/Library/WebServer/Documents/44generali2")
 				, array(4, false)
 				, array(false, false)
+				, array(array(), false)
 			);
 	}
 
@@ -75,6 +78,7 @@ class ServerConfigTest extends PHPUnit_Framework_TestCase{
 				, array("Europe")
 				, array("Europe/Bern")
 				, array(false, false)
+				, array(array(), false)
 			);
 	}
 }
