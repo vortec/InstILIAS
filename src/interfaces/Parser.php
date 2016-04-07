@@ -1,5 +1,5 @@
 <?php
-namespace InstILIAS\interfaces;
+namespace CaT\InstILIAS\interfaces;
 
 /**
  *

@@ -1,5 +1,5 @@
 <?php
-namespace InstILIAS;
+namespace CaT\InstILIAS;
 use Gitonomy\Git\Admin;
 
 class GitExecuter implements \InstILIAS\interfaces\Git {

@@ -1,6 +1,6 @@
 <?php
 
-use \InstILIAS\Config\Client;
+use \CaT\InstILIAS\Config\Client;
 
 class ClientConfigTest extends PHPUnit_Framework_TestCase {
 	public function test_not_enough_params() {

@@ -1,9 +1,6 @@
 <?php
-/**
-  * TODO: There is the vendor missing in the namespace, it should be
-  * CaT/InstILIAS/Config (and in the other locations accordingly.)
-  */
-namespace InstILIAS\Config;
+
+namespace CaT\InstILIAS\Config;
 
 /**
  * Base class for all configs.

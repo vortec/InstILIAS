@@ -6,7 +6,7 @@
  *       Implementations in subfolder. The interfaces are the surface, not the
  *       implementations.
  */
-namespace InstILIAS\interfaces;
+namespace CaT\InstILIAS\interfaces;
 
 /**
  * TODO: This needs to be documented.

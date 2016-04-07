@@ -1,5 +1,5 @@
 <?php
-namespace InstILIAS\Config;
+namespace CaT\InstILIAS\Config;
 
 /**
  * Configuration for the git repo and branch name to get ILIAS from.

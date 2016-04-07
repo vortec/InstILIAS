@@ -1,5 +1,5 @@
 <?php
-namespace InstILIAS\Config;
+namespace CaT\InstILIAS\Config;
 
 /**
  * Config for the languages to be used in ILIAS.

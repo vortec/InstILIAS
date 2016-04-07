@@ -1,5 +1,5 @@
 <?php
-namespace InstILIAS\Config;
+namespace CaT\InstILIAS\Config;
 
 /**
  * Configuration for the Server ILIAS runs on.

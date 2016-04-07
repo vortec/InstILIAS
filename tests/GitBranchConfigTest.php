@@ -1,6 +1,6 @@
 <?php
 
-use \InstILIAS\Config\GitBranch;
+use \CaT\InstILIAS\Config\GitBranch;
 
 class GitBranchConfigTest extends PHPUnit_Framework_TestCase {
 	public function test_not_enough_params() {

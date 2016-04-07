@@ -1,5 +1,5 @@
 <?php
-namespace InstILIAS;
+namespace CaT\InstILIAS;
 
 /**
 * implementation of an ilias installator for release 4.*

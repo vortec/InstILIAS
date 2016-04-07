@@ -1,5 +1,5 @@
 <?php
-namespace InstILIAS\interfaces;
+namespace CaT\InstILIAS\interfaces;
 
 /**
  * Interface for installing ILIAS with a client.

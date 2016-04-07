@@ -1,7 +1,10 @@
 <?php
+
+use \CaT\InstILIAS\YamlParser;
+
 class YamlParserTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
-		$this->parser = new \InstILIAS\YamlParser();
+		$this->parser = new YamlParser();
 	}
 
 	/**
@@ -17,9 +20,9 @@ class YamlParserTest extends PHPUnit_Framework_TestCase {
 data_dir : sdasdads
 name : hugo
 password_encoder : md5";
-		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Client");
+		$obj = $this->parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Client");
 
-		$this->assertInstanceOf("\\InstILIAS\\Config\\Client", $obj);
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Client", $obj);
 		$this->assertEquals($obj->dataDir(), "sdasdads");
 		$this->assertInternalType("string", $obj->dataDir());
 		$this->assertEquals($obj->name(), "hugo");
@@ -36,9 +39,9 @@ user: root
 password: 4z0sXAPk
 engine: innodb
 encoding: utf8_general_ci';
-		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\DB");
+		$obj = $this->parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\DB");
 
-		$this->assertInstanceOf("\\InstILIAS\\Config\\DB", $obj);
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\DB", $obj);
 		
 		$this->assertEquals($obj->host(), "127.0.0.1");
 		$this->assertInternalType("string", $obj->host());
@@ -64,9 +67,9 @@ encoding: utf8_general_ci';
 git_url: https://github.com/conceptsandtraining/ILIAS.git
 git_branch_name: ilias';
 
-		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\GitBranch");
+		$obj = $this->parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\GitBranch");
 
-		$this->assertInstanceOf("\\InstILIAS\\Config\\GitBranch", $obj);
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\GitBranch", $obj);
 		
 		$this->assertEquals($obj->gitUrl(), "https://github.com/conceptsandtraining/ILIAS.git");
 		$this->assertInternalType("string", $obj->gitUrl());
@@ -81,9 +84,9 @@ default_lang: de
 to_install_langs:
     - en
     - de';
-		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Language");
+		$obj = $this->parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Language");
 
-		$this->assertInstanceOf("\\InstILIAS\\Config\\Language", $obj);
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Language", $obj);
 		
 		$this->assertEquals($obj->defaultLang(), "de");
 		$this->assertInternalType("string", $obj->defaultLang());
@@ -97,9 +100,9 @@ to_install_langs:
 http_path: http://localhost/44generali2
 absolute_path: /Library/WebServer/Documents/44generali2
 timezone: Europe/Berlin';
-		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Server");
+		$obj = $this->parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Server");
 
-		$this->assertInstanceOf("\\InstILIAS\\Config\\Server", $obj);
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Server", $obj);
 		
 		$this->assertEquals($obj->httpPath(), "http://localhost/44generali2");
 		$this->assertInternalType("string", $obj->httpPath());
@@ -114,9 +117,9 @@ timezone: Europe/Berlin';
 	public function test_createSetupConfig() {
 		$json_string = '---
 passwd: KarlHeinz';
-		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Setup");
+		$obj = $this->parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Setup");
 
-		$this->assertInstanceOf("\\InstILIAS\\Config\\Setup", $obj);
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Setup", $obj);
 
 		$this->assertEquals($obj->passwd(), "KarlHeinz");
 		$this->assertInternalType("string", $obj->passwd());
@@ -128,9 +131,9 @@ convert: /opt/ImageMagick
 zip: /usr/bin/zip
 unzip: /usr/bin/unzip
 java: /usr/bin/java';
-		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\Tools");
+		$obj = $this->parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Tools");
 
-		$this->assertInstanceOf("\\InstILIAS\\Config\\Tools", $obj);
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Tools", $obj);
 
 		$this->assertEquals($obj->convert(), "/opt/ImageMagick");
 		$this->assertInternalType("string", $obj->convert());
@@ -174,13 +177,13 @@ git_url: https://github.com/conceptsandtraining/ILIAS.git
 git_branch_name: release_5-1';
 
 		return array
-			( array($json_string, "\\InstILIAS\\Config\\Client")
-			, array($json_string, "\\InstILIAS\\Config\\DB")
-			, array($json_string, "\\InstILIAS\\Config\\GitBranch")
-			, array($json_string, "\\InstILIAS\\Config\\Language")
-			, array($json_string, "\\InstILIAS\\Config\\Server")
-			, array($json_string, "\\InstILIAS\\Config\\Setup")
-			, array($json_string, "\\InstILIAS\\Config\\Tools")
+			( array($json_string, "\\CaT\\InstILIAS\\Config\\Client")
+			, array($json_string, "\\CaT\\InstILIAS\\Config\\DB")
+			, array($json_string, "\\CaT\\InstILIAS\\Config\\GitBranch")
+			, array($json_string, "\\CaT\\InstILIAS\\Config\\Language")
+			, array($json_string, "\\CaT\\InstILIAS\\Config\\Server")
+			, array($json_string, "\\CaT\\InstILIAS\\Config\\Setup")
+			, array($json_string, "\\CaT\\InstILIAS\\Config\\Tools")
 			);
 	}
 

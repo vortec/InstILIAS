@@ -1,6 +1,6 @@
 <?php
 
-use \InstILIAS\Config\Setup;
+use \CaT\InstILIAS\Config\Setup;
 
 class SetupConfigTest extends PHPUnit_Framework_TestCase{
 	public function test_not_enough_params() {

@@ -1,6 +1,6 @@
 <?php
 
-use \InstILIAS\Config\Tools;
+use \CaT\InstILIAS\Config\Tools;
 
 class ToolConfigTest extends PHPUnit_Framework_TestCase{
 	public function test_not_enough_params() {

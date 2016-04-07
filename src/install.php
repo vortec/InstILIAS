@@ -29,7 +29,7 @@ $client_id = $client_config->defaultName();
 $web_dir = "data";
 
 //define git executer
-$git = new \InstILIAS\GitExecuter;
+$git = new CaT\InstILIAS\GitExecuter;
 //clone git
 try {
 	$git->cloneGitTo($ilias_git_config->iliasGitUrl(), $absolute_path);
@@ -64,7 +64,7 @@ require_once("my_setup_header.php");
 $setup = new \ilSetup(true,"admin");
 
 //define installator
-$iinst = new \InstILIAS\IliasReleaseInstallator($path, $setup, $func);
+$iinst = new CaT\InstILIAS\IliasReleaseInstallator($path, $setup, $func);
 
 //set configs to installator
 $iinst->setConfigFiles($client_config, $db_config, $language_config, $log_config, $server_config, $setup_config, $tools_config);

@@ -1,8 +1,8 @@
 <?php
-namespace InstILIAS;
+namespace CaT\InstILIAS;
 use Symfony\Component\Yaml\Yaml;
 
-class YamlParser implements \InstILIAS\interfaces\Parser {
+class YamlParser implements \CaT\InstILIAS\interfaces\Parser {
 	public function read_config($string, $class) {
 		if(!class_exists($class, true)){
 			throw new \LogicException("Class '$class' does not exists");
