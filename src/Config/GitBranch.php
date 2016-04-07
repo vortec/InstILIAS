@@ -1,0 +1,35 @@
+<?php
+namespace InstILIAS\Config;
+
+/**
+ * Configuration for the git repo and branch name to get ILIAS from.
+ *
+ * TODO: This most probably is not specific to ILIAS, so it could be named
+ * GitBranch or something.
+ */
+class GitBranch extends Base {
+	const URL_REG_EX = "/^(https:\/\/github\.com)/";
+
+	/**
+	 * @inheritdocs
+	 */
+	public static function fields() {
+		return array
+			( "git_url"			=> "string"
+			, "git_branch_name"	=> "string"
+			);
+	}
+
+	/**
+	 * @inheritdocs
+	 */
+	protected function checkValueContent($key, $value) {
+		switch($key) {
+			case "git_url":
+				return $this->checkContentPregmatch($value, self::URL_REG_EX);
+				break;
+			default:
+				return parent::checkValueContent($key, $value);
+		}
+	}
+}
