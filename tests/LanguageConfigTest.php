@@ -1,6 +1,6 @@
 <?php
 
-use \InstILIAS\Config\Client;
+use \InstILIAS\Config\Language;
 
 class LanguageConfigTest extends PHPUnit_Framework_TestCase {
 	public function test_not_enough_params() {
@@ -26,7 +26,7 @@ class LanguageConfigTest extends PHPUnit_Framework_TestCase {
 	public function _test_valid_LanguageConfig($default_lang, array $install_lang) {
 		$config = new Language($default_lang, $install_lang);
 		$this->assertEquals($default_lang, $config->defaultLang());
-		$this->assertEquals($install_lang, $config->installLang());
+		$this->assertEquals($install_lang, $config->toInstallLangs());
 	}
 
 	public function _test_invalid_LanguageConfig($default_lang, array $install_lang) {

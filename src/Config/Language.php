@@ -24,11 +24,9 @@ class Language extends Base {
 	 */
 	protected function checkValueContent($key, $value) {
 		switch($key) {
-			case "default_lang":
-				return $this->checkContentValueInArray($value, self::$valid_engines);
-				break;
 			case "to_install_langs":
-				return $this->checkContentArrayValuesInArray($value, self::$valid_encodings);
+			case "default_lang":
+				return $this->checkContentValueInArray($value, self::$valid_languages);
 				break;
 			default:
 				return parent::checkValueContent($key, $value);
