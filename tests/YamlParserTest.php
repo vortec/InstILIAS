@@ -1,6 +1,5 @@
 <?php
-require_once("tests/mocks/MockParserTest.php");
-class YamlParserTest extends MockParserTest {
+class YamlParserTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 		$this->parser = new \InstILIAS\YamlParser();
 	}
