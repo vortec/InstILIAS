@@ -99,18 +99,22 @@ abstract class Base {
 				$ok = false;
 			}
 			else {
-				try {
-					// TODO: This is not very nice. I introduced $key to make
-					// it possible for concrete config classes to perform further
-					// checks on input values, but i would call checkValue with a
-					// specific key with array($type) and $type as well.
-					foreach ($value as $v) {
-						$this->checkValue($key, $content, $v);
-					}
-					$ok = true;
-				}
-				catch (\InvalidArgumentException $e) {
+				if(empty($value)){
 					$ok = false;
+				} else {
+					try {
+						// TODO: This is not very nice. I introduced $key to make
+						// it possible for concrete config classes to perform further
+						// checks on input values, but i would call checkValue with a
+						// specific key with array($type) and $type as well.
+						foreach ($value as $v) {
+							$this->checkValue($key, $content, $v);
+						}
+						$ok = true;
+					}
+					catch (\InvalidArgumentException $e) {
+						$ok = false;
+					}
 				}
 			}
 		}
@@ -125,7 +129,7 @@ abstract class Base {
 
 		if (!$ok) {
 			throw new \InvalidArgumentException
-						( "dError in field $key: Expected "
+						( "Error in field $key: Expected "
 						. print_r($type, true)." found ".print_r($value, true));
 		}
 	}
