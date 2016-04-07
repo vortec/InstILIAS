@@ -1,59 +1,61 @@
 <?php
 
+use \InstILIAS\Config\Log;
+
 class LogConfigTest extends PHPUnit_Framework_TestCase{
-	public function setUp() {
-		$this->log_config = new \InstILIAS\Config\Log();
-	}
-
-	public function test_instanceOf() {
-		$this->assertInstanceOf("\\InstILIAS\\Config\\Log", $this->log_config);
-	}
-
 	/**
-	* @dataProvider setPathProvider
-	*/
-	public function test_setPath($path) {
-		$this->log_config->setPath($path);
-
-		$this->assertEquals($this->log_config->path(), $path);
-		$this->assertInternalType("string", $this->log_config->path());
+	 * @dataProvider	LogConfigValueProvidergit status
+	 */
+	public function test_LogConfig($path, $fileName, $valid) {
+		if ($valid) {
+			$this->_test_valid_LogConfig($path, $fileName);
+		}
+		else {
+			$this->_test_invalid_LogConfig($path, $fileName);
+		}
 	}
 
-	/**
-	* @dataProvider setFileNameProvider
-	*/
-	public function test_setFileName($file_name) {
-		$this->log_config->setFileName($file_name);
-
-		$this->assertEquals($this->log_config->fileName(), $file_name);
-		$this->assertInternalType("string", $this->log_config->fileName());
+	public function _test_valid_LogConfig($path, $fileName) {
+		$config = new Log($path, $fileName);
+		$this->assertEquals($path, $config->path());
+		$this->assertEquals($fileName, $config->fileName());
 	}
 
-	/**
-	* @dataProvider getAllPropertiesProvider
-	*/
-	public function test_getAllProperties($path, $file_name) {
-		$this->log_config->setPath($path);
-		$this->log_config->setFileName($file_name);
-
-		$all_properties = $this->log_config->getPropertiesOf();
-
-		$this->assertEquals($all_properties["path"], $path);
-		$this->assertInternalType("string", $all_properties["path"]);
-
-		$this->assertEquals($all_properties["file_name"], $file_name);
-		$this->assertInternalType("string", $all_properties["file_name"]);
+	public function _test_invalid_LogConfig($path, $fileName) {
+		try {
+			$config = new Log($path, $fileName);
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
 	}
 
-	public function setPathProvider() {
-		return array(array("ilias.log"));
+	public function LogConfigValueProvider() {
+		$ret = array();
+		$take_it = 0;
+		$take_every_Xth = 10;
+		foreach ($this->pathProvider() as $path) {
+			foreach ($this->fileNameProvider() as $fileName) {
+				$ret[] = array
+					( $path[0], $fileName[0]
+					, $path[1] && $fileName[1]);
+			}
+		}
+		return $ret;
 	}
 
-	public function setFileNameProvider() {
-		return array(array("/var/logs/ilias"));
+	public function fileNameProvider() {
+		return array(
+				array("ilias.log", true)
+				,array(2, false)
+				,array(true, false)
+			);
 	}
 
-	public function getAllPropertiesProvider() {
-		return array(array("ilias.log","/var/logs/ilias"));
+	public function pathProvider() {
+		return array(
+				array("/var/logs/ilias", true)
+				,array(2, false)
+				,array(true, false)
+			);
 	}
 }
