@@ -6,29 +6,10 @@ namespace InstILIAS\Config;
  */
 class Setup extends Base {
 	/**
-	 * @var	string
+	 * @inheritdocs
 	 */
-	protected $passwd;
-
-	const NAME = "setup";
-
-	/**
-	* sets the passwd
-	*
-	* @param string
-	*/
-	public function setPasswd($passwd) {
-		assert(is_string($passwd));
-
-		$this->passwd = $passwd;
-	}
-
-	/**
-	* gets the passwd
-	*
-	* @return string
-	*/
-	public function passwd() {
-		return $this->passwd;
+	public static function fields() {
+		return array
+			("passwd"		=> "string");
 	}
 }

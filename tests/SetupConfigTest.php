@@ -1,41 +1,57 @@
 <?php
 
+use \InstILIAS\Config\Setup;
+
 class SetupConfigTest extends PHPUnit_Framework_TestCase{
-	public function setUp() {
-		$this->setup_config = new \InstILIAS\Config\Setup();
-	}
-
-	public function test_instanceOf() {
-		$this->assertInstanceOf("\\InstILIAS\\Config\\Setup", $this->setup_config);
-	}
-
-	/**
-	* @dataProvider setHTTPPathProvider
-	*/
-	public function test_setpasswd($passwd) {
-		$this->setup_config->setPasswd($passwd);
-
-		$this->assertEquals($this->setup_config->passwd(), $passwd);
-		$this->assertInternalType("string", $this->setup_config->passwd());
+	public function test_not_enough_params() {
+		try {
+			$config = new Setup();
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
 	}
 
 	/**
-	* @dataProvider getAllPropertiesProvider
-	*/
-	public function test_getAllProperties($passwd) {
-		$this->setup_config->setPasswd($passwd);
-
-		$all_properties = $this->setup_config->getPropertiesOf();
-
-		$this->assertEquals($all_properties["passwd"], $passwd);
-		$this->assertInternalType("string", $all_properties["passwd"]);
+	 * @dataProvider	SetupConfigValueProvider
+	 */
+	public function test_SetupConfig($passwd, $valid) {
+		if ($valid) {
+			$this->_test_valid_SetupConfig($passwd);
+		}
+		else {
+			$this->_test_invalid_SetupConfig($passwd);
+		}
 	}
 
-	public function setHTTPPathProvider() {
-		return array(array("pusteblume"));
+	public function _test_valid_SetupConfig($passwd) {
+		$config = new Setup($passwd);
+		$this->assertEquals($passwd, $config->passwd());
 	}
 
-	public function getAllPropertiesProvider() {
-		return array(array("http://localhost/44generali2","/Library/WebServer/Documents/44generali2","Europe/Berlin"));
+	public function _test_invalid_SetupConfig($passwd) {
+		try {
+			$config = new Setup($passwd);
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
+	}
+
+	public function SetupConfigValueProvider() {
+		$ret = array();
+		foreach ($this->passwdProvider() as $passwd) {
+			$ret[] = array
+				( $passwd[0]
+				, $passwd[1]);
+		}
+		return $ret;
+	}
+
+	public function passwdProvider() {
+		return array(
+				array("pusteblume", true)
+				, array(5, false)
+				, array(true, false)
+				, array(array(), false)
+			);
 	}
 }
