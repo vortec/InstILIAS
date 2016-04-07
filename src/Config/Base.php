@@ -86,10 +86,10 @@ abstract class Base {
 
 	/** TODO: Document me! */
 	private function checkValue($key, $type, $value) {
-		if ($type = "string") {
+		if ($type == "string") {
 			$ok = is_string($value);
 		}
-		else if ($type = "int") {
+		else if ($type == "int") {
 			$ok = is_int($value);
 		}
 		else if (is_array($type)) {
@@ -119,13 +119,13 @@ abstract class Base {
 			$ok = $value instanceof $type;
 		}
 
-		if ($ok) {
+		if ($ok && !is_array($type)) {
 			$ok = $this->checkValueContent($key, $value);
 		}
 
 		if (!$ok) {
 			throw new \InvalidArgumentException
-						( "Error in field $key: Expected "
+						( "dError in field $key: Expected "
 						. print_r($type, true)." found ".print_r($value, true));
 		}
 	}
@@ -151,21 +151,5 @@ abstract class Base {
 	 */
 	final protected function checkContentValueInArray($value, array $valids) {
 		return in_array($value, $valids);
-	}
-
-	/**
-	 * are values in array
-	 * @param array 	$value 		entered values
-	 * @param array 	$valids		valid entries for the key
-	 *
-	 * @return bool
-	 */
-	final protected function checkContentArrayValuesInArray(array $values, array $valids) {
-		foreach ($values as $value) {
-			if(!$this->checkContentValueInArray($value, $valids)) {
-				return false;
-			}
-		}
-		return true;
 	}
 }
