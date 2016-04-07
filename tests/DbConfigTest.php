@@ -3,6 +3,14 @@
 use \InstILIAS\Config\DB;
 
 class DbConfigTest extends PHPUnit_Framework_TestCase {
+	public function test_not_enough_params() {
+		try {
+			$config = new DB();
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
+	}
+
 	/**
 	 * @dataProvider	DBConfigValueProvider
 	 */

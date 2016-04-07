@@ -3,6 +3,14 @@
 use \InstILIAS\Config\Log;
 
 class LogConfigTest extends PHPUnit_Framework_TestCase{
+	public function test_not_enough_params() {
+		try {
+			$config = new Log();
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
+	}
+
 	/**
 	 * @dataProvider	LogConfigValueProvidergit status
 	 */

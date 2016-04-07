@@ -3,6 +3,14 @@
 use \InstILIAS\Config\GitBranch;
 
 class GitBranchConfigTest extends PHPUnit_Framework_TestCase {
+	public function test_not_enough_params() {
+		try {
+			$config = new GitBranch();
+			$this->assertFalse("Should have raised.");
+		}
+		catch (\InvalidArgumentException $e) {}
+	}
+
 	/**
 	 * @dataProvider	GitBranchConfigValueProvider
 	 */
