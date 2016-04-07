@@ -12,7 +12,7 @@ class LogConfigTest extends PHPUnit_Framework_TestCase{
 	}
 
 	/**
-	 * @dataProvider	LogConfigValueProvidergit status
+	 * @dataProvider	LogConfigValueProvider status
 	 */
 	public function test_LogConfig($path, $fileName, $valid) {
 		if ($valid) {
