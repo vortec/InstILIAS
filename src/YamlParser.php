@@ -9,18 +9,37 @@ class YamlParser implements \InstILIAS\interfaces\Parser {
 		}
 
 		$yaml = Yaml::parse($string);
-		$name = $class::NAME;
+		return $this->createConfig($yaml, $class);
+	}
 
-		$config = new $class();
-
-		$all_properties = $config->getPropertiesOf();
-
-		foreach($all_properties as $key => $value) {
-			$all_properties[$key] = $yaml[$name][$key];
+	protected function createConfig($yaml, $class) {
+		foreach ($class::fields() as $key => $type) {
+			if ($type == "string") {
+				$vals[] = $yaml[$key];
+			}
+			else if ($type == "int") {
+				$vals[] = $yaml[$key];
+			}
+			else if(is_subclass_of("\\InstILIAS\\Config\\Base", $type)) {
+				$vals[] = $this->createConfig($yaml[$key], $type);
+			}
+			else if(is_array($type)) {
+				assert('count($type) === 1');
+				$content = $type[0];
+				
+				if(is_subclass_of("\\InstILIAS\\Config\\Base", $content)) {
+					$vals[] = $this->createConfig($yaml[$key], $content);
+				} else {
+					$vals[] = $yaml[$key];
+				}
+			}
+			else {
+				throw new \LogicException("Unknown Type: ".$type);
+			}
+			
 		}
 
-		$config->setValues($all_properties);
-
-		return $config;
+		$class_handle = new \ReflectionClass($class);
+		return $class_handle->newInstanceArgs($vals);
 	}
 }

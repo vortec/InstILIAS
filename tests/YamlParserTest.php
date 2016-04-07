@@ -23,10 +23,10 @@ password_encoder : md5";
 		$this->assertInstanceOf("\\InstILIAS\\Config\\Client", $obj);
 		$this->assertEquals($obj->dataDir(), "sdasdads");
 		$this->assertInternalType("string", $obj->dataDir());
-		$this->assertEquals($obj->defaultName(), "hugo");
-		$this->assertInternalType("string", $obj->defaultName());
-		$this->assertEquals($obj->defaultPasswordEncoder(), "md5");
-		$this->assertInternalType("string", $obj->defaultPasswordEncoder());
+		$this->assertEquals($obj->name(), "hugo");
+		$this->assertInternalType("string", $obj->name());
+		$this->assertEquals($obj->passwordEncoder(), "md5");
+		$this->assertInternalType("string", $obj->passwordEncoder());
 	}
 
 	public function test_createDbConfig() {
@@ -36,8 +36,7 @@ database: iliastest
 user: root
 password: 4z0sXAPk
 engine: innodb
-encoding: UTF8';
-		$db_config = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\DB");
+encoding: utf8_general_ci';
 		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\DB");
 
 		$this->assertInstanceOf("\\InstILIAS\\Config\\DB", $obj);
@@ -51,30 +50,30 @@ encoding: UTF8';
 		$this->assertEquals($obj->user(), "root");
 		$this->assertInternalType("string", $obj->user());
 
-		$this->assertEquals($obj->passwd(), "4z0sXAPk");
-		$this->assertInternalType("string", $obj->passwd());
+		$this->assertEquals($obj->password(), "4z0sXAPk");
+		$this->assertInternalType("string", $obj->password());
 
-		$this->assertEquals($obj->encoding(), "UTF8");
+		$this->assertEquals($obj->engine(), "innodb");
+		$this->assertInternalType("string", $obj->engine());
+
+		$this->assertEquals($obj->encoding(), "utf8_general_ci");
 		$this->assertInternalType("string", $obj->encoding());
-
-		$this->assertEquals($obj->type(), "innodb");
-		$this->assertInternalType("string", $obj->type());
 	}
 
 	public function test_createGitConfig() {
 		$json_string = '---
-ilias_git_url: https://github.com/conceptsandtraining/ILIAS.git
-ilias_git_branch_name: ilias';
+git_url: https://github.com/conceptsandtraining/ILIAS.git
+git_branch_name: ilias';
 
-		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\IliasGit");
+		$obj = $this->parser->read_config($json_string, "\\InstILIAS\\Config\\GitBranch");
 
-		$this->assertInstanceOf("\\InstILIAS\\Config\\IliasGit", $obj);
+		$this->assertInstanceOf("\\InstILIAS\\Config\\GitBranch", $obj);
 		
-		$this->assertEquals($obj->iliasGitUrl(), "https://github.com/conceptsandtraining/ILIAS.git");
-		$this->assertInternalType("string", $obj->iliasGitUrl());
+		$this->assertEquals($obj->gitUrl(), "https://github.com/conceptsandtraining/ILIAS.git");
+		$this->assertInternalType("string", $obj->gitUrl());
 
-		$this->assertEquals($obj->iliasGitBranchName(), "ilias");
-		$this->assertInternalType("string", $obj->iliasGitBranchName());
+		$this->assertEquals($obj->gitBranchName(), "ilias");
+		$this->assertInternalType("string", $obj->gitBranchName());
 	}
 
 	public function test_createLanguageConfig() {
@@ -149,18 +148,36 @@ java: /usr/bin/java';
 
 	public function readConfigWithValuesProvider() {
 		$json_string = '---
-setup:
-    passwd: sdasdads
-lang:
-    default_lang: de
-    to_install_langs:
-        - en
-        - de';
+data_dir : /Users/shecken/Documents/ilias_data
+name : Generali31
+password_encoder : bcrypt
+host: 127.0.0.1
+database: iliastest31
+user: root
+password: 4z0sXAPk
+engine: innodb
+encoding: utf8_general_ci
+default_lang: de
+to_install_langs:
+    - en 
+    - de
+http_path: http://localhost/iliastest31
+absolute_path: /Library/WebServer/Documents/iliastest31
+timezone: Europe/Berlin
+passwd: KarlHeinz
+convert: /opt/ImageMagick
+zip: /usr/bin/zip
+unzip: /usr/bin/unzip
+java: /usr/bin/java
+path: /Users/shecken/Documents/ilias_data/Generali31
+file_name: ilias31.log
+git_url: https://github.com/conceptsandtraining/ILIAS.git
+git_branch_name: release_5-1';
 
 		return array
 			( array($json_string, "\\InstILIAS\\Config\\Client")
 			, array($json_string, "\\InstILIAS\\Config\\DB")
-			, array($json_string, "\\InstILIAS\\Config\\IliasGit")
+			, array($json_string, "\\InstILIAS\\Config\\GitBranch")
 			, array($json_string, "\\InstILIAS\\Config\\Language")
 			, array($json_string, "\\InstILIAS\\Config\\Server")
 			, array($json_string, "\\InstILIAS\\Config\\Setup")
