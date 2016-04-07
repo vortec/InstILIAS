@@ -5,81 +5,36 @@ namespace InstILIAS\Config;
  * Configuration for the Server ILIAS runs on.
  */
 class Server extends Base {
+	const URL_REG_EX = "/^^(https:\/\/|http:\/\/)/";
+
 	/**
-	 * @var	string
+	 * @inheritdocs
 	 */
-	protected $http_path;
+	public static function fields() {
+		return array
+			( "http_path"		=> "string"
+			, "absolute_path"	=> "string"
+			, "timezone"		=> "string"
+			);
+	}
+
+	static $valid_timezones = array(
+			"Europe/Berlin"
+		);
 
 	/**
-	 * @var	string
+	 * @inheritdocs
 	 */
-	protected $absolute_path;
-
-	/**
-	 * TODO: This actually is constrained to known timezone identifiers.
-	 * @var	string
-	 */
-	protected $timezone;
-
-	const NAME = "server";
-
-	/**
-	* sets the http_path
-	*
-	* @param string
-	*/
-	public function setHttpPath($http_path) {
-		assert(is_string($http_path));
-
-		$this->http_path = $http_path;
-	}
-
-	/**
-	* gets the http_path
-	*
-	* @return string
-	*/
-	public function httpPath() {
-		return $this->http_path;
-	}
-
-	/**
-	* sets the absolute_path
-	*
-	* @param string
-	*/
-	public function setAbsolutePath($absolute_path) {
-		assert(is_string($absolute_path));
-
-		$this->absolute_path = $absolute_path;
-	}
-
-	/**
-	* gets the absolute_path
-	*
-	* @return string
-	*/
-	public function absolutePath() {
-		return $this->absolute_path;
-	}
-
-	/**
-	* sets the timezone
-	*
-	* @param string
-	*/
-	public function setTimezone($timezone) {
-		assert(is_string($timezone));
-
-		$this->timezone = $timezone;
-	}
-
-	/**
-	* gets the timezone
-	*
-	* @return string
-	*/
-	public function timezone() {
-		return $this->timezone;
+	protected function checkValueContent($key, $value) {
+		switch($key) {
+			case "timezone":
+				return $this->checkContentValueInArray($value, self::$valid_timezones);
+				break;
+			case "http_path":
+				return $this->checkContentPregmatch($value, self::URL_REG_EX);
+				break;
+			default:
+				return parent::checkValueContent($key, $value);
+		}
 	}
 }
