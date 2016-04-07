@@ -152,4 +152,16 @@ abstract class Base {
 	final protected function checkContentValueInArray($value, array $valids) {
 		return in_array($value, $valids);
 	}
+
+	/**
+	 * is value in correct format
+	 *
+	 * @param string 		$value 		entered value
+	 * @param string 		$preg 		pregmatch for value
+	 *
+	 * @return bool
+	 */
+	final protected function checkContentPregmatch($value, $preg) {
+		return preg_match($preg, strtolower($value));
+	}
 }
