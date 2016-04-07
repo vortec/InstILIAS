@@ -30,11 +30,9 @@ class DB extends Base {
 	 */
 	protected function checkValueContent($key, $value) {
 		switch($key) {
+			case "encoding":
 			case "engine":
 				return $this->checkContentValueInArray($value, self::$valid_engines);
-				break;
-			case "encoding":
-				return $this->checkContentValueInArray($value, self::$valid_encodings);
 				break;
 			default:
 				return parent::checkValueContent($key, $value);
