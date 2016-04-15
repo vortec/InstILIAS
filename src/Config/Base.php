@@ -77,12 +77,12 @@ abstract class Base {
 	 * @throws InvalidArgumentException
 	 */
 	protected function fillProperty($key, $type, $value) {
-		$this->checkValue($key, $type, $value);
+		$this->checkValue($key, $type[0], $value, $type[1]);
 		$this->$key = $value;
 	}
 
 	/** TODO: Document me! */
-	private function checkValue($key, $type, $value) {
+	private function checkValue($key, $type, $value, $optional) {
 		if ($type == "string") {
 			$ok = is_string($value);
 		}
@@ -105,7 +105,7 @@ abstract class Base {
 						// checks on input values, but i would call checkValue with a
 						// specific key with array($type) and $type as well.
 						foreach ($value as $v) {
-							$this->checkValue($key, $content, $v);
+							$this->checkValue($key, $content, $v, $optional);
 						}
 						$ok = true;
 					}
@@ -124,7 +124,7 @@ abstract class Base {
 			$ok = $this->checkValueContent($key, $value);
 		}
 
-		if (!$ok) {
+		if (!$ok && !$optional) {
 			throw new \InvalidArgumentException
 						( "Error in field $key: Expected "
 						. print_r($type, true)." found ".print_r($value, true));

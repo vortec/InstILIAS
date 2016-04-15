@@ -9,11 +9,13 @@ class YamlParser implements \CaT\InstILIAS\interfaces\Parser {
 		}
 
 		$yaml = Yaml::parse($string);
+
 		return $this->createConfig($yaml, $class);
 	}
 
 	protected function createConfig($yaml, $class) {
 		foreach ($class::fields() as $key => $type) {
+			$type = $type[0];
 
 			if(is_subclass_of($type, "\\CaT\\InstILIAS\\Config\\Base")) {
 				$vals[] = $this->createConfig($yaml[$key], $type);
