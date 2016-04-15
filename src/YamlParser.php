@@ -15,37 +15,51 @@ class YamlParser implements \CaT\InstILIAS\interfaces\Parser {
 
 	protected function createConfig($yaml, $class) {
 		foreach ($class::fields() as $key => $type) {
-			$type = $type[0];
+			$type_val = $type[0];
+			$optional = $type[1];
 
-			if(is_subclass_of($type, "\\CaT\\InstILIAS\\Config\\Base")) {
-				$vals[] = $this->createConfig($yaml[$key], $type);
+			if(is_subclass_of($type_val, "\\CaT\\InstILIAS\\Config\\Base")) {
+				$vals[] = $this->createConfig($this->yamlValue($yaml,$key,$optional), $type_val);
 			}
-			else if ($type == "string") {
-				$vals[] = $yaml[$key];
+			else if ($type_val == "string") {
+				$vals[] = $this->yamlValue($yaml,$key,$optional, "");
 			}
-			else if ($type == "int") {
-				$vals[] = $yaml[$key];
+			else if ($type_val == "int") {
+				$vals[] = $this->yamlValue($yaml,$key,$optional,0);
 			}
-			else if(is_array($type)) {
-				assert('count($type) === 1');
-				$content = $type[0];
+			else if(is_array($type_val)) {
+				assert('count($type_val) === 1');
+				$content = $type_val[0];
 				
 				if(is_subclass_of($content, "\\CaT\\InstILIAS\\Config\\Base")) {
 					$sub_vals = array();
-					foreach ($yaml[$key] as $key => $value) {
+					foreach ($this->yamlValue($yaml,$key,$optional,array()) as $key => $value) {
 						$sub_vals[] = $this->createConfig($value, $content);
 					}
 					$vals[] = $sub_vals;
 				} else {
-					$vals[] = $yaml[$key];
+					$vals[] = $this->yamlValue($yaml,$key,$optional,array());
 				}
 			}
 			else {
-				throw new \LogicException("Unknown Type: ".$type);
+				throw new \LogicException("Unknown Type: ".$type_val);
 			}
 		}
 
 		$class_handle = new \ReflectionClass($class);
 		return $class_handle->newInstanceArgs($vals);
+	}
+
+	protected function yamlValue($yaml, $key, $optional, $baseValue = null) {
+		if(!array_key_exists($key, $yaml) && $optional) {
+			if($baseValue === null) {
+				throw new \Exception("No baseValue defined: ".$key);
+			}
+			return $baseValue;
+		} else if(!array_key_exists($key, $yaml) && !$optional) {
+			throw new \LogicException("Key not found: ".$key);
+		}
+
+		return $yaml[$key];
 	}
 }
