@@ -14,21 +14,26 @@ class YamlParser implements \CaT\InstILIAS\interfaces\Parser {
 
 	protected function createConfig($yaml, $class) {
 		foreach ($class::fields() as $key => $type) {
-			if ($type == "string") {
+
+			if(is_subclass_of($type, "\\CaT\\InstILIAS\\Config\\Base")) {
+				$vals[] = $this->createConfig($yaml[$key], $type);
+			}
+			else if ($type == "string") {
 				$vals[] = $yaml[$key];
 			}
 			else if ($type == "int") {
 				$vals[] = $yaml[$key];
 			}
-			else if(is_subclass_of("\\InstILIAS\\Config\\Base", $type)) {
-				$vals[] = $this->createConfig($yaml[$key], $type);
-			}
 			else if(is_array($type)) {
 				assert('count($type) === 1');
 				$content = $type[0];
 				
-				if(is_subclass_of("\\InstILIAS\\Config\\Base", $content)) {
-					$vals[] = $this->createConfig($yaml[$key], $content);
+				if(is_subclass_of($content, "\\CaT\\InstILIAS\\Config\\Base")) {
+					$sub_vals = array();
+					foreach ($yaml[$key] as $key => $value) {
+						$sub_vals[] = $this->createConfig($value, $content);
+					}
+					$vals[] = $sub_vals;
 				} else {
 					$vals[] = $yaml[$key];
 				}
@@ -36,7 +41,6 @@ class YamlParser implements \CaT\InstILIAS\interfaces\Parser {
 			else {
 				throw new \LogicException("Unknown Type: ".$type);
 			}
-			
 		}
 
 		$class_handle = new \ReflectionClass($class);
