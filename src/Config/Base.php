@@ -116,7 +116,7 @@ abstract class Base {
 			}
 		}
 		else {
-			assert(is_subclass_of("\\InstILIAS\\Config\\Base", $type));
+			assert('is_subclass_of($type, "\\CaT\\InstILIAS\\Config\\Base")');
 			$ok = $value instanceof $type;
 		}
 
