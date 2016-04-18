@@ -2,7 +2,7 @@
 namespace CaT\InstILIAS;
 
 /**
-* implementation of an ilias installator for release 4.*
+* implementation of an ilias installator
 *
 * @author Stefan Hecken <stefan.hecken@concepts-and-training.de>
 */
