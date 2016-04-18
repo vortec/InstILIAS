@@ -9,7 +9,7 @@ abstract class Base {
 	/**
 	 * Get all fields that this config defines and their types.
 	 *
-	 * @return	array		$name	=> ConfigClass|"string"|"int"|array(ConfigClass|"string"|"int")
+	 * @return	array		array($name	=> ConfigClass|"string"|"int"|array(ConfigClass|"string"|"int"), optional => false|true)
 	 */
 	abstract public static function fields();
 
