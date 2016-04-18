@@ -10,8 +10,8 @@ class Log extends Base {
 	 */
 	public static function fields() {
 		return array
-			( "path"			=> "string"
-			, "file_name"		=> "string"
+			( "path"			=> array("string", false)
+			, "file_name"		=> array("string", false)
 			);
 	}
 }

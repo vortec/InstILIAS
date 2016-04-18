@@ -10,10 +10,10 @@ class Tools extends Base {
 	 */
 	public static function fields() {
 		return array
-			( "convert"	=> "string"
-			, "zip"		=> "string"
-			, "unzip"	=> "string"
-			, "java"	=> "string"
+			( "convert"	=> array("string", false)
+			, "zip"		=> array("string", false)
+			, "unzip"	=> array("string", false)
+			, "java"	=> array("string", false)
 			);
 	}
 }

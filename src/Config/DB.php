@@ -14,12 +14,12 @@ class DB extends Base {
 	 */
 	public static function fields() {
 		return array
-			( "host"			=> "string"
-			, "database"		=> "string"
-			, "user"			=> "string"
-			, "password"		=> "string"
-			, "engine"			=> "string"
-			, "encoding"		=> "string"
+			( "host"			=> array("string", false)
+			, "database"		=> array("string", false)
+			, "user"			=> array("string", false)
+			, "password"		=> array("string", false)
+			, "engine"			=> array("string", false)
+			, "encoding"		=> array("string", false)
 			);
 	}
 

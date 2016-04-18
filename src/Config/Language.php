@@ -10,8 +10,8 @@ class Language extends Base {
 	 */
 	public static function fields() {
 		return array
-			( "default_lang"			=> "string"
-			, "to_install_langs"		=> array("string")
+			( "default_lang"			=> array("string", false)
+			, "to_install_langs"		=> array(array("string"), false)
 			);
 	}
 

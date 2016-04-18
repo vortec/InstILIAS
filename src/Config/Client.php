@@ -10,9 +10,9 @@ class Client extends Base {
 	 */
 	public static function fields() {
 		return array
-			( "data_dir"			=> "string"
-			, "name"				=> "string"
-			, "password_encoder"	=> "string"
+			( "data_dir"			=> array("string", false)
+			, "name"				=> array("string", false)
+			, "password_encoder"	=> array("string", false)
 			);
 	}
 

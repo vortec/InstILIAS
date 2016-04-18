@@ -52,9 +52,6 @@ class YamlParser implements \CaT\InstILIAS\interfaces\Parser {
 
 	protected function yamlValue($yaml, $key, $optional, $baseValue = null) {
 		if(!array_key_exists($key, $yaml) && $optional) {
-			if($baseValue === null) {
-				throw new \Exception("No baseValue defined: ".$key);
-			}
 			return $baseValue;
 		} else if(!array_key_exists($key, $yaml) && !$optional) {
 			throw new \LogicException("Key not found: ".$key);

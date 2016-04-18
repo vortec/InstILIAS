@@ -12,9 +12,9 @@ class Server extends Base {
 	 */
 	public static function fields() {
 		return array
-			( "http_path"		=> "string"
-			, "absolute_path"	=> "string"
-			, "timezone"		=> "string"
+			( "http_path"		=> array("string", false)
+			, "absolute_path"	=> array("string", false)
+			, "timezone"		=> array("string", false)
 			);
 	}
 

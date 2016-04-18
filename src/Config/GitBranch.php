@@ -15,8 +15,8 @@ class GitBranch extends Base {
 	 */
 	public static function fields() {
 		return array
-			( "git_url"			=> "string"
-			, "git_branch_name"	=> "string"
+			( "git_url"			=> array("string", false)
+			, "git_branch_name"	=> array("string", false)
 			);
 	}
 

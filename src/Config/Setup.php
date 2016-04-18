@@ -10,6 +10,6 @@ class Setup extends Base {
 	 */
 	public static function fields() {
 		return array
-			("passwd"		=> "string");
+			("passwd"		=> array("string", false));
 	}
 }
