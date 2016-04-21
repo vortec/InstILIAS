@@ -23,15 +23,15 @@ class ServerConfigTest extends PHPUnit_Framework_TestCase{
 		}
 	}
 
-	public function _test_valid_ServerConfig($http_path, $absolute_path) {
-		$config = new Server($http_path, $absolute_path);
+	public function _test_valid_ServerConfig($http_path, $absolute_path, $timezone) {
+		$config = new Server($http_path, $absolute_path, $timezone);
 		$this->assertEquals($http_path, $config->defaultLang());
 		$this->assertEquals($absolute_path, $config->toInstallLangs());
 	}
 
-	public function _test_invalid_ServerConfig($http_path, $absolute_path) {
+	public function _test_invalid_ServerConfig($http_path, $absolute_path, $timezone) {
 		try {
-			$config = new Server($http_path, $absolute_path);
+			$config = new Server($http_path, $absolute_path, $timezone);
 			$this->assertFalse("Should have raised.");
 		}
 		catch (\InvalidArgumentException $e) {}

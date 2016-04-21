@@ -11,7 +11,9 @@ abstract class Base {
 	 *
 	 * @return	array		array($name	=> ConfigClass|"string"|"int"|array(ConfigClass|"string"|"int"), optional => false|true)
 	 */
-	abstract public static function fields();
+	public static function fields() {
+		return array();
+	}
 
 	/**
 	 * Create a config object, pass parameters according to getFields of the
