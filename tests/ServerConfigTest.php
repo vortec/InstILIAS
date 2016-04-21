@@ -64,7 +64,7 @@ class ServerConfigTest extends PHPUnit_Framework_TestCase{
 
 	public function absolutePathProvider() {
 		return array(
-				array("/Library/WebServer/Documents/44generali2")
+				array("/Library/WebServer/Documents/44generali2", true)
 				, array(4, false)
 				, array(false, false)
 				, array(array(), false)
