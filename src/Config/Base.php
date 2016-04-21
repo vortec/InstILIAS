@@ -165,6 +165,6 @@ abstract class Base {
 	 * @return bool
 	 */
 	final protected function checkContentPregmatch($value, $preg) {
-		return preg_match($preg, strtolower($value));
+		return (bool)preg_match($preg, strtolower($value));
 	}
 }

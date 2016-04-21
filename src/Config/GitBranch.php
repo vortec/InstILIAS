@@ -27,7 +27,6 @@ class GitBranch extends Base {
 		switch($key) {
 			case "git_url":
 				return $this->checkContentPregmatch($value, self::URL_REG_EX);
-				break;
 			default:
 				return parent::checkValueContent($key, $value);
 		}

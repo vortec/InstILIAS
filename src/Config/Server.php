@@ -18,7 +18,7 @@ class Server extends Base {
 			);
 	}
 
-	static $valid_timezones = array(
+	public static $valid_timezones = array(
 			"Europe/Berlin"
 			,"Europe/Bern"
 		);
@@ -30,10 +30,8 @@ class Server extends Base {
 		switch($key) {
 			case "timezone":
 				return $this->checkContentValueInArray($value, self::$valid_timezones);
-				break;
 			case "http_path":
 				return $this->checkContentPregmatch($value, self::URL_REG_EX);
-				break;
 			default:
 				return parent::checkValueContent($key, $value);
 		}
