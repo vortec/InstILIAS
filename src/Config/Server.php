@@ -20,6 +20,7 @@ class Server extends Base {
 
 	static $valid_timezones = array(
 			"Europe/Berlin"
+			,"Europe/Bern"
 		);
 
 	/**
