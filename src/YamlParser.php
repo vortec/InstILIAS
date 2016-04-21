@@ -14,6 +14,7 @@ class YamlParser implements \CaT\InstILIAS\interfaces\Parser {
 	}
 
 	protected function createConfig($yaml, $class) {
+		$vals = array();
 		foreach ($class::fields() as $key => $type) {
 			$type_val = $type[0];
 			$optional = $type[1];

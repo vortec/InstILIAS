@@ -109,15 +109,11 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 		$lng->installLanguages($this->language_config->toInstallLangs(), array());
 		$this->setDefaultLanguage();
 
-		$this->setLanguageSetupFinished();
+		$status["lang"]["status"] = false;
 	}
 
 	protected function setDefaultLanguage() {
 		$this->setup->getClient()->setDefaultLanguage($this->language_config->defaultLang());
-	}
-
-	protected function setLanguageSetupFinished() {
-		$status["lang"]["status"] = false;
 	}
 
 	/**
@@ -165,9 +161,6 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 			$this->setup->getClient()->ini->setVariable("client","access",1);
 			$this->setup->getClient()->ini->write();
 
-			// if this is not done, the writing of
-			// the setup_ok fails (with MDB2 and a larger
-			// client list), alex 17.1.2008
 			$this->setup->getClient()->reconnect();
 			$this->setup->getClient()->setSetting("setup_ok",1);
 			$this->setup->getClient()->status["finish"]["status"] = true;
@@ -186,7 +179,7 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	{
 		foreach ($this->setup->getClient()->status as $key => $val)
 		{
-			if ($key != "finish" and $key != "access")
+			if ($key != "finish" && $key != "access")
 			{
 				if ($val["status"] != true)
 				{
