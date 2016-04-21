@@ -15,7 +15,7 @@ roles:
         name: DumpUsers
         description: Gruppe für alle
     2:
-        name: WhosNext
+        name: WhosNexte
         description: Neue Menschen";
 	}
 
