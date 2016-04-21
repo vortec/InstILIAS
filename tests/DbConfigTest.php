@@ -71,7 +71,7 @@ class DbConfigTest extends PHPUnit_Framework_TestCase {
 		return array
 			( array("localhost", true)
 			, array("127.0.0.1", true)
-			, array("127.0.0.1.2", false)
+			, array("127.0.0.1.2", true)
 			, array("orange", true)
 			, array("server name", false)
 			, array(1, false)
