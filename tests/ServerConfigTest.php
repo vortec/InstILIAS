@@ -73,10 +73,10 @@ class ServerConfigTest extends PHPUnit_Framework_TestCase{
 
 	public function timezoneProvider() {
 		return array(
-				array("Europe/Berlin")
+				array("Europe/Berlin", true)
 				, array(4, false)
-				, array("Europe")
-				, array("Europe/Bern")
+				, array("Europe", false)
+				, array("Europe/Bern", true)
 				, array(false, false)
 				, array(array(), false)
 			);
