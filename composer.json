@@ -16,6 +16,7 @@
     },
     "require": {
         "symfony/yaml" : "2.8",
-        "gitonomy/gitlib": "dev-master"
+        "gitonomy/gitlib": "dev-master",
+        "symfony/process": "2.3"
     }
 }
