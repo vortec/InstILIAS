@@ -5,4 +5,4 @@ php:
     - 5.6
     - hhvm
     - nightly
-script: phpunit -v --bootstrap vendor/autoloader.php tests
+script: phpunit -v --bootstrap vendor/autoload.php tests
