@@ -17,11 +17,11 @@ $ composer intall
 ### Configuration
 Create a copy of the default_config.yaml.
 ```
-$ sudo cp src/config/default_config.yaml src/config/config.yaml
+$ cp src/config/default_config.yaml src/config/config.yaml
 ```
 Open the config.yaml and fill in all Values
 ```
-$ sudo vi src/config/config.yaml
+$ vi src/config/config.yaml
 ```
 
 ### Execution
