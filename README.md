@@ -4,7 +4,7 @@
 [![Software License](https://img.shields.io/aur/license/yaourt.svg?style=flat-square)](LICENSE.md)
 
 # InstILIAS
-**A Command Line Installation Script for ILIAS**
+**A Command Line Installation Script for [ILIAS](https://github.com/ILIAS-eLearning/ILIAS)**
 
 ## Usage
 ### Installation
@@ -15,11 +15,11 @@ $ composer intall
 ```
 
 ### Configuration
-1. Create a copy of the default_config.yaml.
+Create a copy of the default_config.yaml.
 ```
 $ sudo cp src/config/default_config.yaml src/config/config.yaml
 ```
-2. Open the config.yaml and fill in all Values
+Open the config.yaml and fill in all Values
 ```
 $ sudo vi src/config/config.yaml
 ```
