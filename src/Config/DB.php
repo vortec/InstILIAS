@@ -54,6 +54,6 @@ class DB extends Base {
 			return true;
 		}
 
-		return preg_match(self::HOST_NAME_REGEX, strtolower($value));
+		return (bool)preg_match(self::HOST_NAME_REGEX, strtolower($value));
 	}
 }

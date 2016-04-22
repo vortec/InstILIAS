@@ -73,7 +73,7 @@ $iinst->setConfigFiles($client_config, $db_config, $language_config, $log_config
 $iinst->writeIliasIni();
 
 //create client.ini.php + folder structure
-$ret = $iinst->writeClientIni();
+$iinst->writeClientIni();
 
 $iinst->connectDatabase();
 
