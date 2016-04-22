@@ -4,13 +4,13 @@
 
 # InstILIAS
 
-**A Command Line Installation Script for ILIAS
+**A Command Line Installation Script for ILIAS**
 
 *This code is released under the [GPL3 License](LICENSE.md)*
 
-**Goals
+**Goals**
 
-**Installation
+**Installation**
 
 ´´´
 $ git clone https://github.com/shecken/InstILIAS.git
@@ -18,5 +18,5 @@ $ cd DESTINATION FOLDER
 $ composer intall
 ´´´
 
-**Configuration
+**Configuration**
 
