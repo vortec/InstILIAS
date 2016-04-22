@@ -6,6 +6,8 @@ namespace CaT\InstILIAS\Config;
  *
  * TODO: This most probably is not specific to ILIAS, so it could be named
  * GitBranch or something.
+ *
+ * @method string getString()
  */
 class GitBranch extends Base {
 	const URL_REG_EX = "/^(https:\/\/github\.com)/";

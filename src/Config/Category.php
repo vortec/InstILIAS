@@ -3,6 +3,8 @@ namespace CaT\InstILIAS\Config;
 
 /**
  * Configuration for an ILIAS database.
+ *
+ * @method string getString()
  */
 class Category extends Base {
 	/**

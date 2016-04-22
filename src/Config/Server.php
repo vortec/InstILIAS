@@ -3,6 +3,8 @@ namespace CaT\InstILIAS\Config;
 
 /**
  * Configuration for the Server ILIAS runs on.
+ *
+ * @method string getString()
  */
 class Server extends Base {
 	const URL_REG_EX = "/^^(https:\/\/|http:\/\/)/";

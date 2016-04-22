@@ -3,6 +3,8 @@ namespace CaT\InstILIAS\Config;
 
 /**
  * TODO: This name seems odd. It's about the master password, right?
+ *
+ * @method string getString()
  */
 class Setup extends Base {
 	/**

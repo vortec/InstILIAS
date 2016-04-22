@@ -3,6 +3,8 @@ namespace CaT\InstILIAS\Config;
 
 /**
  * Config for the languages to be used in ILIAS.
+ *
+ * @method string getString()
  */
 class Language extends Base {
 	/**

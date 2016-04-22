@@ -3,6 +3,8 @@ namespace CaT\InstILIAS\Config;
 
 /**
  * Configuration for one client of ILIAS.
+ *
+ * @method string getString()
  */
 class Client extends Base {
 	/**

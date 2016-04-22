@@ -3,6 +3,8 @@ namespace CaT\InstILIAS\Config;
 
 /**
  * Configuration for the log of ILIAS.
+ *
+ * @method string getString()
  */
 class Log extends Base {
 	/**

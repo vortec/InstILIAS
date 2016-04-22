@@ -3,6 +3,8 @@ namespace CaT\InstILIAS\Config;
 
 /**
  * Configuration for OrgUnits.
+ *
+ * @method string getString()
  */
 class OrgUnits extends Base {
 	/**
