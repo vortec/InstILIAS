@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "df672c714fce736315e8d136cbd45fb3",
-    "content-hash": "53bff12c7d2b63eea9a8e28d863fee08",
+    "hash": "a3ee01fdeb1fdc472dbbab7a2aa38bcf",
+    "content-hash": "5982c3f885e0789ffabcb3bedf482a2b",
     "packages": [
         {
             "name": "gitonomy/gitlib",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gitonomy/gitlib.git",
-                "reference": "6e0c86f0b569918b93364329b6f411c21b69dc99"
+                "reference": "f575b8f7da917ade7890c6aa705fa22545690389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gitonomy/gitlib/zipball/6e0c86f0b569918b93364329b6f411c21b69dc99",
-                "reference": "6e0c86f0b569918b93364329b6f411c21b69dc99",
+                "url": "https://api.github.com/repos/gitonomy/gitlib/zipball/f575b8f7da917ade7890c6aa705fa22545690389",
+                "reference": "f575b8f7da917ade7890c6aa705fa22545690389",
                 "shasum": ""
             },
             "require": {
@@ -59,21 +59,21 @@
             ],
             "description": "Library for accessing git",
             "homepage": "http://gitonomy.com",
-            "time": "2016-02-11 13:04:22"
+            "time": "2015-12-01 22:25:57"
         },
         {
             "name": "symfony/process",
-            "version": "v2.3.0",
+            "version": "v2.4.10",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/process.git",
-                "reference": "bb721b29e033594512f8b08386e13593b0faaf0f"
+                "url": "https://github.com/symfony/Process.git",
+                "reference": "2756ff2bc8e05527f4d5285cc4406e269b12e516"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/bb721b29e033594512f8b08386e13593b0faaf0f",
-                "reference": "bb721b29e033594512f8b08386e13593b0faaf0f",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/2756ff2bc8e05527f4d5285cc4406e269b12e516",
+                "reference": "2756ff2bc8e05527f4d5285cc4406e269b12e516",
                 "shasum": ""
             },
             "require": {
@@ -82,7 +82,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.4-dev"
                 }
             },
             "autoload": {
@@ -106,7 +106,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-06 20:03:44"
+            "time": "2014-09-23 05:24:59"
         },
         {
             "name": "symfony/yaml",
@@ -161,9 +161,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "gitonomy/gitlib": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

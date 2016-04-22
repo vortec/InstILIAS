@@ -13,7 +13,7 @@ require_once("Modules/Category/classes/class.ilObjCategory.php");
 * @author Stefan Hecken <stefan.hecken@concepts-and-training.de>
 */
 
-class IliasReleaseConfigurator implements \InstILIAS\interfaces\Configurator {
+class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator {
 	
 	public function __construct() {
 		$this->initIlias();

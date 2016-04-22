@@ -2,7 +2,7 @@
 namespace CaT\InstILIAS;
 use Gitonomy\Git\Admin;
 
-class GitExecuter implements \InstILIAS\interfaces\Git {
+class GitExecuter implements \CaT\InstILIAS\interfaces\Git {
 
 	const URL_REG_EX = "/^(https:\/\/github\.com)/";
 

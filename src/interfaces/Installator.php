@@ -94,7 +94,7 @@ interface Installator {
 	 * @param	ilUserPasswordEncoderFactory	$encoder_factory
 	 * @return	null
 	 */
-	public function setPasswordEncoder(ilUserPasswordEncoderFactory $encoder_factory);
+	public function setPasswordEncoder(\ilUserPasswordEncoderFactory $encoder_factory);
 
 	/**
 	 * Finish the ILIAS setup process.
@@ -111,15 +111,15 @@ interface Installator {
 	 *
 	 * @return	null
 	 */
-	public function setConfigFiles(\InstILIAS\Config\ClientConfig $client_config, \InstILIAS\Config\DbConfig $db_config, \InstILIAS\Config\LanguageConfig $language_config
-								, \InstILIAS\Config\LogConfig $log_config, \InstILIAS\Config\ServerConfig $server_config, \InstILIAS\Config\SetupConfig $setup_config
-								, \InstILIAS\Config\ToolsConfig $tools_config);
+	public function setConfigFiles(\CaT\InstILIAS\Config\Client $client, \CaT\InstILIAS\Config\DB $db, \CaT\InstILIAS\Config\Language $language
+								, \CaT\InstILIAS\Config\Log $log, \CaT\InstILIAS\Config\Server $server, \CaT\InstILIAS\Config\Setup $setup
+								, \CaT\InstILIAS\Config\Tools $tools);
 
-	public function setClientConfig(\InstILIAS\Config\ClientConfig $client_config);
-	public function setDbConfig(\InstILIAS\Config\DbConfig $db_config);
-	public function setLanguageConfig(\InstILIAS\Config\LanguageConfig $language_config);
-	public function setLogConfig(\InstILIAS\Config\LogConfig $log_config);
-	public function setServerConfig(\InstILIAS\Config\ServerConfig $server_config);
-	public function setSetupConfig(\InstILIAS\Config\SetupConfig $setup_config);
-	public function setToolsConfig(\InstILIAS\Config\ToolsConfig $tools_config);
+	public function setClientConfig(\CaT\InstILIAS\Config\Client $client);
+	public function setDbConfig(\CaT\InstILIAS\Config\DB $db);
+	public function setLanguageConfig(\CaT\InstILIAS\Config\Language $language);
+	public function setLogConfig(\CaT\InstILIAS\Config\Log $log);
+	public function setServerConfig(\CaT\InstILIAS\Config\Server $serverg);
+	public function setSetupConfig(\CaT\InstILIAS\Config\Setup $setup);
+	public function setToolsConfig(\CaT\InstILIAS\Config\Tools $tools);
 }

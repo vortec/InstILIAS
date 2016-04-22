@@ -7,23 +7,23 @@ namespace CaT\InstILIAS;
 * @author Stefan Hecken <stefan.hecken@concepts-and-training.de>
 */
 
-class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
-	protected $client_config;
-	protected $db_config;
-	protected $language_config;
-	protected $log_config;
-	protected $server_config;
-	protected $setup_config;
-	protected $tools_config;
-
+class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
+	//configs
+	protected $client;
+	protected $db;
+	protected $language;
+	protected $log;
+	protected $server;
 	protected $setup;
-	protected $ilias_path;
-	protected $db_update;
+	protected $tools;
 
-	public function __construct($ilias_path, $setup, $db_update) {
+	//tools
+	protected $ilias_setup;
+	protected $ilias_path;
+
+	public function __construct($ilias_path, \ilSetup $ilias_setup) {
 		$this->ilias_path = $ilias_path;
-		$this->setup = $setup;
-		$this->db_update = $db_update;
+		$this->ilias_setup = $ilias_setup;
 	}
 
 	/**
@@ -31,9 +31,9 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	*/
 	public function writeIliasIni() {
 		global $ilCtrlStructureReader;
-		$this->setup->saveMasterSetup($this->getIliasIniData());
-		$ilCtrlStructureReader->setIniFile($this->setup->ini);
-		$this->setup->ini_ilias_exists = true;
+		$this->ilias_setup->saveMasterSetup($this->getIliasIniData());
+		$ilCtrlStructureReader->setIniFile($this->ilias_setup->ini);
+		$this->ilias_setup->ini_ilias_exists = true;
 	}
 
 	/**
@@ -42,19 +42,19 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	public function writeClientIni() {
 		$ret = $this->getClientIniData();
 
-		$this->setup->ini_client_exists = $this->setup->newClient($ret["client_id"]);
-		$this->setup->getClient()->setId($ret["client_id"]);
-		$this->setup->getClient()->setName($ret["client_id"]);
-		$this->setup->getClient()->setDbHost($ret["db_host"]);
-		$this->setup->getClient()->setDbName($ret["db_name"]);
-		$this->setup->getClient()->setDbUser($ret["db_user"]);
-		$this->setup->getClient()->setDbPort($ret["db_port"]);
-		$this->setup->getClient()->setDbPass($ret["db_pass"]);
-		$this->setup->getClient()->setDbType($ret["db_type"]);
-		$this->setup->getClient()->setDSN();
+		$this->ilias_setup->ini_client_exists = $this->ilias_setup->newClient($ret["client_id"]);
+		$this->ilias_setup->getClient()->setId($ret["client_id"]);
+		$this->ilias_setup->getClient()->setName($ret["client_id"]);
+		$this->ilias_setup->getClient()->setDbHost($ret["db_host"]);
+		$this->ilias_setup->getClient()->setDbName($ret["db_name"]);
+		$this->ilias_setup->getClient()->setDbUser($ret["db_user"]);
+		$this->ilias_setup->getClient()->setDbPort($ret["db_port"]);
+		$this->ilias_setup->getClient()->setDbPass($ret["db_pass"]);
+		$this->ilias_setup->getClient()->setDbType($ret["db_type"]);
+		$this->ilias_setup->getClient()->setDSN();
 
-		if(!$this->setup->saveNewClient()) {
-			echo $this->setup->getError();
+		if(!$this->ilias_setup->saveNewClient()) {
+			echo $this->ilias_setup->getError();
 			die();
 		}
 
@@ -62,22 +62,22 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	}
 
 	protected function setClientIniSetupFinsihed() {
-		$this->setup->getClient()->status["ini"]["status"] = true;
+		$this->ilias_setup->getClient()->status["ini"]["status"] = true;
 	}
 
 	/**
 	* @inheritdoc
 	*/
 	public function installDatabase() {
-		$this->setup->createDatabase($this->db_config->encoding());
-		$this->setup->installDatabase();
+		$this->ilias_setup->createDatabase($this->db->encoding());
+		$this->ilias_setup->installDatabase();
 	}
 
 	/**
 	* @inheritdoc
 	*/
 	public function connectDatabase() {
-		$this->setup->getClient()->connect();
+		$this->ilias_setup->getClient()->connect();
 	}
 
 	/**
@@ -89,31 +89,31 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 		return $ilDB;
 	}
 
-	public function applyHotfixes($db_updater) {
+	public function applyHotfixes(\ilDBUpdate $db_updater) {
 		$db_updater->applyHotfix();
 		$this->setDBSetupFinished();
 	}
 
-	public function applyUpdates($db_updater) {
+	public function applyUpdates(\ilDBUpdate $db_updater) {
 		$db_updater->applyUpdate();
 	}
 
 	protected function setDBSetupFinished() {
-		$this->setup->getClient()->status["db"]["status"] = true;
+		$this->ilias_setup->getClient()->status["db"]["status"] = true;
 	}
 
 	/**
 	* @inheritdoc
 	*/
-	public function installLanguages($lng) {
-		$lng->installLanguages($this->language_config->toInstallLangs(), array());
+	public function installLanguages(\ilLanguage $lng) {
+		$lng->installLanguages($this->language->toInstallLangs(), array());
 		$this->setDefaultLanguage();
 
 		$status["lang"]["status"] = false;
 	}
 
 	protected function setDefaultLanguage() {
-		$this->setup->getClient()->setDefaultLanguage($this->language_config->defaultLang());
+		$this->ilias_setup->getClient()->setDefaultLanguage($this->language->defaultLang());
 	}
 
 	/**
@@ -124,30 +124,30 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	}
 
 	protected function setProxySetupFinished() {
-		$this->setup->getClient()->status["proxy"]["status"] = true;
+		$this->ilias_setup->getClient()->status["proxy"]["status"] = true;
 	}
 
 	/**
 	* @inheritdoc
 	*/
 	public function registerNoNic() {
-		$this->setup->getClient()->setSetting("inst_id","0");
-		$this->setup->getClient()->setSetting("nic_enabled","0");
+		$this->ilias_setup->getClient()->setSetting("inst_id","0");
+		$this->ilias_setup->getClient()->setSetting("nic_enabled","0");
 		$this->setRegisterSetupFinished();
 	}
 
 	protected function setRegisterSetupFinished() {
-		$this->setup->getClient()->status["nic"]["status"] = true;
+		$this->ilias_setup->getClient()->status["nic"]["status"] = true;
 	}
 
 	/**
 	* @inhertidoc
 	*/
-	public function setPasswordEncoder($encoder_factory) {
-		$default_encoder = $encoder_factory->getEncoderByName(trim($this->client_config->defaultPasswordEncoder()));
+	public function setPasswordEncoder(\ilUserPasswordEncoderFactory $encoder_factory) {
+		$default_encoder = $encoder_factory->getEncoderByName(trim($this->client->passwordEncoder()));
 		$default_encoder->onSelection();
 		$encoder = array('default_encoder' => $default_encoder->getName());
-		$this->setup->savePasswordSettings($encoder);
+		$this->ilias_setup->savePasswordSettings($encoder);
 	}
 
 	/**
@@ -155,15 +155,15 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	*/
 	public function finishSetup() {
 		if($this->validatesetup()) {
-			$this->setup->ini->setVariable("clients","default",$this->setup->getClient()->getId());
-			$this->setup->ini->write();
+			$this->ilias_setup->ini->setVariable("clients","default",$this->ilias_setup->getClient()->getId());
+			$this->ilias_setup->ini->write();
 
-			$this->setup->getClient()->ini->setVariable("client","access",1);
-			$this->setup->getClient()->ini->write();
+			$this->ilias_setup->getClient()->ini->setVariable("client","access",1);
+			$this->ilias_setup->getClient()->ini->write();
 
-			$this->setup->getClient()->reconnect();
-			$this->setup->getClient()->setSetting("setup_ok",1);
-			$this->setup->getClient()->status["finish"]["status"] = true;
+			$this->ilias_setup->getClient()->reconnect();
+			$this->ilias_setup->getClient()->setSetting("setup_ok",1);
+			$this->ilias_setup->getClient()->status["finish"]["status"] = true;
 			
 			return true;
 		}
@@ -177,7 +177,7 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	 */
 	protected function validateSetup()
 	{
-		foreach ($this->setup->getClient()->status as $key => $val)
+		foreach ($this->ilias_setup->getClient()->status as $key => $val)
 		{
 			if ($key != "finish" && $key != "access")
 			{
@@ -194,70 +194,70 @@ class IliasReleaseInstallator implements \InstILIAS\interfaces\Installator {
 	/**
 	* @inheritdoc
 	*/
-	public function setConfigFiles(\InstILIAS\configs\ClientConfig $client_config, \InstILIAS\configs\DbConfig $db_config, \InstILIAS\configs\LanguageConfig $language_config
-								, \InstILIAS\configs\LogConfig $log_config, \InstILIAS\configs\ServerConfig $server_config, \InstILIAS\configs\SetupConfig $setup_config
-								, \InstILIAS\configs\ToolsConfig $tools_config)
+	public function setConfigFiles(\CaT\InstILIAS\Config\Client $client, \CaT\InstILIAS\Config\DB $db, \CaT\InstILIAS\Config\Language $language
+								, \CaT\InstILIAS\Config\Log $log, \CaT\InstILIAS\Config\Server $server, \CaT\InstILIAS\Config\Setup $setup
+								, \CaT\InstILIAS\Config\Tools $tools)
 	{
-		$this->client_config = $client_config;
-		$this->db_config = $db_config;
-		$this->language_config = $language_config;
-		$this->log_config = $log_config;
-		$this->server_config = $server_config;
-		$this->setup_config = $setup_config;
-		$this->tools_config = $tools_config;
+		$this->client = $client;
+		$this->db = $db;
+		$this->language = $language;
+		$this->log = $log;
+		$this->server = $server;
+		$this->setup = $setup;
+		$this->tools = $tools;
 	}
 
-	public function setClientConfig(\InstILIAS\configs\ClientConfig $client_config) {
-		$this->client_config = $client_config;
+	public function setClientConfig(\CaT\InstILIAS\Config\Client $client) {
+		$this->client = $client;
 	}
 
-	public function setDbConfig(\InstILIAS\configs\DbConfig $db_config) {
-		$this->db_config = $db_config;
+	public function setDbConfig(\CaT\InstILIAS\Config\DB $db) {
+		$this->db = $db;
 	}
 
-	public function setLanguageConfig(\InstILIAS\configs\LanguageConfig $language_config) {
-		$this->language_config = $language_config;
+	public function setLanguageConfig(\CaT\InstILIAS\Config\Language $language) {
+		$this->language = $language;
 	}
 
-	public function setLogConfig(\InstILIAS\configs\LogConfig $log_config) {
-		$this->log_config = $log_config;
+	public function setLogConfig(\CaT\InstILIAS\Config\Log $log) {
+		$this->log = $log;
 	}
 
-	public function setServerConfig(\InstILIAS\configs\ServerConfig $server_config) {
-		$this->server_config = $server_config;
+	public function setServerConfig(\CaT\InstILIAS\Config\Server $serverg) {
+		$this->server = $server;
 	}
 
-	public function setSetupConfig(\InstILIAS\configs\SetupConfig $setup_config) {
-		$this->setup_config = $setup_config;
+	public function setSetupConfig(\CaT\InstILIAS\Config\Setup $setup) {
+		$this->setup = $setup;
 	}
 
-	public function setToolsConfig(\InstILIAS\configs\ToolsConfig $tools_config) {
-		$this->tools_config = $tools_config;
+	public function setToolsConfig(\CaT\InstILIAS\Config\Tools $tools) {
+		$this->tools = $tools;
 	}
 
 	protected function getIliasIniData() {
 		$ret = array();
 
-		$ret["datadir_path"] = $this->client_config->dataDir();
-		$ret["log_path"] = $this->log_config->path()."/".$this->log_config->fileName();
-		$ret["time_zone"] = $this->server_config->timezone();
-		$ret["convert_path"] = $this->tools_config->convert();
-		$ret["zip_path"] = $this->tools_config->zip();
-		$ret["unzip_path"] = $this->tools_config->unzip();
-		$ret["java_path"] = $this->tools_config->java();
-		$ret["setup_pass"] = $this->setup_config->passwd();
+		$ret["datadir_path"] = $this->client->dataDir();
+		$ret["log_path"] = $this->log->path()."/".$this->log->fileName();
+		$ret["time_zone"] = $this->server->timezone();
+		$ret["convert_path"] = $this->tools->convert();
+		$ret["zip_path"] = $this->tools->zip();
+		$ret["unzip_path"] = $this->tools->unzip();
+		$ret["java_path"] = $this->tools->java();
+		$ret["setup_pass"] = $this->setup->passwd();
 
 		return $ret;
 	}
 
 	protected function getClientIniData() {
 		$ret = array();
-		$ret["client_id"] = $this->client_config->defaultName();
-		$ret["db_host"] = $this->db_config->host();
-		$ret["db_name"] = $this->db_config->database();
-		$ret["db_user"] = $this->db_config->user();
-		$ret["db_pass"] = $this->db_config->passwd();
-		$ret["db_type"] = $this->db_config->type();
+		$ret["client_id"] = $this->client->name();
+		$ret["db_host"] = $this->db->host();
+		$ret["db_name"] = $this->db->database();
+		$ret["db_user"] = $this->db->user();
+		$ret["db_pass"] = $this->db->password();
+		$ret["db_type"] = $this->db->engine();
 
 		return $ret;
 	}
