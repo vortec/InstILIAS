@@ -27,5 +27,5 @@ $ sudo vi src/config/config.yaml
 ### Execution
 To install your ILIAS execute the install script.
 ```
-$ php install.php
+$ php src/install.php
 ```
