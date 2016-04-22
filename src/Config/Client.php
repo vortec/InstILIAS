@@ -4,7 +4,9 @@ namespace CaT\InstILIAS\Config;
 /**
  * Configuration for one client of ILIAS.
  *
- * @method string getString()
+ * @method string dataDir()
+ * @method string name()
+ * @method string passwordEncoder()
  */
 class Client extends Base {
 	/**

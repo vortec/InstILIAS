@@ -4,7 +4,8 @@ namespace CaT\InstILIAS\Config;
 /**
  * Configuration for an ILIAS database.
  *
- * @method string getString()
+ * @method string title()
+ * @method array childs()
  */
 class Category extends Base {
 	/**

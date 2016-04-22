@@ -4,7 +4,7 @@ namespace CaT\InstILIAS\Config;
 /**
  * Configuration for Roles.
  *
- * @method string getString()
+ * @method array roles()
  */
 class Roles extends Base {
 	/**

@@ -4,7 +4,7 @@ namespace CaT\InstILIAS\Config;
 /**
  * TODO: This name seems odd. It's about the master password, right?
  *
- * @method string getString()
+ * @method string passwd()
  */
 class Setup extends Base {
 	/**

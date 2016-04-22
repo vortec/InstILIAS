@@ -4,7 +4,8 @@ namespace CaT\InstILIAS\Config;
 /**
  * Configuration for the log of ILIAS.
  *
- * @method string getString()
+ * @method string path()
+ * @method string fileName()
  */
 class Log extends Base {
 	/**

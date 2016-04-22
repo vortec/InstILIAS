@@ -4,7 +4,12 @@ namespace CaT\InstILIAS\Config;
 /**
  * Configuration for an ILIAS database.
  *
- * @method string getString()
+ * @method string host()
+ * @method string database()
+ * @method string user()
+ * @method string password()
+ * @method string engine()
+ * @method string encoding()
  */
 class DB extends Base {
 

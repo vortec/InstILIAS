@@ -4,7 +4,8 @@ namespace CaT\InstILIAS\Config;
 /**
  * Config for the languages to be used in ILIAS.
  *
- * @method string getString()
+ * @method string defaultLang()
+ * @method array toInstallLangs()
  */
 class Language extends Base {
 	/**

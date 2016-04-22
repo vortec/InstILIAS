@@ -4,7 +4,10 @@ namespace CaT\InstILIAS\Config;
 /**
  * Configuration for the tools required by ILIAS.
  *
- * @method string getString()
+ * @method string convert()
+ * @method string zip()
+ * @method string unzip()
+ * @method string java()
  */
 class Tools extends Base {
 		/**

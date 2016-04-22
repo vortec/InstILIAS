@@ -4,7 +4,7 @@ namespace CaT\InstILIAS\Config;
 /**
  * Configuration for OrgUnits.
  *
- * @method string getString()
+ * @method array orgunits()
  */
 class OrgUnits extends Base {
 	/**
