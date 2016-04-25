@@ -6,25 +6,40 @@ use \CaT\InstILIAS\YamlParser;
 class GeneralConfigTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 		$this->parser = new YamlParser();
-		$this->yaml_string = "--- 
-main_repo: 
-    git_url: https://github.com/conceptsandtraining/ILIAS.git
-    git_branch_name: ilias
-logs:
-    - md5
-    - md2
-    - md3
-text: pusteblume
-plugins:
-    plugin1:
-        git_url: https://github.com/conceptsandtraining/ILIAS.git
-        git_branch_name: ilias
-    plugin2:
-        git_url: https://github.com/conceptsandtraining/ILIAS.git
-        git_branch_name: ilias
-    plugin3:
-        git_url: https://github.com/conceptsandtraining/ILIAS.git
-        git_branch_name: ilias";
+		$this->yaml_string = "---
+client:
+    data_dir : /Users/shecken/Documents/ilias_data
+    name : Ilias3
+    password_encoder : bcrypt 
+database:
+    host: 127.0.0.1
+    database: iliastest3
+    user: root
+    password: 4z0sXAPk
+    engine: innodb
+    encoding: utf8_general_ci 
+language:
+    default_lang: de
+    to_install_langs:
+        - en
+        - de
+server:
+    http_path: http://localhost/iliastest3
+    absolute_path: /Library/WebServer/Documents/iliastest3
+    timezone: Europe/Berlin
+setup:
+    passwd: KarlHeinz
+tools:
+    convert: /opt/ImageMagick
+    zip: /usr/bin/zip
+    unzip: /usr/bin/unzip
+    java: /usr/bin/java
+log:
+    path: /Users/shecken/Documents/ilias_data/Ilias3
+    file_name: ilias3.log
+git_branch:
+    git_url: https://github.com/ILIAS-eLearning/ILIAS.git
+    git_branch_name: release_5-1";
 	}
 
 	public function test_not_enough_params() {
@@ -37,19 +52,14 @@ plugins:
 
 	public function test_createIliasConfig() {
 		$config = $this->parser->read_config($this->yaml_string, "\\CaT\\InstILIAS\\Config\\General");
-
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\General", $config);
-		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\GitBranch", $config->mainRepo());
-
-		$this->assertInternalType("array", $config->plugins());
-		foreach ($config->plugins() as $key => $value) {
-			$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\GitBranch", $value);
-		}
-
-		$this->assertEquals($config->mainRepo()->gitUrl(), "https://github.com/conceptsandtraining/ILIAS.git");
-		$this->assertEquals($config->mainRepo()->gitBranchName(), "ilias");
-
-		$this->assertEquals($config->text(), "pusteblume");
-		$this->assertInternalType("array", $config->logs());
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Client", $config->client());
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\DB", $config->database());
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Language", $config->language());
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Server", $config->server());
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Setup", $config->setup());
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Tools", $config->tools());
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Log", $config->log());
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\GitBranch", $config->git_branch());
 	}
 }

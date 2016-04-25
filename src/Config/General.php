@@ -15,10 +15,14 @@ class General extends Base {
 	 */
 	public static function fields() {
 		return array
-			( "main_repo"	=> array("\\CaT\\InstILIAS\\Config\\GitBranch", false)
-			, "logs"		=> array(array("string"), false)
-			, "text"		=> array("string", false)
-			, "plugins"		=> array(array("\\CaT\\InstILIAS\\Config\\GitBranch"), false)
+			( "client"	=> array("\\CaT\\InstILIAS\\Config\\Client", false)
+			, "database"	=> array("\\CaT\\InstILIAS\\Config\\DB", false)
+			, "language"	=> array("\\CaT\\InstILIAS\\Config\\Language", false)
+			, "server"	=> array("\\CaT\\InstILIAS\\Config\\Server", false)
+			, "setup"	=> array("\\CaT\\InstILIAS\\Config\\Setup", false)
+			, "tools"	=> array("\\CaT\\InstILIAS\\Config\\Tools", false)
+			, "log"	=> array("\\CaT\\InstILIAS\\Config\\Log", false)
+			, "git_branch"	=> array("\\CaT\\InstILIAS\\Config\\GitBranch", false)
 			);
 	}
 }
