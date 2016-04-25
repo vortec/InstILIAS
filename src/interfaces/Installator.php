@@ -111,15 +111,5 @@ interface Installator {
 	 *
 	 * @return	null
 	 */
-	public function setConfigFiles(\CaT\InstILIAS\Config\Client $client, \CaT\InstILIAS\Config\DB $db, \CaT\InstILIAS\Config\Language $language
-								, \CaT\InstILIAS\Config\Log $log, \CaT\InstILIAS\Config\Server $server, \CaT\InstILIAS\Config\Setup $setup
-								, \CaT\InstILIAS\Config\Tools $tools);
-
-	public function setClientConfig(\CaT\InstILIAS\Config\Client $client);
-	public function setDbConfig(\CaT\InstILIAS\Config\DB $db);
-	public function setLanguageConfig(\CaT\InstILIAS\Config\Language $language);
-	public function setLogConfig(\CaT\InstILIAS\Config\Log $log);
-	public function setServerConfig(\CaT\InstILIAS\Config\Server $serverg);
-	public function setSetupConfig(\CaT\InstILIAS\Config\Setup $setup);
-	public function setToolsConfig(\CaT\InstILIAS\Config\Tools $tools);
+	public function setGeneralConfig(\CaT\InstILIAS\Config\General $general);
 }

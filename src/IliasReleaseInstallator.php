@@ -69,7 +69,7 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	* @inheritdoc
 	*/
 	public function installDatabase() {
-		$this->ilias_setup->createDatabase($this->db->encoding());
+		$this->ilias_setup->createDatabase($this->general->database()->encoding());
 		$this->ilias_setup->installDatabase();
 	}
 
@@ -106,14 +106,14 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	* @inheritdoc
 	*/
 	public function installLanguages(\ilLanguage $lng) {
-		$lng->installLanguages($this->language->toInstallLangs(), array());
+		$lng->installLanguages($this->general->language()->toInstallLangs(), array());
 		$this->setDefaultLanguage();
 
 		$status["lang"]["status"] = false;
 	}
 
 	protected function setDefaultLanguage() {
-		$this->ilias_setup->getClient()->setDefaultLanguage($this->language->defaultLang());
+		$this->ilias_setup->getClient()->setDefaultLanguage($this->general->language()->defaultLang());
 	}
 
 	/**
@@ -144,7 +144,7 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	* @inhertidoc
 	*/
 	public function setPasswordEncoder(\ilUserPasswordEncoderFactory $encoder_factory) {
-		$default_encoder = $encoder_factory->getEncoderByName(trim($this->client->passwordEncoder()));
+		$default_encoder = $encoder_factory->getEncoderByName(trim($this->general->client()->passwordEncoder()));
 		$default_encoder->onSelection();
 		$encoder = array('default_encoder' => $default_encoder->getName());
 		$this->ilias_setup->savePasswordSettings($encoder);
@@ -194,70 +194,34 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	/**
 	* @inheritdoc
 	*/
-	public function setConfigFiles(\CaT\InstILIAS\Config\Client $client, \CaT\InstILIAS\Config\DB $db, \CaT\InstILIAS\Config\Language $language
-								, \CaT\InstILIAS\Config\Log $log, \CaT\InstILIAS\Config\Server $server, \CaT\InstILIAS\Config\Setup $setup
-								, \CaT\InstILIAS\Config\Tools $tools)
+	public function setGeneralConfig(\CaT\InstILIAS\Config\General $general)
 	{
-		$this->client = $client;
-		$this->db = $db;
-		$this->language = $language;
-		$this->log = $log;
-		$this->server = $server;
-		$this->setup = $setup;
-		$this->tools = $tools;
-	}
-
-	public function setClientConfig(\CaT\InstILIAS\Config\Client $client) {
-		$this->client = $client;
-	}
-
-	public function setDbConfig(\CaT\InstILIAS\Config\DB $db) {
-		$this->db = $db;
-	}
-
-	public function setLanguageConfig(\CaT\InstILIAS\Config\Language $language) {
-		$this->language = $language;
-	}
-
-	public function setLogConfig(\CaT\InstILIAS\Config\Log $log) {
-		$this->log = $log;
-	}
-
-	public function setServerConfig(\CaT\InstILIAS\Config\Server $serverg) {
-		$this->server = $server;
-	}
-
-	public function setSetupConfig(\CaT\InstILIAS\Config\Setup $setup) {
-		$this->setup = $setup;
-	}
-
-	public function setToolsConfig(\CaT\InstILIAS\Config\Tools $tools) {
-		$this->tools = $tools;
+		$this->general = $general;
 	}
 
 	protected function getIliasIniData() {
 		$ret = array();
 
-		$ret["datadir_path"] = $this->client->dataDir();
-		$ret["log_path"] = $this->log->path()."/".$this->log->fileName();
-		$ret["time_zone"] = $this->server->timezone();
-		$ret["convert_path"] = $this->tools->convert();
-		$ret["zip_path"] = $this->tools->zip();
-		$ret["unzip_path"] = $this->tools->unzip();
-		$ret["java_path"] = $this->tools->java();
-		$ret["setup_pass"] = $this->setup->passwd();
+		$ret["datadir_path"] = $this->general->client()->dataDir();
+		$ret["log_path"] = $this->general->log()->path()."/".$this->general->log()->fileName();
+		$ret["time_zone"] = $this->general->server()->timezone();
+		$ret["convert_path"] = $this->general->tools()->convert();
+		$ret["zip_path"] = $this->general->tools()->zip();
+		$ret["unzip_path"] = $this->general->tools()->unzip();
+		$ret["java_path"] = $this->general->tools()->java();
+		$ret["setup_pass"] = $this->general->setup()->passwd();
 
 		return $ret;
 	}
 
 	protected function getClientIniData() {
 		$ret = array();
-		$ret["client_id"] = $this->client->name();
-		$ret["db_host"] = $this->db->host();
-		$ret["db_name"] = $this->db->database();
-		$ret["db_user"] = $this->db->user();
-		$ret["db_pass"] = $this->db->password();
-		$ret["db_type"] = $this->db->engine();
+		$ret["client_id"] = $this->general->client()->name();
+		$ret["db_host"] = $this->general->database()->host();
+		$ret["db_name"] = $this->general->database()->database();
+		$ret["db_user"] = $this->general->database()->user();
+		$ret["db_pass"] = $this->general->database()->password();
+		$ret["db_type"] = $this->general->database()->engine();
 
 		return $ret;
 	}

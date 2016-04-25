@@ -14,29 +14,22 @@ $json_string = file_get_contents(__DIR__."/config.yaml");
 //$general_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\General")
 
 //read different configs
-$client_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Client");
-$db_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\DB");
-$language_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Language");
-$server_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Server");
-$setup_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Setup");
-$tools_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Tools");
-$log_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Log");
-$ilias_git_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\GitBranch");
+$general_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\General");
 
 //define path vars for global use
-$http_path = $server_config->httpPath();
-$absolute_path = $server_config->absolutePath();
-$data_path = $client_config->dataDir();
-$client_id = $client_config->name();
+$http_path = $general_config->server()->httpPath();
+$absolute_path = $general_config->server()->absolutePath();
+$data_path = $general_config->client()->dataDir();
+$client_id = $general_config->client()->name();
 $web_dir = "data";
 
 //define git executer
 $git = new \CaT\InstILIAS\GitExecuter;
 //clone git
 try {
-	echo "Clone repository from: ".$ilias_git_config->gitUrl();
+	echo "Clone repository from: ".$general_config->gitBranch()->gitUrl();
 	echo " (This could take a few minutes)";
-	$git->cloneGitTo($ilias_git_config->gitUrl(), $absolute_path);
+	$git->cloneGitTo($general_config->gitBranch()->gitUrl(), $absolute_path);
 	echo "\t\tDone...\n";
 } catch(\RuntimeException $e) {
 	echo $e->getMessage();
@@ -48,8 +41,8 @@ try {
 
 //switch to branch
 try {
-	echo "Checkout branch: ".$ilias_git_config->gitUrl();
-	$git->checkoutBranch($ilias_git_config->gitBranchName(), $absolute_path);
+	echo "Checkout branch: ".$general_config->gitBranch()->gitUrl();
+	$git->checkoutBranch($general_config->gitBranch()->gitBranchName(), $absolute_path);
 	echo "\t\tDone...\n";
 } catch(\RuntimeException $e) {
 	echo $e->getMessage();
@@ -80,7 +73,7 @@ echo "\t\tDone...\n";
 
 //set configs to installator
 echo "Start install ILIAS\n\n";
-$iinst->setConfigFiles($client_config, $db_config, $language_config, $log_config, $server_config, $setup_config, $tools_config);
+$iinst->setGeneralConfig($general_config);
 
 //create ilias.ini.php
 echo "Create ILIAS ini";
