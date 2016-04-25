@@ -11,6 +11,8 @@ $parser = new \CaT\InstILIAS\YamlParser();
 //read yaml file
 $json_string = file_get_contents(__DIR__."/config.yaml");
 
+//$general_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\General")
+
 //read different configs
 $client_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\Client");
 $db_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\DB");
@@ -62,7 +64,10 @@ try {
 
 //change dir to ILIAS Folder
 chdir($absolute_path);
-require_once $absolute_path.'/libs/composer/vendor/autoload.php';
+if(file_exists($absolute_path.'/libs/composer/vendor/autoload.php')) {
+	include_once $absolute_path.'/libs/composer/vendor/autoload.php';
+}
+
 require_once("my_setup_header.php");
 
 //define setup object
