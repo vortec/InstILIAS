@@ -1,6 +1,6 @@
 <?php
 
-use \CaT\InstILIAS\Config\Ilias;
+use \CaT\InstILIAS\Config\OrgUnits;
 use \CaT\InstILIAS\YamlParser;
 
 class OrgUnitsConfigTest extends PHPUnit_Framework_TestCase {
@@ -26,7 +26,7 @@ orgunits:
 
 	public function test_not_enough_params() {
 		try {
-			$config = new Ilias();
+			$config = new OrgUnits();
 			$this->assertFalse("Should have raised.");
 		}
 		catch (\InvalidArgumentException $e) {}

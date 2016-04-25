@@ -1,6 +1,6 @@
 <?php
 
-use \CaT\InstILIAS\Config\Ilias;
+use \CaT\InstILIAS\Config\Roles;
 use \CaT\InstILIAS\YamlParser;
 
 class RolesConfigTest extends PHPUnit_Framework_TestCase {
@@ -21,7 +21,7 @@ roles:
 
 	public function test_not_enough_params() {
 		try {
-			$config = new Ilias();
+			$config = new Roles();
 			$this->assertFalse("Should have raised.");
 		}
 		catch (\InvalidArgumentException $e) {}

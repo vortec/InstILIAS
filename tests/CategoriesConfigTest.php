@@ -1,6 +1,6 @@
 <?php
 
-use \CaT\InstILIAS\Config\Ilias;
+use \CaT\InstILIAS\Config\Categories;
 use \CaT\InstILIAS\YamlParser;
 
 class CategoriesConfigTest extends PHPUnit_Framework_TestCase {
@@ -26,7 +26,7 @@ categories:
 
 	public function test_not_enough_params() {
 		try {
-			$config = new Ilias();
+			$config = new Categories();
 			$this->assertFalse("Should have raised.");
 		}
 		catch (\InvalidArgumentException $e) {}
