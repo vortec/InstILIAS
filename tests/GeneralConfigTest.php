@@ -1,9 +1,9 @@
 <?php
 
-use \CaT\InstILIAS\Config\Ilias;
+use \CaT\InstILIAS\Config\General;
 use \CaT\InstILIAS\YamlParser;
 
-class IliasConfigTest extends PHPUnit_Framework_TestCase {
+class GeneralConfigTest extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 		$this->parser = new YamlParser();
 		$this->yaml_string = "--- 
@@ -29,16 +29,16 @@ plugins:
 
 	public function test_not_enough_params() {
 		try {
-			$config = new Ilias();
+			$config = new General();
 			$this->assertFalse("Should have raised.");
 		}
 		catch (\InvalidArgumentException $e) {}
 	}
 
 	public function test_createIliasConfig() {
-		$config = $this->parser->read_config($this->yaml_string, "\\CaT\\InstILIAS\\Config\\Ilias");
+		$config = $this->parser->read_config($this->yaml_string, "\\CaT\\InstILIAS\\Config\\General");
 
-		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Ilias", $config);
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\General", $config);
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\GitBranch", $config->mainRepo());
 
 		$this->assertInternalType("array", $config->plugins());

@@ -2,14 +2,14 @@
 namespace CaT\InstILIAS\Config;
 
 /**
- * Configuration for an ILIAS database.
+ * General Configuration for an ILIAS.
  *
  * @method \\CaT\\InstILIAS\\Config\\GitBranch mainRepo()
  * @method array logs()
  * @method string text()
  * @method array plugins()
  */
-class Ilias extends Base {
+class General extends Base {
 	/**
 	 * @inheritdocs
 	 */
