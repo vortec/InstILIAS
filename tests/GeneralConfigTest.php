@@ -9,11 +9,11 @@ class GeneralConfigTest extends PHPUnit_Framework_TestCase {
 		$this->yaml_string = "---
 client:
     data_dir : /Users/shecken/Documents/ilias_data
-    name : Ilias3
+    name : Ilias5
     password_encoder : bcrypt 
 database:
     host: 127.0.0.1
-    database: iliastest3
+    database: iliastest5
     user: root
     password: 4z0sXAPk
     engine: innodb
@@ -24,8 +24,8 @@ language:
         - en
         - de
 server:
-    http_path: http://localhost/iliastest3
-    absolute_path: /Library/WebServer/Documents/iliastest3
+    http_path: http://localhost/iliastest5
+    absolute_path: /Library/WebServer/Documents/iliastest5
     timezone: Europe/Berlin
 setup:
     passwd: KarlHeinz
@@ -35,11 +35,27 @@ tools:
     unzip: /usr/bin/unzip
     java: /usr/bin/java
 log:
-    path: /Users/shecken/Documents/ilias_data/Ilias3
-    file_name: ilias3.log
+    path: /Users/shecken/Documents/ilias_data/Ilias5
+    file_name: ilias5.log
 git_branch:
     git_url: https://github.com/ILIAS-eLearning/ILIAS.git
-    git_branch_name: release_5-1";
+    git_branch_name: release_5-1
+category:
+    categories:
+        0:
+            title: Eins
+        1:
+            title: Zwei
+            childs:
+                10:
+                    title: ZweiEins
+                    childs: []
+                11:
+                    title: ZweiZwei
+                    childs: []
+        2:
+            title: Drei
+            childs: []";
 	}
 
 	public function test_not_enough_params() {
@@ -61,5 +77,6 @@ git_branch:
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Tools", $config->tools());
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Log", $config->log());
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\GitBranch", $config->git_branch());
+		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Categories", $config->category());
 	}
 }

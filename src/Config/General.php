@@ -23,6 +23,7 @@ class General extends Base {
 			, "tools"	=> array("\\CaT\\InstILIAS\\Config\\Tools", true)
 			, "log"	=> array("\\CaT\\InstILIAS\\Config\\Log", true)
 			, "git_branch"	=> array("\\CaT\\InstILIAS\\Config\\GitBranch", true)
+			, "category"	=> array("\\CaT\\InstILIAS\\Config\\Categories", true)
 			);
 	}
 }

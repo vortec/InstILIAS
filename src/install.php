@@ -1,6 +1,7 @@
 <?php
+$config_path = $argv[1];
 //set error_reporting auf ein böses level
-error_reporting(E_ALL & ~E_STRICT);
+error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
 
 //import autoloader für InstILIAS
 require __DIR__ . '/../vendor/autoload.php';
@@ -9,7 +10,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $parser = new \CaT\InstILIAS\YamlParser();
 
 //read yaml file
-$json_string = file_get_contents(__DIR__."/config.yaml");
+$json_string = file_get_contents($config_path);
 
 //$general_config = $parser->read_config($json_string, "\\CaT\\InstILIAS\\Config\\General")
 
@@ -56,6 +57,7 @@ try {
 }
 
 //change dir to ILIAS Folder
+$old_dir = __DIR__;
 chdir($absolute_path);
 if(file_exists($absolute_path.'/libs/composer/vendor/autoload.php')) {
 	include_once $absolute_path.'/libs/composer/vendor/autoload.php';
@@ -72,7 +74,7 @@ $iinst = new \CaT\InstILIAS\IliasReleaseInstallator($path, $setup);
 echo "\t\tDone...\n";
 
 //set configs to installator
-echo "Start install ILIAS\n\n";
+echo "\nStart install ILIAS\n";
 $iinst->setGeneralConfig($general_config);
 
 //create ilias.ini.php
@@ -118,6 +120,9 @@ if(!$iinst->finishSetup()) {
     echo "Something went wrong at finish setup";
     die(1);
 }
-
 echo "\n\nIlias successfull installed.";
+
+chdir($old_dir);
+$response = shell_exec("php ".__DIR__."/configure.php $absolute_path $client_id");
+echo $response;
 die(0);

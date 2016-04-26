@@ -1,12 +1,5 @@
 <?php
 namespace CaT\InstILIAS;
-
-require_once "./Services/Context/classes/class.ilContext.php";
-require_once("./Services/Init/classes/class.ilInitialisation.php");
-require_once("Services/AccessControl/classes/class.ilObjRoleTemplate.php");
-require_once("Modules/OrgUnit/classes/class.ilObjOrgUnit.php");
-require_once("Modules/Category/classes/class.ilObjCategory.php");
-
 /**
 * implementation of an ilias configurator
 *
@@ -14,8 +7,13 @@ require_once("Modules/Category/classes/class.ilObjCategory.php");
 */
 
 class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator {
-	
-	public function __construct() {
+
+	public function __construct($absolute_path, $client_id) {
+		define ("CLIENT_ID", $client_id);
+		define('IL_PHPUNIT_TEST', true);
+		$_COOKIE["ilClientId"] = $client_id;
+
+		$this->absolute_path = $absolute_path;
 		$this->initIlias();
 
 		global $ilDB, $tree;
@@ -28,8 +26,16 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 	 * @inheritdoc
 	 */
 	public function initIlias() {
-		ilContext::init(ilContext::CONTEXT_WEB_NOAUTH);
-		ilInitialisation::initILIAS();
+		chdir($this->absolute_path);
+		require_once($this->absolute_path."/Services/Context/classes/class.ilContext.php");
+		require_once($this->absolute_path."/Services/Init/classes/class.ilInitialisation.php");
+		require_once($this->absolute_path."/Services/AccessControl/classes/class.ilObjRoleTemplate.php");
+		require_once($this->absolute_path."/Modules/OrgUnit/classes/class.ilObjOrgUnit.php");
+		require_once($this->absolute_path."/Modules/Category/classes/class.ilObjCategory.php");
+
+		\ilContext::init(\ilContext::CONTEXT_UNITTEST);
+		\ilInitialisation::initILIAS();
+
 	}
 
 	/**
@@ -58,7 +64,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 	public function createOrgUnits($install_orgunits) {
 		
 		foreach ($install_orgunits->childs() as $key => $value) {
-			$this->createOrgunit($value, ilObjOrgUnit::getRootOrgRefId());
+			$this->createOrgunit($value, \ilObjOrgUnit::getRootOrgRefId());
 		}
 	}
 
@@ -70,7 +76,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 	 * @param int $parent_ref_id
 	 */
 	protected function createOrgUnit($org_unit, $parent_ref_id) {
-		$orgu = new ilObjOrgUnit();
+		$orgu = new \ilObjOrgUnit();
 		$orgu->setTitle($org_unit->title());
 		$orgu->create();
 		$orgu->createReference();
@@ -88,7 +94,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 	 * @inheritdoc
 	 */
 	public function createCategories($install_categories) {
-		foreach ($install_categories->childs() as $key => $value) {
+		foreach ($install_categories->categories() as $key => $value) {
 			$this->createCategory($value, $this->gTree->getRootId());
 		}
 	}
@@ -101,7 +107,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 	 * @param int $parent_ref_id
 	 */
 	protected function createCategory($category, $parent_ref_id) {
-		$cat = new ilObjCategory();
+		$cat = new \ilObjCategory();
 		$cat->setTitle($category->title());
 		$cat->create();
 		$cat->createReference();
