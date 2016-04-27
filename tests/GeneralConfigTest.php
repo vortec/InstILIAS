@@ -55,6 +55,22 @@ category:
                     childs: []
         2:
             title: Drei
+            childs: []
+orgunit:
+    orgunits:
+        0:
+            title: OrgEins
+        1:
+            title: OrgZwei
+            childs:
+                10:
+                    title: OrgZweiEins
+                    childs: []
+                11:
+                    title: OrgZweiZwei
+                    childs: []
+        2:
+            title: OrgDrei
             childs: []";
 	}
 
@@ -78,5 +94,6 @@ category:
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Log", $config->log());
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\GitBranch", $config->git_branch());
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Categories", $config->category());
+        $this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\OrgUnits", $config->orgunit());
 	}
 }
