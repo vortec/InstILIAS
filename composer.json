@@ -21,7 +21,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "cp src/bin/install.sh /Users/shecken/bin/install",
+            "cp src/bin/install.sh /Users/shecken/bin/start_setup",
             "chmod 755 /Users/shecken/bin/start_setup"
         ]
     }
