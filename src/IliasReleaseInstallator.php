@@ -109,7 +109,7 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 		$lng->installLanguages($this->general->language()->toInstallLangs(), array());
 		$this->setDefaultLanguage();
 
-		$this->ilias_setup->getClient()->$status["lang"]["status"] = false;
+		$this->ilias_setup->getClient()->status["lang"]["status"] = false;
 	}
 
 	protected function setDefaultLanguage() {
