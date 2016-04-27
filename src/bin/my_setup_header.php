@@ -87,7 +87,6 @@ $ilErr->setErrorHandling(PEAR_ERROR_CALLBACK,array($ilErr,'errorHandler'));
 ;
 
 define ("ILIAS_HTTP_PATH", $http_path);
-// PHP is running in CGI mode?
 define ("ILIAS_ABSOLUTE_PATH", $absolute_path);
 define ("ILIAS_DATA_DIR", $data_path);
 define ("ILIAS_WEB_DIR", $web_dir);
@@ -110,10 +109,7 @@ $lng = new ilLanguage($lang);
 $log = new ilLog(ILIAS_ABSOLUTE_PATH,"ilias.log","SETUP",false);
 $ilLog =& $log;
 
-// init template - in the main program please use ILIAS Template class
-// instantiate main template
-//$tpl = new ilTemplate("./setup/templates");
-//$tpl->loadTemplatefile("tpl.main.html", true, true);
+// init template
 $tpl = new ilTemplate("tpl.main.html", true, true, "setup");
 
 // make instance of structure reader
