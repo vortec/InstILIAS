@@ -18,5 +18,10 @@
         "symfony/yaml" : "2.8",
         "gitonomy/gitlib": "1.0.*",
         "symfony/process": "2.4.*"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "cp src/bin/install.sh /Users/shecken/bin/install.sh"
+        ]
     }
 }
