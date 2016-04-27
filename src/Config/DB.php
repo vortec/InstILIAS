@@ -44,13 +44,10 @@ class DB extends Base {
 		switch($key) {
 			case "encoding":
 				return $this->checkContentValueInArray($value, self::$valid_encodings);
-				break;
 			case "engine":
 				return $this->checkContentValueInArray($value, self::$valid_engines);
-				break;
 			case "host":
 				return $this->checkContentHost($value);
-				break;
 			default:
 				return parent::checkValueContent($key, $value);
 		}

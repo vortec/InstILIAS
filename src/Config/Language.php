@@ -30,7 +30,6 @@ class Language extends Base {
 			case "to_install_langs":
 			case "default_lang":
 				return $this->checkContentValueInArray($value, self::$valid_languages);
-				break;
 			default:
 				return parent::checkValueContent($key, $value);
 		}

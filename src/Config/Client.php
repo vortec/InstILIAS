@@ -32,7 +32,6 @@ class Client extends Base {
 		switch($key) {
 			case "password_encoder":
 				return $this->checkContentValueInArray($value, self::$valid_password_encoders);
-				break;
 			default:
 				return parent::checkValueContent($key, $value);
 		}

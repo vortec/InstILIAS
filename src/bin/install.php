@@ -12,7 +12,9 @@ foreach ($cmds as $cmd) {
 
 	while (!feof($proc)) {
 		echo fread($proc, 4096);
-		@flush();
+		try{
+			flush();
+		} catch (Exception $e) {}
 	}
 }
 die(0);

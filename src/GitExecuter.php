@@ -16,7 +16,7 @@ class GitExecuter implements \CaT\InstILIAS\interfaces\Git {
 			throw new \LogicException("GitExecuter::cloneGitTo: No valid destination ".$installation_path);
 		}
 
-		$repository = Admin::cloneTo($installation_path, $ilias_git_url, false);
+		Admin::cloneTo($installation_path, $ilias_git_url, false);
 	}
 
 	public function checkoutBranch($ilias_git_branch_name, $installation_path) {
