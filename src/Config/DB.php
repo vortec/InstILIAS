@@ -30,11 +30,11 @@ class DB extends Base {
 			);
 	}
 
-	static $valid_engines = array(
+	protected static $valid_engines = array(
 		"innodb"
 		,"myisam");
 
-	static $valid_encodings = array(
+	protected static $valid_encodings = array(
 		"utf8_general_ci");
 
 	/**

@@ -20,7 +20,7 @@ class Client extends Base {
 			);
 	}
 
-	static $valid_password_encoders = array
+	protected static $valid_password_encoders = array
 			( "md5"
 			, "bcrypt"
 			);

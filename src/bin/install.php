@@ -14,7 +14,9 @@ foreach ($cmds as $cmd) {
 		echo fread($proc, 4096);
 		try{
 			flush();
-		} catch (Exception $e) {}
+		} catch (Exception $e) {
+			//empty because of no exception output is necessary
+		}
 	}
 }
 die(0);

@@ -18,7 +18,7 @@ class Language extends Base {
 			);
 	}
 
-	static $valid_languages = array(
+	protected static $valid_languages = array(
 		"de"
 		,"en");
 
