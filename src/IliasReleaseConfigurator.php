@@ -63,7 +63,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 	 */
 	public function createOrgUnits($install_orgunits) {
 		
-		foreach ($install_orgunits->childs() as $key => $value) {
+		foreach ($install_orgunits->orgunits() as $key => $value) {
 			$this->createOrgunit($value, \ilObjOrgUnit::getRootOrgRefId());
 		}
 	}

@@ -17,4 +17,7 @@ $ilias_configurator = new \CaT\InstILIAS\IliasReleaseConfigurator($absolute_path
 echo "\nCreate Categories.";
 $ilias_configurator->createCategories($general_config->category());
 echo "\t\tDone...\n";
+echo "\nCreate OrgUnits.";
+$ilias_configurator->createOrgUnits($general_config->orgunits());
+echo "\t\tDone...\n";
 echo "\n\nIlias successfull configured.";
