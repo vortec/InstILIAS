@@ -1,7 +1,7 @@
 <?php
 $config_path = $argv[1];
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 //read general configs
 $json_string = file_get_contents($config_path);

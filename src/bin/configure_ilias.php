@@ -1,7 +1,7 @@
 <?php
 $config_path = $argv[1];
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 //set error_reporting auf ein böses level
 error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
