@@ -24,3 +24,8 @@ path: #Pfad wo ILIAS die Logdatei ablegen soll
 file_name: #Name der Logdatei (ilias.log)
 git_url: #URL des Git Repo
 git_branch_name: #BranchName
+category: #default category structure. it is possible to create categories within categories (children)
+    categories:#categories on top level
+        1: #one category. repeat this for each. if there are no childs enter an empty array
+            title: Zwei #title of the category
+            childs: []# children of the category. array of categories ech with title and children
