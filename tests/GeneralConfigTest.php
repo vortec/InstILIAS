@@ -71,7 +71,18 @@ orgunit:
                     childs: []
         2:
             title: OrgDrei
-            childs: []";
+            childs: []
+role:
+    roles:
+        0:
+            name: Admin-Ansicht
+            description: Der darf alles sehen sonst nicht.
+        1:
+            name: DumpUsers
+            description: Gruppe für alle
+        2:
+            name: WhosNexte
+            description: Neue Menschen";
 	}
 
 	public function test_not_enough_params() {
@@ -95,5 +106,6 @@ orgunit:
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\GitBranch", $config->git_branch());
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Categories", $config->category());
         $this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\OrgUnits", $config->orgunit());
+        $this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Roles", $config->role());
 	}
 }

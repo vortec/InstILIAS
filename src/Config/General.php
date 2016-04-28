@@ -25,6 +25,7 @@ class General extends Base {
 			, "git_branch"	=> array("\\CaT\\InstILIAS\\Config\\GitBranch", true)
 			, "category"	=> array("\\CaT\\InstILIAS\\Config\\Categories", true)
 			, "orgunit"	=> array("\\CaT\\InstILIAS\\Config\\OrgUnits", true)
+			, "role"	=> array("\\CaT\\InstILIAS\\Config\\Roles", true)
 			);
 	}
 }
