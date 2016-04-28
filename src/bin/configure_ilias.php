@@ -18,6 +18,6 @@ echo "\nCreate Categories.";
 $ilias_configurator->createCategories($general_config->category());
 echo "\t\tDone...\n";
 echo "\nCreate OrgUnits.";
-$ilias_configurator->createOrgUnits($general_config->orgunits());
+$ilias_configurator->createOrgUnits($general_config->orgunit());
 echo "\t\tDone...\n";
 echo "\n\nIlias successfull configured.";

@@ -78,6 +78,8 @@ echo "Create Client ini";
 $iinst->writeClientIni();
 echo "\t\tDone...\n";
 
+$iinst->createLogSystem();
+
 $iinst->connectDatabase();
 
 //install ILIAS Database

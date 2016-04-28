@@ -27,8 +27,8 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	}
 
 	/**
-	* @inheritdoc
-	*/
+	 * @inheritdoc
+	 */
 	public function writeIliasIni() {
 		global $ilCtrlStructureReader;
 		$this->ilias_setup->saveMasterSetup($this->getIliasIniData());
@@ -36,9 +36,19 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 		$this->ilias_setup->ini_ilias_exists = true;
 	}
 
+	public function createLogSystem() {
+		if(!is_dir($this->general->log()->path())) {
+			mkdir($this->general->log()->path(), 0755, true);
+		}
+
+		if(!file_exists($this->general->log()->path()."/".$this->general->log()->fileName())) {
+			touch($this->general->log()->path()."/".$this->general->log()->fileName());
+		}
+	}
+
 	/**
-	* @inheritdoc
-	*/
+	 * @inheritdoc
+	 */
 	public function writeClientIni() {
 		$ret = $this->getClientIniData();
 
@@ -66,23 +76,23 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	}
 
 	/**
-	* @inheritdoc
-	*/
+	 * @inheritdoc
+	 */
 	public function installDatabase() {
 		$this->ilias_setup->createDatabase($this->general->database()->encoding());
 		$this->ilias_setup->installDatabase();
 	}
 
 	/**
-	* @inheritdoc
-	*/
+	 * @inheritdoc
+	 */
 	public function connectDatabase() {
 		$this->ilias_setup->getClient()->connect();
 	}
 
 	/**
-	* @inheritdoc
-	*/
+	 * @inheritdoc
+	 */
 	public function getDatabaseHandle() {
 		global $ilDB;
 
@@ -103,13 +113,17 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	}
 
 	/**
-	* @inheritdoc
-	*/
+	 * @inheritdoc
+	 */
 	public function installLanguages(\ilLanguage $lng) {
-		$lng->installLanguages($this->general->language()->toInstallLangs(), array());
-		$this->setDefaultLanguage();
+		$done = $lng->installLanguages($this->general->language()->toInstallLangs(), array());
+		
+		if($done !== true) {
+			die("Error installing languages");
+		}
 
-		$this->ilias_setup->getClient()->status["lang"]["status"] = false;
+		$this->setDefaultLanguage();
+		$this->ilias_setup->getClient()->status["lang"]["status"] = true;
 	}
 
 	protected function setDefaultLanguage() {
@@ -117,8 +131,8 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	}
 
 	/**
-	* @inheritdoc
-	*/
+	 * @inheritdoc
+	 */
 	public function setProxy() {
 		$this->setProxySetupFinished();
 	}
@@ -128,8 +142,8 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	}
 
 	/**
-	* @inheritdoc
-	*/
+	 * @inheritdoc
+	 */
 	public function registerNoNic() {
 		$this->ilias_setup->getClient()->setSetting("inst_id","0");
 		$this->ilias_setup->getClient()->setSetting("nic_enabled","0");
@@ -141,8 +155,8 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	}
 
 	/**
-	* @inhertidoc
-	*/
+	 * @inhertidoc
+	 */
 	public function setPasswordEncoder(\ilUserPasswordEncoderFactory $encoder_factory) {
 		$default_encoder = $encoder_factory->getEncoderByName(trim($this->general->client()->passwordEncoder()));
 		$default_encoder->onSelection();
@@ -151,8 +165,8 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	}
 
 	/**
-	* @inhertidoc
-	*/
+	 * @inhertidoc
+	 */
 	public function finishSetup() {
 		if($this->validatesetup()) {
 			$this->ilias_setup->ini->setVariable("clients","default",$this->ilias_setup->getClient()->getId());
@@ -192,8 +206,8 @@ class IliasReleaseInstallator implements \CaT\InstILIAS\interfaces\Installator {
 	}
 
 	/**
-	* @inheritdoc
-	*/
+	 * @inheritdoc
+	 */
 	public function setGeneralConfig(\CaT\InstILIAS\Config\General $general)
 	{
 		$this->general = $general;

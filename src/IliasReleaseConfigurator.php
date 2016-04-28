@@ -1,10 +1,10 @@
 <?php
 namespace CaT\InstILIAS;
 /**
-* implementation of an ilias configurator
-*
-* @author Stefan Hecken <stefan.hecken@concepts-and-training.de>
-*/
+ * implementation of an ilias configurator
+ *
+ * @author Stefan Hecken <stefan.hecken@concepts-and-training.de>
+ */
 
 class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator {
 

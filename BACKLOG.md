@@ -1,5 +1,7 @@
 ToDo:
-OrgUnit
-Rollen
-UDF
-Passwörter setzen
+create Roles
+LDAP
+create Permissions
+associate Permissions
+set Passwords
+add UDF
