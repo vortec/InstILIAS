@@ -32,6 +32,8 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 		require_once($this->absolute_path."/Services/AccessControl/classes/class.ilObjRole.php");
 		require_once($this->absolute_path."/Modules/OrgUnit/classes/class.ilObjOrgUnit.php");
 		require_once($this->absolute_path."/Modules/Category/classes/class.ilObjCategory.php");
+		include_once($this->absolute_path."/Services/LDAP/classes/class.ilLDAPServer.php");
+		include_once($this->absolute_path."/Services/LDAP/classes/class.ilLDAPServer.php");
 
 		\ilContext::init(\ilContext::CONTEXT_UNITTEST);
 		\ilInitialisation::initILIAS();
@@ -116,5 +118,59 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 		foreach ($category->childs() as $key => $value) {
 			$this->createCategory($value, $cat->getRefId());
 		}
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function configureLDAPServer($ldap_config) {
+		$server = new \ilLDAPServer(0);
+
+		$server->toggleActive(1);
+		$server->enableAuthentication(true);
+		$server->setName($ldap_config->name());
+		$server->setUrl($ldap_config->server());
+		$server->setVersion($ldap_config->protocolVersion());
+		$server->setBaseDN($ldap_config->basedn());
+		$server->setBindingType($ldap_config->onType());
+		$server->setBindUser($ldap_config->conUserDn());
+		$server->setBindPassword($ldap_config->conUserPw());
+		$server->setUserScope($ldap_config->userSearchScope());
+		$server->setUserAttribute($ldap_config->attrNameUser());
+		$server->enableSyncOnLogin($ldap_config->syncOnLogin());
+		$server->enableSyncPerCron($ldap_config->syncPerCron());
+
+		$role_id = $this->getRoleId($ldap_config->registerRoleName());
+		$server->setGlobalRole($role_id);
+		
+		if(!$server->validate())
+		{
+			throw new \Exception("Error creating LDAP Server");
+		}
+
+		$server->create();
+
+		include_once './Services/LDAP/classes/class.ilLDAPAttributeMapping.php';
+		$this->mapping = \ilLDAPAttributeMapping::_getInstanceByServerId($server->getServerId());
+		$this->mapping->setRule('global_role', $role_id, false);
+		$this->mapping->save();
+	}
+
+	protected function getRoleId($role_name) {
+		assert('is_string($role_name)');
+
+		return $this->getObjIdByTitle("rolt", $role_name);
+	}
+
+	protected function getObjIdByTitle($type, $title) {
+		$query = "SELECT obj_id FROM object_data WHERE type = ".$this->gDB($type, 'text')." AND title = ".$this->gDB($title, 'text')."";
+		$res = $this->gDB->query($query);
+		$rows = $this->gDb->numRows($res);
+
+		assert('$rows != 0');
+
+		$row = $this->gDb->fetchAssoc($res);
+		
+		return (int)$row["obj_id"];
 	}
 }
