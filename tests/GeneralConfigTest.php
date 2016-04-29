@@ -90,7 +90,8 @@ ldap:
     con_type: 1
     con_user_dn: cn=ldap,cn=Users,dc=catdom,dc=localdomain
     con_user_pw: abcd
-    synch_type: synch_on_login
+    synch_on_login: 1
+    synch_per_cron: 0
     attr_name_user: sAMAccountName
     protocol_version: 3
     user_search_scope: 0
