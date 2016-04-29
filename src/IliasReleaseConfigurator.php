@@ -8,6 +8,11 @@ namespace CaT\InstILIAS;
 
 class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator {
 
+	protected $general;
+	protected $absolute_path;
+	protected $gDB;
+	protected $gTree;
+
 	public function __construct($absolute_path, $client_id) {
 		define ("CLIENT_ID", $client_id);
 		define('IL_PHPUNIT_TEST', true);
@@ -163,7 +168,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 	/**
 	* get obj id for role name
 	*
-	* @param string $role_ name
+	* @param string $role_name
 	*
 	* @return int
 	*/
@@ -187,9 +192,8 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 
 		$query = "SELECT obj_id FROM object_data WHERE type = ".$this->gDB->quote($type, 'text')." AND title = ".$this->gDB->quote($title, 'text')."";
 		$res = $this->gDB->query($query);
-		$rows = $this->gDB->numRows($res);
 
-		assert('$rows == 1');
+		assert('$this->gDB->numRows($res) == 1');
 
 		$row = $this->gDB->fetchAssoc($res);
 
