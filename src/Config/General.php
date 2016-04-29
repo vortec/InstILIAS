@@ -5,9 +5,18 @@ namespace CaT\InstILIAS\Config;
  * General Configuration for an ILIAS.
  *
  * @method \\CaT\\InstILIAS\\Config\\GitBranch mainRepo()
- * @method array logs()
- * @method string text()
- * @method array plugins()
+ * @method array client()
+ * @method string database()
+ * @method array language()
+ * @method array server()
+ * @method string setup()
+ * @method array tools()
+ * @method array log()
+ * @method string gitBranch()
+ * @method array category()
+ * @method array orgunit()
+ * @method string role()
+ * @method array ldap()
  */
 class General extends Base {
 	/**
