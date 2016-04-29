@@ -132,7 +132,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 		$server->setUrl($ldap_config->server());
 		$server->setVersion($ldap_config->protocolVersion());
 		$server->setBaseDN($ldap_config->basedn());
-		$server->setBindingType($ldap_config->onType());
+		$server->setBindingType($ldap_config->conType());
 		$server->setBindUser($ldap_config->conUserDn());
 		$server->setBindPassword($ldap_config->conUserPw());
 		$server->setUserScope($ldap_config->userSearchScope());
@@ -151,9 +151,9 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 		$server->create();
 
 		include_once './Services/LDAP/classes/class.ilLDAPAttributeMapping.php';
-		$this->mapping = \ilLDAPAttributeMapping::_getInstanceByServerId($server->getServerId());
-		$this->mapping->setRule('global_role', $role_id, false);
-		$this->mapping->save();
+		$mapping = \ilLDAPAttributeMapping::_getInstanceByServerId($server->getServerId());
+		$mapping->setRule('global_role', $role_id, false);
+		$mapping->save();
 	}
 
 	/**

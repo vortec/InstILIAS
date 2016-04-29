@@ -31,8 +31,8 @@ class LDAP extends Base {
 			, "con_type"	=> array("int", false)
 			, "con_user_dn"	=> array("string", false)
 			, "con_user_pw"	=> array("string", false)
-			, "synch_on_login"	=> array("int", false)
-			, "synch_per_cron"	=> array("int", false)
+			, "sync_on_login"	=> array("int", false)
+			, "sync_per_cron"	=> array("int", false)
 			, "user_group"	=> array("string", true)
 			, "attr_name_user"	=> array("string", false)
 			, "protocol_version"	=> array("int", false)
@@ -46,7 +46,7 @@ class LDAP extends Base {
 			, 1
 			);
 
-	protected static $synch_types = array
+	protected static $sync_types = array
 			( 0
 			, 1
 			);
@@ -68,8 +68,9 @@ class LDAP extends Base {
 		switch($key) {
 			case "con_type":
 				return $this->checkContentValueInArray($value, self::$con_types);
-			case "synch_type":
-				return $this->checkContentValueInArray($value, self::$synch_types);
+			case "sync_on_login":
+			case "sync_per_cron":
+				return $this->checkContentValueInArray($value, self::$sync_types);
 			case "protocol_version":
 				return $this->checkContentValueInArray($value, self::$protocol_versions);
 			case "server":
