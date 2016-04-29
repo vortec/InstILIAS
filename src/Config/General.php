@@ -4,19 +4,18 @@ namespace CaT\InstILIAS\Config;
 /**
  * General Configuration for an ILIAS.
  *
- * @method \\CaT\\InstILIAS\\Config\\GitBranch mainRepo()
- * @method array client()
- * @method string database()
- * @method array language()
- * @method array server()
- * @method string setup()
- * @method array tools()
- * @method array log()
- * @method string gitBranch()
- * @method array category()
- * @method array orgunit()
- * @method string role()
- * @method array ldap()
+ * @method \\CaT\\InstILIAS\\Config\\Client client()
+ * @method \\CaT\\InstILIAS\\Config\\DB database()
+ * @method \\CaT\\InstILIAS\\Config\\Language language()
+ * @method \\CaT\\InstILIAS\\Config\\Server server()
+ * @method \\CaT\\InstILIAS\\Config\\Setup setup()
+ * @method \\CaT\\InstILIAS\\Config\\Tools tools()
+ * @method \\CaT\\InstILIAS\\Config\\Log log()
+ * @method \\CaT\\InstILIAS\\Config\\GitBranch gitBranch()
+ * @method \\CaT\\InstILIAS\\Config\\Categories category()
+ * @method \\CaT\\InstILIAS\\Config\\OrgUnits orgunit()
+ * @method \\CaT\\InstILIAS\\Config\\Roles role()
+ * @method \\CaT\\InstILIAS\\Config\\LDAP ldap()
  */
 class General extends Base {
 	/**
