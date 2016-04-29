@@ -15,22 +15,22 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 	 * @dataProvider	LDAPConfigValueProvider
 	 */
 	public function test_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-									, $atrNameUser, $protocolVersion, $valid) 
+									, $atrNameUser, $protocolVersion, $userSearchScope, $valid) 
 	{
 		if ($valid) {
 			$this->_test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-										, $atrNameUser, $protocolVersion);
+										, $atrNameUser, $protocolVersion, $userSearchScope);
 		}
 		else {
 			$this->_test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-										, $atrNameUser, $protocolVersion);
+										, $atrNameUser, $protocolVersion, $userSearchScope);
 		}
 	}
 
 	public function _test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-											, $atrNameUser, $protocolVersion) 
+											, $atrNameUser, $protocolVersion, $userSearchScope) 
 	{
-		$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser, $protocolVersion);
+		$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser, $protocolVersion, $userSearchScope);
 		$this->assertEquals($name, $config->name());
 		$this->assertEquals($basedn, $config->basedn());
 		$this->assertEquals($conType, $config->conType());
@@ -39,14 +39,15 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($synchType, $config->synchType());
 		$this->assertEquals("", $config->userGroup());
 		$this->assertEquals($atrNameUser, $config->attrNameUser());
-		$this->assertEquals($protocolVersion, $config->protocol_version());
+		$this->assertEquals($protocolVersion, $config->protocolVersion());
+		$this->assertEquals($userSearchScope, $config->userSearchScope());
 	}
 
 	public function _test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-											, $atrNameUser, $protocolVersion) 
+											, $atrNameUser, $protocolVersion, $userSearchScope)
 	{
 		try {
-			$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser, $protocolVersion);
+			$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser, $protocolVersion, $userSearchScope);
 			$this->assertFalse("Should have raised.");
 		}
 		catch (\InvalidArgumentException $e) {}
@@ -55,7 +56,7 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 	public function LDAPConfigValueProvider() {
 		$ret = array();
 		$take_it = 0;
-		$take_every_Xth = 200;
+		$take_every_Xth = 1000;
 		foreach ($this->nameProvider() as $name) {
 			foreach ($this->serverProvider() as $server) {
 				foreach ($this->basednProvider() as $basedn) {
@@ -65,15 +66,18 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 								foreach ($this->synchTypeProvider() as $synchType) {
 									foreach ($this->attrNameUserProvider() as $atrNameUser) {
 										foreach ($this->protocolVersionProvider() as $protocolVersion) {
-											$take_it++;
-											if($take_it == $take_every_Xth) {
-												$ret[] = array
-													( $name[0], $server[0], $basedn[0], $conType[0], $conUserDn[0], $conUserPw[0]
-														, $synchType[0], $atrNameUser[0], $protocolVersion[0]
-													, $name[1] && $server[1] && $basedn[1] && $conType[1] && $conUserDn[1] 
-													  && $conUserPw[1] && $synchType[1] && $atrNameUser[1] && $protocolVersion[1]);
+											foreach ($this->userSearchScopeProvider() as $userSearchScope) {
+												$take_it++;
+												if($take_it == $take_every_Xth) {
+													$ret[] = array
+														( $name[0], $server[0], $basedn[0], $conType[0], $conUserDn[0], $conUserPw[0]
+															, $synchType[0], $atrNameUser[0], $protocolVersion[0], $userSearchScope[0]
+														, $name[1] && $server[1] && $basedn[1] && $conType[1] && $conUserDn[1] 
+														  && $conUserPw[1] && $synchType[1] && $atrNameUser[1] && $protocolVersion[1]
+														  && $userSearchScope[1]);
 
-												$take_it = 0;
+													$take_it = 0;
+												}
 											}
 										}
 									}
@@ -168,6 +172,16 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 				, array("2", false)
 				, array(true, false)
 				, array(3, true)
+				, array(array(), false)
+			);
+	}
+
+		public function userSearchScopeProvider() {
+		return array(
+				array(1, true)
+				, array("2", false)
+				, array(true, false)
+				, array(0, true)
 				, array(array(), false)
 			);
 	}

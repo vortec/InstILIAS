@@ -92,7 +92,8 @@ ldap:
     con_user_pw: abcd
     synch_type: synch_on_login
     attr_name_user: sAMAccountName
-    protocol_version: 3";
+    protocol_version: 3
+    user_search_scope: 0";
 	}
 
 	public function test_not_enough_params() {
