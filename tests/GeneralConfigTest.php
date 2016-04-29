@@ -82,7 +82,17 @@ role:
             description: Gruppe für alle
         2:
             name: WhosNexte
-            description: Neue Menschen";
+            description: Neue Menschen
+ldap:
+    name: ldap
+    server: ldap://129.184.11.1:389
+    basedn: cn=Users,dc=catdom,dc=localdomain
+    con_type: 1
+    con_user_dn: cn=ldap,cn=Users,dc=catdom,dc=localdomain
+    con_user_pw: abcd
+    synch_type: synch_on_login
+    attr_name_user: sAMAccountName
+    protocol_version: 3";
 	}
 
 	public function test_not_enough_params() {
@@ -107,5 +117,6 @@ role:
 		$this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Categories", $config->category());
         $this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\OrgUnits", $config->orgunit());
         $this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\Roles", $config->role());
+        $this->assertInstanceOf("\\CaT\\InstILIAS\\Config\\LDAP", $config->ldap());
 	}
 }

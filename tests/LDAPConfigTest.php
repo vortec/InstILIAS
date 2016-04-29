@@ -14,17 +14,23 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * @dataProvider	LDAPConfigValueProvider
 	 */
-	public function test_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, $atrNameUser, $valid) {
+	public function test_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
+									, $atrNameUser, $protocolVersion, $valid) 
+	{
 		if ($valid) {
-			$this->_test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, $atrNameUser);
+			$this->_test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
+										, $atrNameUser, $protocolVersion);
 		}
 		else {
-			$this->_test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, $atrNameUser);
+			$this->_test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
+										, $atrNameUser, $protocolVersion);
 		}
 	}
 
-	public function _test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, $atrNameUser) {
-		$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser);
+	public function _test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
+											, $atrNameUser, $protocolVersion) 
+	{
+		$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser, $protocolVersion);
 		$this->assertEquals($name, $config->name());
 		$this->assertEquals($basedn, $config->basedn());
 		$this->assertEquals($conType, $config->conType());
@@ -33,11 +39,14 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($synchType, $config->synchType());
 		$this->assertEquals("", $config->userGroup());
 		$this->assertEquals($atrNameUser, $config->attrNameUser());
+		$this->assertEquals($protocolVersion, $config->protocol_version());
 	}
 
-	public function _test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, $atrNameUser) {
+	public function _test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
+											, $atrNameUser, $protocolVersion) 
+	{
 		try {
-			$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser);
+			$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser, $protocolVersion);
 			$this->assertFalse("Should have raised.");
 		}
 		catch (\InvalidArgumentException $e) {}
@@ -55,14 +64,17 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 							foreach ($this->conUserPwProvider() as $conUserPw) {
 								foreach ($this->synchTypeProvider() as $synchType) {
 									foreach ($this->attrNameUserProvider() as $atrNameUser) {
-										$take_it++;
-										if($take_it == $take_every_Xth) {
-											$ret[] = array
-												( $name[0], $server[0], $basedn[0], $conType[0], $conUserDn[0], $conUserPw[0], $synchType[0], $atrNameUser[0]
-												, $name[1] && $server[1] && $basedn[1] && $conType[1] && $conUserDn[1] 
-												  && $conUserPw[1] && $synchType[1] && $atrNameUser[1]);
+										foreach ($this->protocolVersionProvider() as $protocolVersion) {
+											$take_it++;
+											if($take_it == $take_every_Xth) {
+												$ret[] = array
+													( $name[0], $server[0], $basedn[0], $conType[0], $conUserDn[0], $conUserPw[0]
+														, $synchType[0], $atrNameUser[0], $protocolVersion[0]
+													, $name[1] && $server[1] && $basedn[1] && $conType[1] && $conUserDn[1] 
+													  && $conUserPw[1] && $synchType[1] && $atrNameUser[1] && $protocolVersion[1]);
 
-											$take_it = 0;
+												$take_it = 0;
+											}
 										}
 									}
 								}
@@ -146,6 +158,16 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 				array("sAMAccountName", true)
 				, array(2, false)
 				, array(true, false)
+				, array(array(), false)
+			);
+	}
+
+	public function protocolVersionProvider() {
+		return array(
+				array(2, true)
+				, array("2", false)
+				, array(true, false)
+				, array(3, true)
 				, array(array(), false)
 			);
 	}
