@@ -14,30 +14,31 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * @dataProvider	LDAPConfigValueProvider
 	 */
-	public function test_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-									, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName, $valid) 
+	public function test_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synch_on_login
+									, $synch_per_cron, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName, $valid) 
 	{
 		if ($valid) {
-			$this->_test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-										, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName);
+			$this->_test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synch_on_login
+										, $synch_per_cron, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName);
 		}
 		else {
-			$this->_test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-										, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName);
+			$this->_test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synch_on_login
+										, $synch_per_cron, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName);
 		}
 	}
 
-	public function _test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-											, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName) 
+	public function _test_valid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synch_on_login
+											, $synch_per_cron, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName) 
 	{
-		$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser
+		$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synch_on_login, $synch_per_cron, "", $atrNameUser
 							, $protocolVersion, $userSearchScope, $registerRoleName);
 		$this->assertEquals($name, $config->name());
 		$this->assertEquals($basedn, $config->basedn());
 		$this->assertEquals($conType, $config->conType());
 		$this->assertEquals($conUserDn, $config->conUserDn());
 		$this->assertEquals($conUserPw, $config->conUserPw());
-		$this->assertEquals($synchType, $config->synchType());
+		$this->assertEquals($synch_on_login, $config->synchOnLogin());
+		$this->assertEquals($synch_per_cron, $config->synchPerCron());
 		$this->assertEquals("", $config->userGroup());
 		$this->assertEquals($atrNameUser, $config->attrNameUser());
 		$this->assertEquals($protocolVersion, $config->protocolVersion());
@@ -45,11 +46,11 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($registerRoleName, $config->registerRoleName());
 	}
 
-	public function _test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType
-											, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName)
+	public function _test_invalid_LDAPConfig($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synch_on_login
+											, $synch_per_cron, $atrNameUser, $protocolVersion, $userSearchScope, $registerRoleName)
 	{
 		try {
-			$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synchType, "", $atrNameUser
+			$config = new LDAP($name, $server, $basedn, $conType, $conUserDn, $conUserPw, $synch_on_login, $synch_per_cron, "", $atrNameUser
 								, $protocolVersion, $userSearchScope, $registerRoleName);
 			$this->assertFalse("Should have raised.");
 		}
@@ -59,29 +60,31 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 	public function LDAPConfigValueProvider() {
 		$ret = array();
 		$take_it = 0;
-		$take_every_Xth = 5000;
+		$take_every_Xth = 75000;
 		foreach ($this->nameProvider() as $name) {
 			foreach ($this->serverProvider() as $server) {
 				foreach ($this->basednProvider() as $basedn) {
 					foreach ($this->conTypeProvider() as $conType) {
 						foreach ($this->conUserDnProvider() as $conUserDn) {
 							foreach ($this->conUserPwProvider() as $conUserPw) {
-								foreach ($this->synchTypeProvider() as $synchType) {
-									foreach ($this->attrNameUserProvider() as $atrNameUser) {
-										foreach ($this->protocolVersionProvider() as $protocolVersion) {
-											foreach ($this->userSearchScopeProvider() as $userSearchScope) {
-												foreach ($this->registerRoleNameProvider() as $registerRoleName) {
-													$take_it++;
-													if($take_it == $take_every_Xth) {
-														$ret[] = array
-															( $name[0], $server[0], $basedn[0], $conType[0], $conUserDn[0], $conUserPw[0]
-																, $synchType[0], $atrNameUser[0], $protocolVersion[0], $userSearchScope[0]
-																, $registerRoleName[0]
-															, $name[1] && $server[1] && $basedn[1] && $conType[1] && $conUserDn[1] 
-															  && $conUserPw[1] && $synchType[1] && $atrNameUser[1] && $protocolVersion[1]
-															  && $userSearchScope[1] && $registerRoleName[1]);
+								foreach ($this->synchOnLoginProvider() as $synch_on_login) {
+									foreach ($this->synchPerCronProvider() as $synch_per_cron) {
+										foreach ($this->attrNameUserProvider() as $atrNameUser) {
+											foreach ($this->protocolVersionProvider() as $protocolVersion) {
+												foreach ($this->userSearchScopeProvider() as $userSearchScope) {
+													foreach ($this->registerRoleNameProvider() as $registerRoleName) {
+														$take_it++;
+														if($take_it == $take_every_Xth) {
+															$ret[] = array
+																( $name[0], $server[0], $basedn[0], $conType[0], $conUserDn[0], $conUserPw[0]
+																	, $synch_on_login[0], $synch_per_cron, $atrNameUser[0], $protocolVersion[0], $userSearchScope[0]
+																	, $registerRoleName[0]
+																, $name[1] && $server[1] && $basedn[1] && $conType[1] && $conUserDn[1] 
+																  && $conUserPw[1] && $synch_on_login[1] && $synch_per_cron && $atrNameUser[1] && $protocolVersion[1]
+																  && $userSearchScope[1] && $registerRoleName[1]);
 
-														$take_it = 0;
+															$take_it = 0;
+														}
 													}
 												}
 											}
@@ -135,7 +138,7 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 			);
 	}
 
-		public function conUserDnProvider() {
+	public function conUserDnProvider() {
 		return array(
 				array("cn=ldap,cn=Users,dc=catdom,dc=localdomain", true)
 				, array(2, false)
@@ -153,12 +156,22 @@ class LDAPConfigTest extends PHPUnit_Framework_TestCase{
 			);
 	}
 
-		public function synchTypeProvider() {
+	public function synchOnLoginProvider() {
 		return array(
-				array("synch_per_cron", true)
-				, array(2, false)
+				array(0, true)
+				, array("2", false)
 				, array(true, false)
-				, array("synch_on_login", true)
+				, array(1, true)
+				, array(array(), false)
+			);
+	}
+
+	public function synchPerCronProvider() {
+		return array(
+				array(0, true)
+				, array("2", false)
+				, array(true, false)
+				, array(1, true)
 				, array(array(), false)
 			);
 	}

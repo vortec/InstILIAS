@@ -31,7 +31,8 @@ class LDAP extends Base {
 			, "con_type"	=> array("int", false)
 			, "con_user_dn"	=> array("string", false)
 			, "con_user_pw"	=> array("string", false)
-			, "synch_type"	=> array("string", false)
+			, "synch_on_login"	=> array("int", false)
+			, "synch_per_cron"	=> array("int", false)
 			, "user_group"	=> array("string", true)
 			, "attr_name_user"	=> array("string", false)
 			, "protocol_version"	=> array("int", false)
@@ -46,8 +47,8 @@ class LDAP extends Base {
 			);
 
 	protected static $synch_types = array
-			( 'synch_per_cron'
-			, 'synch_on_login'
+			( 0
+			, 1
 			);
 
 	protected static $protocol_versions = array
