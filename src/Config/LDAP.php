@@ -9,7 +9,7 @@ namespace CaT\InstILIAS\Config;
  * @method string passwordEncoder()
  */
 class LDAP extends Base {
-	const SERVER_REGEX = "/^(ldap://)/";
+	const SERVER_REGEX = "/^(ldap:\/\/)/";
 
 	/**
 	 * @inheritdocs
@@ -19,7 +19,7 @@ class LDAP extends Base {
 			( "name"	=> array("string", false)
 			, "server"	=> array("string", false)
 			, "basedn"	=> array("string", false)
-			, "con_type"	=> array("integer", false)
+			, "con_type"	=> array("int", false)
 			, "con_user_dn"	=> array("string", false)
 			, "con_user_pw"	=> array("string", false)
 			, "synch_type"	=> array("string", false)
