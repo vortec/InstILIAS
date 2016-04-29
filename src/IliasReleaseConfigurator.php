@@ -48,7 +48,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 
 		foreach ($install_roles->roles() as $role => $value) {
 			$newObj = new \ilObjRole();
-			$newObj->setTitle($value->name());
+			$newObj->setTitle($value->title());
 			$newObj->setDescription($value->description());
 			$newObj->create();
 
@@ -142,10 +142,14 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 
 		$role_id = $this->getRoleId($ldap_config->registerRoleName());
 		$server->setGlobalRole($role_id);
-		
+
+		// things must be set because of not null
+		$server->setGroupScope(1);
+
 		if(!$server->validate())
 		{
-			throw new \Exception("Error creating LDAP Server");
+			global $ilErr;
+			throw new \Exception("Error creating LDAP Server: ".$ilErr->getMessage());
 		}
 
 		$server->create();
@@ -166,7 +170,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 	protected function getRoleId($role_name) {
 		assert('is_string($role_name)');
 
-		return $this->getObjIdByTitle("rolt", $role_name);
+		return $this->getObjIdByTitle("role", $role_name);
 	}
 
 	/**
@@ -185,7 +189,7 @@ class IliasReleaseConfigurator implements \CaT\InstILIAS\interfaces\Configurator
 		$res = $this->gDB->query($query);
 		$rows = $this->gDB->numRows($res);
 
-		assert('$rows != 0');
+		assert('$rows == 1');
 
 		$row = $this->gDB->fetchAssoc($res);
 

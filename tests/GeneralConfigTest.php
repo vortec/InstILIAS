@@ -75,13 +75,13 @@ orgunit:
 role:
     roles:
         0:
-            name: Admin-Ansicht
+            title: Admin-Ansicht
             description: Der darf alles sehen sonst nicht.
         1:
-            name: DumpUsers
+            title: DumpUsers
             description: Gruppe für alle
         2:
-            name: WhosNexte
+            title: WhosNexte
             description: Neue Menschen
 ldap:
     name: ldap
