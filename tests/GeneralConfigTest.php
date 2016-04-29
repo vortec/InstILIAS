@@ -93,7 +93,8 @@ ldap:
     synch_type: synch_on_login
     attr_name_user: sAMAccountName
     protocol_version: 3
-    user_search_scope: 0";
+    user_search_scope: 0
+    register_role_name: User";
 	}
 
 	public function test_not_enough_params() {
