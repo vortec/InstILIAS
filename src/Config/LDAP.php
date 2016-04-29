@@ -15,6 +15,7 @@ namespace CaT\InstILIAS\Config;
  * @method string attrNameUser()
  * @method string protocolVersion()
  * @method string userSearchScope()
+ * @method string registerRoleName()
  */
 class LDAP extends Base {
 	const SERVER_REGEX = "/^(ldap:\/\/)/";
@@ -35,6 +36,7 @@ class LDAP extends Base {
 			, "attr_name_user"	=> array("string", false)
 			, "protocol_version"	=> array("int", false)
 			, "user_search_scope"	=> array("int", false)
+			, "register_role_name"	=> array("string", false)
 			);
 	}
 
