@@ -4,9 +4,17 @@ namespace CaT\InstILIAS\Config;
 /**
  * Configuration for one client of ILIAS.
  *
- * @method string dataDir()
  * @method string name()
- * @method string passwordEncoder()
+ * @method string server()
+ * @method string basedn()
+ * @method string conType()
+ * @method string conUserDn()
+ * @method string conUserPw()
+ * @method string synchType()
+ * @method string userGroup()
+ * @method string attrNameUser()
+ * @method string protocolVersion()
+ * @method string userSearchScope()
  */
 class LDAP extends Base {
 	const SERVER_REGEX = "/^(ldap:\/\/)/";
