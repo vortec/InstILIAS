@@ -25,6 +25,8 @@ class LDAP extends Base {
 			, "synch_type"	=> array("string", false)
 			, "user_group"	=> array("string", true)
 			, "attr_name_user"	=> array("string", false)
+			, "protocol_version"	=> array("int", false)
+			, "user_search_scope"	=> array("int", false)
 			);
 	}
 
@@ -38,6 +40,16 @@ class LDAP extends Base {
 			, 'synch_on_login'
 			);
 
+	protected static $protocol_versions = array
+			( 2
+			, 3
+			);
+
+	protected static $user_search_scopes = array
+			( 0
+			, 1
+			);
+
 	/**
 	 * @inheritdocs
 	 */
@@ -47,8 +59,12 @@ class LDAP extends Base {
 				return $this->checkContentValueInArray($value, self::$con_types);
 			case "synch_type":
 				return $this->checkContentValueInArray($value, self::$synch_types);
+			case "protocol_version":
+				return $this->checkContentValueInArray($value, self::$protocol_versions);
 			case "server":
 				return $this->checkContentPregmatch($value, self::SERVER_REGEX);
+			case "user_search_scope":
+				return $this->checkContentValueInArray($value, self::$user_search_scopes);
 			default:
 				return parent::checkValueContent($key, $value);
 		}
